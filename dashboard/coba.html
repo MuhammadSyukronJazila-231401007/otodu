@@ -1,33 +1,68 @@
-<!DOCTYPE html>
+kenapa ini
+
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Page title</title>
-</head>
-<body>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Page title</title>
-    </head>
-    <body>
-        <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagination Materi dengan Navigasi</title>
-    <style>
+  <meta charset="utf-8">
+  <mta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <title>Cari Mentor</title>
+  <style>
+    #nav1 {
+      color: #4D62A5;
+      border-right: 0.2vw solid #4D62A5;
+      margin-right: 4vw;
+      padding-right: 4vw;
+      margin-left: 4vw;
+      font-size: 17px;
+    }
+
+    #nav2 {
+      color: #4D62A5;
+      border-left: 0.2vw solid;
+      margin-right: 4vw;
+      padding-left: 4vw;
+      margin-left: 4vw;
+      font-size: 17px;
+    }
+
+    #nav-main {
+      background-color: #4D62A5;
+      color: white;
+      font-size: 17px;
+
+    }
+
+    .intro {
+      padding: 5vw 5vw 10vw 27vw;
+      background-image: url('./image/gradien\ blue.avif');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      color: white;
+      font-size: 16px;
+    }
         .content {
             display: none; /* Default sembunyikan semua konten */
+            
         }
         .active {
-            display: block; /* Tampilkan konten yang aktif */
+            display: grid;
+            place-items: center;
         }
+        
+        .active img{
+            margin-bottom:5vw;
+        }
+        
+        .active p{
+            font-size:3vw;
+        }
+        
         .pagination button {
             margin: 5px;
-            padding: 10px;
             cursor: pointer;
         }
         .pagination .nav-button {
@@ -35,37 +70,177 @@
             font-weight: bold; /* Membuat tombol tebal */
         }
         .pagination .active-button {
-            background-color: #6578B2; /* Warna highlight untuk halaman aktif */
+            background-color:#1EA2F6;
+            color: white; /* Warna teks tombol aktif */
+            border: none;
+        }
+        
+        .pagination button:not(.active-button) {
+            background-color: #5D81AB; /* Warna highlight untuk halaman aktif */
             color: white; /* Warna teks tombol aktif */
             border: none;
         }
     </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="button.css">
 </head>
-<body>
-    <div class="pagination">
-        <button class="nav-button" onclick="prevContent()">&#60; Sebelumnya</button>
-        <button id="btn-materi1" onclick="showContent('materi1')">Materi 1</button>
-        <button id="btn-materi2" onclick="showContent('materi2')">Materi 2</button>
-        <button id="btn-materi3" onclick="showContent('materi3')">Materi 3</button>
-        <button class="nav-button" onclick="nextContent()">Berikutnya &#62;</button>
-    </div>
 
-    <div id="materi1" class="content">
-        <h2>Materi 1</h2>
-        <p>Ini adalah konten untuk Materi 1.</p>
+<body>
+    
+  <header>
+    <nav class="navbar bg-body-tertiary">
+      <div class="container" style="max-width: 100%; display:grid; grid-template-columns: 1fr 3fr; gap:5vw;">
+        <a class="navbar-brand" href="#" style="margin: 1vw; padding-left: 5vw;">
+          <img src="./image/otodu.png" alt="Bootstrap" width="130" height="22">
+        </a>
+        <p style="color:#4D62A5; font-size:2vw; margin-top:2vw;">Fungsi | 1. Pengantar -> <b><span>Apa Itu Fungsi ?</span></b> -> Subbab 1</p>
+      </div>
+    </nav>    
+  </header>
+  
+  <footer style="background-color:#375679">
+    <div style="padding: 1vw 4vw 1vw 4vw; display:flex; justify-content:space-around;  align-items:center;">
+        
+        <div data-bs-theme="dark">
+            <button type="button" class="btn-close" aria-label="Close"></button>
+        </div>
+        
+        <div class="pagination" style="display:flex; align-items:center;">
+                <button class="nav-button" onclick="prevContent()" style="color: #5D81AB; background-color:transparent; font-size:4vw;">&#60;</button>
+                <button id="btn-materi1" onclick="showContent('materi1')" style="width:8vw; height:1vw; border-radius:5vw;"></button>
+                <button id="btn-materi2" onclick="showContent('materi2')" style="width:8vw; height:1vw; border-radius:5vw;"></button>
+                <button id="btn-materi3" onclick="showContent('materi3')" style="width:8vw; height:1vw; border-radius:5vw;"></button>
+                <button id="btn-materi4" onclick="showContent('materi4')" style="width:8vw; height:1vw; border-radius:5vw;"></button>
+                <button id="btn-materi5" onclick="showContent('materi5')" style="width:8vw; height:1vw; border-radius:5vw;"></button>
+                <button id="btn-materi6" onclick="showContent('materi6')" style="width:8vw; height:1vw; border-radius:5vw;"></button>
+                <button id="btn-materi7" onclick="showContent('materi7')" style="width:8vw; height:1vw; border-radius:5vw;"></button>
+                <button id="btn-materi8" onclick="showContent('materi8')" style="width:8vw; height:1vw; border-radius:5vw;"></button>
+                <button class="nav-button" onclick="nextContent()" style="color: #5D81AB; background-color:transparent; font-size:4vw;">&#62;</button>
+        </div>
+              
+        <i class="bi bi-flag text-white" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 2vw; cursor: pointer;"></i>
+
+    <!-- Modal Bootstrap -->
+    <div class="modal fade mt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-top modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Petunjuk!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Tidak Ada Yang Namanya Jalan Pintas</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="materi2" class="content">
-        <h2>Materi 2</h2>
-        <p>Ini adalah konten untuk Materi 2.</p>
+        
+        
     </div>
-    <div id="materi3" class="content">
-        <h2>Materi 3</h2>
-        <p>Ini adalah konten untuk Materi 3.</p>
-    </div>
+  </footer>
+  
+  <section id="materi">
+      <div class="container">
+          
+          <div id="materi1" class="content">
+              <img src="image/himpunan.jpg" alt="">
+              <p>Dalam Fungsi sudah sepantasnya terdapat 2 himpunan sebagai poin utama pembelajaran ini. Kedua himpunan diatas akan selalu berhubungan jika ingin disebut suatu fungsi. Namun, bukan berarti jika semua elemen dari Himpunan A yang terhubung ke Himpunan B adalah fungsi. Terdapat aturan-aturan yang akan menentukannya, yang akan dipelajari didalam materi sub-topik selanjutnya<br><br>
+              
+              Mari Lanjut Ke Halaman Berikutnya!</p>
+              
+          </div>
+          <div id="materi2" class="content">
+              <h2>Materi 2</h2>
+              <p>Ini adalah konten untuk Materi 2.</p>
+          </div>
+          <div id="materi3" class="content">
+              <h2>Materi 3</h2>
+              <p>Ini adalah konten untuk Materi 3.</p>
+          </div>  
+          <div id="materi4" class="content">
+              <h2>Materi 4</h2>
+              <p>Ini adalah konten untuk Materi 4.</p>
+          </div>  
+          <div id="materi5" class="content">
+              <h2>Materi 5</h2>
+              <p>Ini adalah konten untuk Materi 5.</p>
+          </div>  
+          <div id="materi6" class="content">
+              <h2>Materi 6</h2>
+              <p>Ini adalah konten untuk Materi 6.</p>
+          </div>  
+          <div id="materi7" class="content">
+              <h2>Materi 7</h2>
+              <p>Ini adalah konten untuk Materi 7.</p>
+          </div>  
+          <div id="materi8" class="content">
+              <h2>Materi 8</h2>
+              <p>Ini adalah konten untuk Materi 8.</p>
+          </div>  
+            
+        </div>
+    </section>
+  
+  <footer style="background-color:#1F2844; position: fixed; bottom: 0; width: 100%; padding: 4vw; text-align: center; display:grid; grid-template-columns: 3fr 1fr; gap:5vw;">
+      <div id="petunjuk" style="margin-top:1vw; text-align: center; display:flex; gap:1vw; justify-content: center;">
+        <i class="bi bi-info-circle-fill text-white"></i>
+        <p class="text-light" id="deskripsiPetunjuk">Isi Kotak Kosong Dengan Memilih dan Mengetik Saran Jawaban</p>
+      </div>
+      <button onclick="nextContent()" type="button" class="btn text-light" id="lanjut-btn" style="height:fit-content; width:10vw; background-color:#1EA2F6;">Cek</button>
+</footer>
 
     <script>
+        const akhir = {
+            1: {
+                deskripsiPetunjuk: "Tetap Semangat Tetap Otodidak",
+                teksAkhir: "Lanjut",
+                cek: false,
+            },
+            2: {
+                deskripsiPetunjuk: "Otodidak Adalah Jalan Ninjaku",
+                teksAkhir: "Lanjut",
+                cek: false,
+            },
+            3: {
+                deskripsiPetunjuk: "Isi Kotak Kosong Dengan Memilih dan Mengetik Saran Jawaban",
+                teksAkhir: "Cek",
+                cek: false,
+            },
+            4: {
+                deskripsiPetunjuk: "Pengalaman Adalah Guru Terbaik",
+                teksAkhir: "Lanjut",
+                cek: false,
+            },
+            5: {
+                deskripsiPetunjuk: "Self-education is, I firmly believe, the only kind of education there is. – Isaac Asimov",
+                teksAkhir: "Lanjut",
+                cek: false,
+            },
+            6: {
+                deskripsiPetunjuk: "Fokuslah Dalam Memilih Jawaban, Anda Tidak Dikejar Setan",
+                teksAkhir: "Cek",
+                cek: false,
+            },
+            7: {
+                deskripsiPetunjuk: "Self-education is a lifelong journey. Keep learning, keep growing, and you'll keep succeeding",
+                teksAkhir: "Lanjut",
+                cek: false,
+            },
+            8: {
+                deskripsiPetunjuk: "Kesuksesanmu Ditentukan Oleh Usahamu Dan Kekuatan Dari Dalam",
+                teksAkhir: "Cek",
+                cek: false
+            }
+        };
+        
         let currentContentIndex = 1;
-        const totalContents = 3;
+        const totalContents = 8;
+        const deskAkhir = document.querySelector("#deskripsiPetunjuk");
+        const tombolAkhir = document.querySelector("#lanjut-btn");
 
         function showContent(id) {
             // Sembunyikan semua konten terlebih dahulu
@@ -77,6 +252,7 @@
 
             // Update index saat pengguna memilih langsung
             currentContentIndex = parseInt(id.replace('materi', ''));
+            
             updateHighlight();
         }
 
@@ -101,15 +277,37 @@
             }
             // Tambahkan highlight pada tombol aktif
             document.getElementById(`btn-materi${currentContentIndex}`).classList.add('active-button');
+            deskAkhir.innerText = akhir[currentContentIndex].deskripsiPetunjuk;
+            tombolAkhir.innerText = akhir[currentContentIndex].teksAkhir;
         }
 
         // Tampilkan materi 1 secara default dan berikan highlight pada tombolnya
         showContent('materi1');
-    </script>
-</body>
-</html>
+        
+        function updatePage() {
+            const deskripsi = akhir[currentContentIndex].deskripsiPetunjuk;
+            const buttonText = akhir[currentContentIndex].teksAkhir;
+            const cek = akhir[currentPage].cek;
+            
+            document.getElementById('deskripsiPetunjuk').innerText = deskripsi;
+            const btn = document.getElementById('lanjut-btn');
+            btn.innerText = buttonText;
+            btn.disabled = cek;
+        }
 
-    </body>
-    </html>
+        function nextPage() {
+            if (currentContentIndex < 8) {
+                updatePage();
+            } else {
+                alert('Anda telah menyelesaikan kuis ini!');
+            }
+        }
+    </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
 </body>
+
 </html>
