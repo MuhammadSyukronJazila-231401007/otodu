@@ -1589,13 +1589,13 @@ if( !isset($_SESSION['login']) ){
       btn.disabled = cek;
     }
 
-    function nextPage() {
-      if (currentContentIndex < 8) {
-        updatePage();
-      } else {
-        alert('Anda telah menyelesaikan kuis ini!');
-      }
-    }
+    // function nextPage() {
+    //   if (currentContentIndex < 8) {
+    //     updatePage();
+    //   } else {
+    //     alert('Anda telah menyelesaikan kuis ini!');
+    //   }
+    // }
 
     function placeAnswer(element) {
       // Cari slot kosong dalam answer-slot

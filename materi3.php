@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Redirect ke halaman isi_subtopik
         // header("Location: isi_subtopik2.php?kode_materi=$kode_materi&kode_bab=$kode_bab&kode_subbab=$kode_subbab&kode_subtopik=$kode_subtopik_pilih");
         if($kode_subtopik_pilih == 1){
-            header("Location: isi_materi.php");
+            header("Location: isi_subtopik.php");
         }else{
             header("Location: isi_subtopik2.php");
         }
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_query($conn, "UPDATE subtopik SET status_bayar = 1 WHERE kode_subtopik = $kode_subtopik_pilih");
         // Redirect ke halaman isi_subtopik
         if($kode_subtopik_pilih == 1){
-            header("Location: isi_materi.php");
+            header("Location: isi_subtopik.php");
         }else{
             header("Location: isi_subtopik2.php");
         }
