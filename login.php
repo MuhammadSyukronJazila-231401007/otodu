@@ -82,6 +82,10 @@ $conn->close();
             height: 100vh;
         }
 
+        .main {
+            height: 100vh;
+          }
+
         .login-left {
             background-color: #4D62A5;
             color: white;
@@ -103,6 +107,10 @@ $conn->close();
             font-weight: 700;
         }
 
+        .logo img {
+            width: 90px;
+          }
+
         .form-control:focus {
             border-color: #4D62A5;
             box-shadow: none;
@@ -115,7 +123,6 @@ $conn->close();
         #login-btn {
             background-color: #4D62A5;
             color: white;
-            font-weight: bold;
             margin-top: 40px;
         }
 
@@ -126,7 +133,7 @@ $conn->close();
         }
 
         #form-group {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .forgot-password-link {
@@ -152,31 +159,85 @@ $conn->close();
         .daftar {
             color: #4D62A5;
         }
+
+        footer {
+            display: none;
+            justify-content: flex-start;  
+            align-items: center;          
+            background-color: #1F2844;
+            padding: 20px;
+            color: white;
+            margin-top: 4.5vh;
+        }
+
+        @media (max-width: 600px) {
+          body {
+            font-size: 4vw;
+          }
+
+          .container-fluid {
+              height: 80vh;
+          }
+
+          .main {
+            height: 70vh;
+          }
+
+          .logo-container {
+            height: 15vh;
+          }
+          
+          .logo img {
+              width: 70px;
+          }
+
+          .content {
+            width: 85%; 
+            padding: 0;
+            margin-top: 5vh;
+          }
+
+          .form-control {
+            height: 50px;
+            font-size: 1.2rem;
+          }
+    
+
+          #login-btn {
+              height: 5.5vh;
+              font-size: 1.1rem;
+          }
+
+          footer {
+              display: flex;
+          }
+        }
+
     </style>
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row h-100">
+        <div class="row main">
 
-            <div class="col-lg-6 login-left d-flex justify-content-center align-items-center">
+            <div class="col-lg-6 login-left d-flex justify-content-center align-items-center logo-container">
                 <div class="text-center">
                     <div class="logo">
-                        <img src="image/logo otodu.png" alt="logo" class="img-fluid mb-3" style="width: 90px;">
+                        <img src="image/logo otodu.png" alt="logo" class="img-fluid mb-3">
                         <h2>OTODU</h2>
                     </div>
                 </div>
             </div>
             
-            <div class="col-lg-6 d-flex justify-content-center align-items-center">
+            <div class="col-lg-6 d-flex justify-content-center align-items-center form-container">
                 <div class="content w-80">
-                    <h2>Masuk</h2>
+                    <h2 style="margin-bottom: 4.5vh;">Masuk</h2>
                     <form id="loginForm" method="POST">
 
                         <div class="form-group">
                             <input type="email" class="form-control" name="email" required placeholder="Email">
                         </div>
                         
-                        <div class="form-group">
+                        <div class="form-group" style="margin: 4.2vh 0;">
                             <input type="password" class="form-control" name="password" required placeholder="Kata Sandi">
                         </div>
 
@@ -197,8 +258,19 @@ $conn->close();
                 </div>
             </div>
         </div>
+
     </div>
 
+    <!-- <footer>
+        <img src="image/logo otodu2.png" alt="logo" style="width: 30vw; margin-right: 2vw; margin-left: 5vw;"> 
+        <p style="font-family: 'Martian Mono'; font-size: 2.5vw; margin-top: 2vh;">@2024 OTODU Limited</p>
+    </footer> -->
+
+    <footer>
+        <img src="image/logo otodu2.png" alt="logo" style="width: 120px; margin-right: 2vw; margin-left: 5vw;">
+        <p style="font-family: 'Martian Mono'; font-size: 10px; margin-top: 15px;">@2024 OTODU Limited</p>
+    </footer>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-6tZaiXQNNBsq5fNrJxrqcZjC6kMiO1hldCtIwhJbfLRzex51OXLD64kR1f64zE5x" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>

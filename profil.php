@@ -268,7 +268,6 @@ if( !isset($_SESSION['login']) ){
                 <div style="box-shadow: 0 0.1vw 0.2vw; margin-top: 2vw">
                     <table class="t2">
                         <tr>
-                            <td style="width: 15vw;"><b>Keluar</b></td>
                             <td>
                                 <button id="logoutButton" class="logout-btn">
                                     <i class="fas fa-sign-out-alt"></i> Keluar
@@ -465,7 +464,6 @@ if( !isset($_SESSION['login']) ){
         }
 
         document.getElementById("logoutButton").addEventListener("click", function() {
-            // Logika logout, misalnya menghapus sesi dan redirect
             window.location.href = "logout.php";
         });
 

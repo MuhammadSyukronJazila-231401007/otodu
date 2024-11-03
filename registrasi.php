@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     body {
-        background-color: #C6D6E8;
+        background-color: #E3ECF5;
     }
 
     .navbar {
@@ -110,14 +110,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         margin: 50px auto;
         padding: 30px 50px;
         border-radius: 10px;
-        max-width: 600px; /* nilai awal 500px */
+        max-width: 650px; /* nilai awal 600px */
+    }
+
+    .form-check {
+        margin: 25px 0;
     }
     
     #register-btn{
         background-color: #4D62A5;
         color: white;
-        font-weight: bold;
-        margin-top: 20px;
         width: 100%;
     }
     
@@ -137,7 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     input::placeholder {
-        font-size: 12px; 
+        font-size: 0.95rem;
         color: #888;     
     }
     
@@ -191,75 +193,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         -moz-appearance: textfield;
     }
 
-    </style>
+    @media (max-width: 600px) {
+          .card {
+              margin: 0;
+              border-radius: 0px;
+              padding: 25px 7vw;
+          }
 
-    <script async defer src="https://maps.gomaps.pro/maps/api/js?key=AlzaSyeT3ed8_nmf_1VGDtIOF0Z0FYT88xg945v&callback=initMap"></script>
+          .form-control {
+            height: 45px;
+            font-size: 1.2rem;
+          }
 
-    <script>
-        function initMap() {
-            // Lokasi default (Medan) jika geolokasi tidak diizinkan
-            var defaultLocation = { lat: 3.5833, lng: 98.6667 };
-            
-            // Inisialisasi peta
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 13,
-                center: defaultLocation
-            });
-        
-            // Marker default pada lokasi Medan
-            var marker = new google.maps.Marker({
-                position: defaultLocation,
-                map: map,
-                draggable: true
-            });
-        
-            // Fungsi untuk memperbarui marker dan pusat peta
-            function updateMapLocation(lat, lng) {
-                var newLocation = { lat: lat, lng: lng };
-                map.setCenter(newLocation);  
-                marker.setPosition(newLocation);  // Pindahkan marker ke lokasi baru
-                
-                // Update nilai latitude dan longitude ke input tersembunyi
-                document.getElementById('latitude').value = lat;
-                document.getElementById('longitude').value = lng;
-            }
-        
-            // Gunakan Geolocation API untuk mendapatkan lokasi pengguna
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    function (position) {
-                        var userLat = position.coords.latitude;
-                        var userLng = position.coords.longitude;
-                        updateMapLocation(userLat, userLng);  // Perbarui peta dengan lokasi pengguna
-                    },
-                    function () {
-                        // Jika pengguna menolak akses lokasi, tetap gunakan defaultLocation
-                        alert("Geolocation tidak diizinkan, menggunakan lokasi default.");
-                    }
-                );
-            } else {
-                // Jika browser tidak mendukung Geolocation API
-                alert("Browser Anda tidak mendukung Geolocation, menggunakan lokasi default.");
-            }
-        
-            // Listener untuk marker yang dapat dipindahkan
-            marker.addListener('dragend', function (event) {
-                var lat = event.latLng.lat();
-                var lng = event.latLng.lng();
-                updateMapLocation(lat, lng); // Perbarui lokasi
-                // alert("Latitude: " + lat + ", Longitude: " + lng);
-            });
-        
-            // Listener untuk klik di peta
-            map.addListener('click', function (event) {
-                var lat = event.latLng.lat();
-                var lng = event.latLng.lng();
-                marker.setPosition(event.latLng); // Pindahkan marker ke lokasi yang diklik
-                updateMapLocation(lat, lng); // Perbarui lokasi
-                // alert("Latitude: " + lat + ", Longitude: " + lng);
-            });
+          #nomor {
+            margin-top: 20px;
+            margin-bottom: 7px;
+          }
+
+          .form-label {
+              font-weight: 500;
+              font-size: 1.2rem;
+          }
+
+          select {
+            height: 42px;
+            font-size: 1.1rem;
+          }
+          
+          #register-btn {
+              height: 5.5vh;
+              font-size: 1.1rem;
+          }
+
+          footer {
+              display: flex;
+          }
         }
-        </script>
+
+    </style>
         
 </head>
 <body>
@@ -288,7 +259,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="email" class="form-control" name="email" placeholder="Contoh: john@gmail.com" required>
                 </div>
             
-                <div class="col-md-6">
+                <div class="col-md-6" id="nomor">
                     <label for="nomor" class="form-label">Nomor Telepon</label>
                     <input type="number" class="form-control" name="nomor" placeholder="Contoh: 08xx" required
                         onwheel="this.blur()">
@@ -341,6 +312,74 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script async defer src="https://maps.gomaps.pro/maps/api/js?key=AlzaSyeT3ed8_nmf_1VGDtIOF0Z0FYT88xg945v&callback=initMap"></script>
+
+    <script>
+        function initMap() {
+            // Lokasi default (Medan) jika geolokasi tidak diizinkan
+            var defaultLocation = { lat: 3.5833, lng: 98.6667 };
+
+            // Inisialisasi peta
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: defaultLocation
+            });
+        
+            // Marker default pada lokasi Medan
+            var marker = new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                draggable: true
+            });
+        
+            // Fungsi untuk memperbarui marker dan pusat peta
+            function updateMapLocation(lat, lng) {
+                var newLocation = { lat: lat, lng: lng };
+                map.setCenter(newLocation);  
+                marker.setPosition(newLocation);  // Pindahkan marker ke lokasi baru
+
+                // Update nilai latitude dan longitude ke input tersembunyi
+                document.getElementById('latitude').value = lat;
+                document.getElementById('longitude').value = lng;
+            }
+        
+            // Gunakan Geolocation API untuk mendapatkan lokasi pengguna
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        var userLat = position.coords.latitude;
+                        var userLng = position.coords.longitude;
+                        updateMapLocation(userLat, userLng);  // Perbarui peta dengan lokasi pengguna
+                    },
+                    function () {
+                        // Jika pengguna menolak akses lokasi, tetap gunakan defaultLocation
+                        alert("Geolocation tidak diizinkan, menggunakan lokasi default.");
+                    }
+                );
+            } else {
+                // Jika browser tidak mendukung Geolocation API
+                alert("Browser Anda tidak mendukung Geolocation, menggunakan lokasi default.");
+            }
+        
+            // Listener untuk marker yang dapat dipindahkan
+            marker.addListener('dragend', function (event) {
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+                updateMapLocation(lat, lng); // Perbarui lokasi
+                // alert("Latitude: " + lat + ", Longitude: " + lng);
+            });
+        
+            // Listener untuk klik di peta
+            map.addListener('click', function (event) {
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+                marker.setPosition(event.latLng); // Pindahkan marker ke lokasi yang diklik
+                updateMapLocation(lat, lng); // Perbarui lokasi
+                // alert("Latitude: " + lat + ", Longitude: " + lng);
+            });
+        }
+    </script>
     <script>
         $(document).ready(function() {
             $('#registerForm').on('submit', function(e) {
