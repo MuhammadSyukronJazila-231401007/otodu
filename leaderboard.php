@@ -29,7 +29,7 @@ if( !isset($_SESSION['login']) ){
         }
 
         body {
-            background-color: #C6D6E8;
+            background-color: #E3ECF5;
         }
 
         .navbar {
@@ -323,7 +323,7 @@ if( !isset($_SESSION['login']) ){
     
 
     <footer>
-        <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;"> <!-- 120px -->
+        <img src="image/logo otodu terang.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;"> <!-- 120px -->
         <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
     </footer>
 

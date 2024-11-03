@@ -304,8 +304,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <footer>
-        <img src="image/logo otodu2.png" alt="logo" style="width: 120px; margin-right: 2vw; margin-left: 5vw;">
-        <p style="font-family: 'Martian Mono'; font-size: 10px; margin-top: 15px;">@2024 OTODU Limited</p>
+        <img src="image/logo otodu terang.png" alt="logo" style="width: 120px; margin-right: 2vw; margin-left: 2.3vw;">
+        <p style="font-family: 'Martian Mono'; font-size: 10px; margin-top: 17px;">@2024 OTODU Limited</p>
     </footer>
 
    
