@@ -70,24 +70,28 @@ if( !isset($_SESSION['login']) ){
           justify-content: flex-start;
           align-items: center;
           background-color: #1F2844;
-          padding: 1.5vw; /* 20px */
           color: white;
-          /* position: fixed; */
           bottom: 0;
           width: 100%;
           text-align: center;
-          padding: 1vw;
+          padding: 2.3vw;
       }
 
-    .intro {
-      padding: 5vw 5vw 10vw 27vw;
-      background-image: url('./image/gradien\ blue.avif');
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-size: cover;
-      color: white;
-      font-size: 16px;
-    }
+      .intro {
+        padding: 5vw 5vw 10vw 27vw;
+        background-image: url('./image/gradien\ blue.avif');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        color: white;
+        font-size: 16px;
+      }
+
+      #map {
+          height: 350px;
+          width: 350px; 
+      }
+
   </style>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -199,7 +203,8 @@ if( !isset($_SESSION['login']) ){
             </button>
           </td>
           <td rowspan="7">
-            <img src="./image/maps.jfif" width="350" height="300">
+            <!-- <img src="./image/maps.jfif" width="350" height="300"> -->
+            <div id="map" name="map"></div>
           </td>
         </tr>
         <tr>
@@ -928,13 +933,81 @@ if( !isset($_SESSION['login']) ){
   </main><br><br><br>
 
   <footer>
-      <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 5vw;"> <!-- 120px -->
+      <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;"> <!-- 120px -->
       <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
+
+    <script async defer src="https://maps.gomaps.pro/maps/api/js?key=AlzaSyeT3ed8_nmf_1VGDtIOF0Z0FYT88xg945v&callback=initMap"></script>
+
+    <script>
+        function initMap() {
+            // Lokasi default (Medan) jika geolokasi tidak diizinkan
+            var defaultLocation = { lat: 3.5833, lng: 98.6667 };
+
+            // Inisialisasi peta
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: defaultLocation
+            });
+        
+            // Marker default pada lokasi Medan
+            var marker = new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                draggable: true
+            });
+        
+            // Fungsi untuk memperbarui marker dan pusat peta
+            function updateMapLocation(lat, lng) {
+                var newLocation = { lat: lat, lng: lng };
+                map.setCenter(newLocation);  
+                marker.setPosition(newLocation);  // Pindahkan marker ke lokasi baru
+
+                // Update nilai latitude dan longitude ke input tersembunyi
+                document.getElementById('latitude').value = lat;
+                document.getElementById('longitude').value = lng;
+            }
+        
+            // Gunakan Geolocation API untuk mendapatkan lokasi pengguna
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        var userLat = position.coords.latitude;
+                        var userLng = position.coords.longitude;
+                        updateMapLocation(userLat, userLng);  // Perbarui peta dengan lokasi pengguna
+                    },
+                    function () {
+                        // Jika pengguna menolak akses lokasi, tetap gunakan defaultLocation
+                        alert("Geolocation tidak diizinkan, menggunakan lokasi default.");
+                    }
+                );
+            } else {
+                // Jika browser tidak mendukung Geolocation API
+                alert("Browser Anda tidak mendukung Geolocation, menggunakan lokasi default.");
+            }
+        
+            // Listener untuk marker yang dapat dipindahkan
+            marker.addListener('dragend', function (event) {
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+                updateMapLocation(lat, lng); // Perbarui lokasi
+                // alert("Latitude: " + lat + ", Longitude: " + lng);
+            });
+        
+            // Listener untuk klik di peta
+            map.addListener('click', function (event) {
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+                marker.setPosition(event.latLng); // Pindahkan marker ke lokasi yang diklik
+                updateMapLocation(lat, lng); // Perbarui lokasi
+                // alert("Latitude: " + lat + ", Longitude: " + lng);
+            });
+        }
+    </script>
   
     <script>
       document.getElementById('riwayat-mentor').addEventListener('click', function(event) {

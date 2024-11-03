@@ -34,12 +34,10 @@ if( !isset($_SESSION['login']) ){
         }
 
         .navbar {
-        background-color: white;
-        padding-inline-start: 1.5vw; 
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 1.5vw; 
-        align-items: center;
-        
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5vw; 
+            align-items: center;
         }
     
         .nav-menu {
@@ -223,7 +221,7 @@ if( !isset($_SESSION['login']) ){
             justify-content: flex-start;
             align-items: center;
             background-color: #1F2844;
-            padding: 1.5vw; /* 20px */
+            padding: 2vw; /* 20px */
             color: white;
         }
         
@@ -280,7 +278,7 @@ if( !isset($_SESSION['login']) ){
     </div>
 
     <footer>
-        <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 5vw;"> <!-- 120px -->
+        <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;"> <!-- 120px -->
         <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
     </footer>
 

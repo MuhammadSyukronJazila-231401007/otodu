@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,6 +19,11 @@
     <style>
       * {
         font-family: 'Rethink Sans';
+      }
+
+      #map {
+        width: 24rem;
+        height: 15rem;
       }
     </style>
   </head>
@@ -202,7 +208,7 @@
         <h1 class="judul text-center">Hubungi Kami</h1>
         <div class="row mt-5">
           <div class="col-md-6 d-flex justify-content-center">
-            <img src="image/Maps.png" class="img-fluid" style="max-width: 24rem;" alt="" >
+            <div id="map" name="map"></div>
           </div>
           <div class="col-md-6">
             <h4 class="judul">Alamat</h4>
@@ -219,13 +225,32 @@
 
     </div>
     <footer id="footer" class="mt-5">
-      <div class="container py-5">
+      <div class="container py-5" style="font-family: Martian Mono;">
         <img src="image/logo.png" alt=""> <span class="text-white px-5">@2024 OTODU Limited</span>
       </div>
     </footer>
     
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script async defer src="https://maps.gomaps.pro/maps/api/js?key=AlzaSyeT3ed8_nmf_1VGDtIOF0Z0FYT88xg945v&callback=initMap"></script>
     <script>
+      function initMap() {
+          // Lokasi default (Medan) jika geolokasi tidak diizinkan
+          var defaultLocation = { lat: 3.5627323593138738, lng: 98.65971028641005 };
+
+          // Inisialisasi peta
+          var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 13,
+              center: defaultLocation
+          });
+        
+          // Marker default pada lokasi Medan
+          var marker = new google.maps.Marker({
+              position: defaultLocation,
+              map: map,
+              draggable: true
+          });
+      }
+
       document.getElementById("login-btn").addEventListener("click", function() {
           window.location.href = "login.php";
       });

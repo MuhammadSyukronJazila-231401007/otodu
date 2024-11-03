@@ -78,13 +78,11 @@ if( !isset($_SESSION['login']) ){
             justify-content: flex-start;
             align-items: center;
             background-color: #1F2844;
-            padding: 1.5vw; /* 20px */
             color: white;
-            /* position: fixed; */
             bottom: 0;
             width: 100%;
             text-align: center;
-            padding: 1vw;
+            padding: 2.3vw;
         }
 
     </style>
@@ -164,7 +162,7 @@ if( !isset($_SESSION['login']) ){
 </div>
 </div>
 <footer>
-    <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 5vw;"> <!-- 120px -->
+    <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;"> <!-- 120px -->
     <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
 </footer>
     <script>
