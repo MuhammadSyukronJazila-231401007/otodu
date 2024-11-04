@@ -10,6 +10,7 @@ if (isset($_SESSION['login'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $nama = $_POST['nama'];
+    $nama .= "_new";
     $nomor = $_POST['nomor'];
     $latitude = $_POST['latitude'];
     $longitude = $_POST['longitude'];
@@ -34,11 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Email sudah terdaftar. Silakan gunakan email lain.";
             exit();
         } else {
-            // Masukkan nilai role ke dalam query INSERT
             $sql = "INSERT INTO users (email, nama, nomor, latitude, longitude, password, role) VALUES ('$email', '$nama', '$nomor', '$latitude', '$longitude', '$hashedPassword', '$role')";
             if ($conn->query($sql) === TRUE) {
                 $_SESSION['new_user'] = true;
-                echo "success"; // Jika berhasil, kirim respons 'success' ke Ajax
+                echo "success"; 
                 exit();
             } else {
                 echo "Gagal melakukan registrasi. Silakan coba lagi.";
