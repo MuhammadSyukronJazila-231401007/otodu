@@ -1,31 +1,81 @@
 <?php
 session_start();
 
-if( !isset($_SESSION['login']) ){
-    header("Location: login.php");
-    exit;
+// if (!isset($_SESSION['login'])) {
+//     header("Location: login.php");
+//     exit;
+// }
+
+include 'function.php';
+$kode_materi = 1; //$_GET['kode_materi'];
+$kode_bab = 1; // $_GET['kode_bab'];
+$kode_subbab = 1;// $_GET['kode_subbab'];
+
+$id = $_SESSION['user_id'];
+
+$koin = ambilData("SELECT koin FROM users WHERE id = $id");
+$nama_materi = ambilData("SELECT nama_materi FROM materi WHERE kode_materi = $kode_materi ");
+$nama_bab = ambilData("SELECT nama_bab FROM bab WHERE kode_bab = $kode_bab ");
+$nama_subbab = ambilData("SELECT nama_subbab FROM subbab WHERE kode_subbab = $kode_subbab ");
+$topik = ambilData("SELECT * FROM topik WHERE kode_subbab= $kode_subbab");
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $kode_subtopik_pilih = $_POST['kode_subtopik'];
+    $harga_subtopik = $_POST['harga'];
+    $status_bayar = ambilData("SELECT * FROM pembelian WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id");
+
+    if ($status_bayar) {
+        if($kode_subtopik_pilih == 1){
+            header("Location: isi_subtopik.php");
+        }else{
+            header("Location: isi_subtopik2.php");
+        }
+
+        exit;
+    } else if ($koin[0]['koin'] >= $harga_subtopik) {
+        // Update koin
+        $new_koin = $koin[0]['koin'] - $harga_subtopik;
+        mysqli_query($conn, "UPDATE users SET koin = $new_koin WHERE id = $id;");
+        mysqli_query($conn, "INSERT INTO pembelian (kode_subtopik, id_user) VALUES ($kode_subtopik_pilih, $id);");
+
+        // Redirect ke halaman isi_subtopik
+
+        if($kode_subtopik_pilih == 1){
+            echo "<script>alert('Selamat anda telah membeli subtopik ini!');</script>";
+            header("Location: isi_subtopik.php");
+        }else{
+            echo "<script>alert('Selamat anda telah membeli subtopik ini!');</script>";
+            header("Location: isi_subtopik2.php");
+        }
+        
+        exit;
+    } else {
+        echo "<script>alert('Koin anda belum cukup!');</script>";
+    }
 }
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
- <head>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Sidebar menu With Sub-menus | Using HTML, CSS & JQuery</title>
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar menu With Sub-menus | Using HTML, CSS & JQuery</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-   <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-   <style media="screen">
-        *{
-         margin: 0;
-         padding: 0;
-         box-sizing: border-box;
-         font-family: "Rethink Sans";
+    <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style media="screen">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Rethink Sans";
         }
 
-        body{
+        body {
             /* min-height: 100vh; */
             background: white;
             color: white;
@@ -38,8 +88,9 @@ if( !isset($_SESSION['login']) ){
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 1000; /* Supaya elemen ini berada di atas elemen lainnya */
-            background-color: white; 
+            z-index: 1000;
+            /* Supaya elemen ini berada di atas elemen lainnya */
+            background-color: white;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
@@ -51,125 +102,130 @@ if( !isset($_SESSION['login']) ){
             position: fixed;
             top: 0;
             left: -250px;
-            overflow-y: auto; /* Menambahkan overflow-y untuk scroll */
+            overflow-y: auto;
+            z-index: 2000;
+            /* Menambahkan overflow-y untuk scroll */
             transition: 0.6s ease;
             transition-property: left;
         }
 
         /* Menampilkan scrollbar pada .side-bar */
         .side-bar::-webkit-scrollbar {
-            width: 8px; /* Lebar scrollbar */
+            width: 8px;
+            /* Lebar scrollbar */
         }
 
         .side-bar::-webkit-scrollbar-thumb {
-            background-color: #6A6A6A; /* Warna thumb scrollbar */
+            background-color: #6A6A6A;
+            /* Warna thumb scrollbar */
             border-radius: 4px;
         }
 
         .side-bar::-webkit-scrollbar-track {
-            background: #434041; /* Warna track scrollbar */
+            background: #434041;
+            /* Warna track scrollbar */
         }
 
-        .side-bar.active{
-         left: 0;
-        }
-       
-        .side-bar .menu{
-         width: 100%;
-         margin-top: 30px;
+        .side-bar.active {
+            left: 0;
         }
 
-        .side-bar .menu .item{
-         position: relative;
-         cursor: pointer;
+        .side-bar .menu {
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .side-bar .menu .item {
+            position: relative;
+            cursor: pointer;
         }
 
         .side-bar .menu .item a {
             color: #fff;
             font-size: 0.9rem;
             text-decoration: none;
-            display: flex; 
-            align-items: center; 
+            display: flex;
+            align-items: center;
             padding: 2vh 1.5vw;
             border-radius: 10px;
         }
-        
+
         .sub-btn {
             font-weight: 600;
             margin: 0 0.9vw;
         }
 
-        .side-bar .menu .item a:hover{
-         background: #455E95;
-         transition: 0.3s ease;
+        .side-bar .menu .item a:hover {
+            background: #455E95;
+            transition: 0.3s ease;
         }
 
-        .side-bar .menu .item i{
-         margin-right: 15px;
+        .side-bar .menu .item i {
+            margin-right: 15px;
         }
 
-        .side-bar .menu .item a .dropdown{
-         position: absolute;
-         right: 0;
-         transition: 0.3s ease;
-         padding-right: 0.8vw;
+        .side-bar .menu .item a .dropdown {
+            position: absolute;
+            right: 0;
+            transition: 0.3s ease;
+            padding-right: 0.8vw;
         }
 
-        .side-bar .menu .item .sub-menu{
-         background: #3E5A86;
-         display: none;
-         margin: 0 0.9vw;
-         border-radius: 10px;
+        .side-bar .menu .item .sub-menu {
+            background: #3E5A86;
+            display: none;
+            margin: 0 0.9vw;
+            border-radius: 10px;
         }
 
-        .side-bar .menu .item .sub-menu a{
-         padding-left: 2.5vw;
+        .side-bar .menu .item .sub-menu a {
+            padding-left: 2.5vw;
         }
 
         .side-bar .menu .item .sub-btn.active {
-            background-color: #4D62A5; 
+            background-color: #4D62A5;
             color: #fff;
         }
 
         .side-bar .menu .item .sub-menu .sub-item.active {
-            background-color: #6B7FA7; 
+            background-color: #6B7FA7;
             color: #fff;
         }
 
-        .rotate{
-         transform: rotate(-180deg);
+        .rotate {
+            transform: rotate(-180deg);
         }
 
-        .menu-btn{
-         color: rgb(255, 255, 255);
-         font-size: 1.5rem;
-         margin: 1.2px;
-         margin-left: 3vw;
-         margin-right: 3vw;
-         cursor: pointer;
+        .menu-btn {
+            color: rgb(255, 255, 255);
+            font-size: 1.5rem;
+            margin: 1.2px;
+            margin-left: 3vw;
+            margin-right: 3vw;
+            cursor: pointer;
         }
 
-        .main{
-         height: 100vh;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         padding: 50px;
+        .main {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
         }
 
-        header{
-          background: #5E88B6;
+        header {
+            background: #5E88B6;
         }
 
-        .close-btn{
-         position: absolute;
-         color: #fff;
-         font-size: 1.1rem;
-         right:  0px;
-         margin: 15px;
-         cursor: pointer;
+        .close-btn {
+            position: absolute;
+            color: #fff;
+            font-size: 1.1rem;
+            right: 0px;
+            margin: 15px;
+            cursor: pointer;
         }
-        
+
         #judul-materi {
             padding-top: 2vw;
             padding-left: 1vw;
@@ -192,56 +248,58 @@ if( !isset($_SESSION['login']) ){
         /* Navbar */
         .navbar {
             background-color: white;
-            padding-inline-start: 1.5vw; 
+            padding-inline-start: 1.5vw;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1.5vw; 
+            padding: 1.5vw;
             align-items: center;
         }
 
         .nav-menu {
-          margin: 0;
-          padding: 0.8vw 2vw; 
-          position: relative;
-          align-self: center;
-          font-size: 1.2vw; 
-          cursor: pointer;
-          font-family: 'Rethink Sans';
-          text-decoration: none;
-          color: #4D62A5;
+            margin: 0;
+            padding: 0.8vw 2vw;
+            position: relative;
+            align-self: center;
+            font-size: 1.2vw;
+            cursor: pointer;
+            font-family: 'Rethink Sans';
+            text-decoration: none;
+            color: #4D62A5;
         }
-    
+
         .nav-menu:not(:last-child)::after {
-          content: '';
-          position: absolute;
-          right: 0; 
-          top: 0;
-          width: 1px;
-          height: 100%;
-          background-color: #4D62A5;
-          transform: translateX(50%); /* Memindahkan garis ke tengah-tengah jarak antara elemen a */
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background-color: #4D62A5;
+            transform: translateX(50%);
+            /* Memindahkan garis ke tengah-tengah jarak antara elemen a */
         }
-    
+
         .nav-menu:hover {
-          background-color: #4D62A5;
-          color: white; 
-          font-weight: 450;
+            background-color: #4D62A5;
+            color: white;
+            font-weight: 450;
         }
 
         #nav-main {
-          background-color: #4D62A5;
-          color: white;
+            background-color: #4D62A5;
+            color: white;
         }
 
         .logo img {
-          width: 10vw;
-          margin-right: 1vw;
+            width: 10vw;
+            margin-right: 1vw;
         }
 
         .container {
-          display: flex;
-          align-items: center;
-          justify-content: space-around;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
         }
+
         /* End of Navbar */
 
         /* .text {
@@ -254,12 +312,13 @@ if( !isset($_SESSION['login']) ){
             top: 0;
             left: 0;
             width: 100vw;
+            z-index: 1000;
         }
 
         table td {
             border: 1px;
         }
-        
+
         /* css konten halaman (kode anugrah) */
         .box {
             height: 4.5vw;
@@ -276,17 +335,19 @@ if( !isset($_SESSION['login']) ){
             font-size: 1.4vw;
             flex-direction: column;
         }
-        
+
         .full-row {
             background-color: #375679;
-            padding: 0; /* Remove horizontal padding */
+            padding: 0;
+            /* Remove horizontal padding */
         }
 
         .box-4 {
             padding: 3vw;
             display: flex;
             flex-direction: column;
-            gap: 1vw; /* Jarak antar elemen */
+            gap: 1vw;
+            /* Jarak antar elemen */
         }
 
         .box-4 .inner-box {
@@ -294,33 +355,41 @@ if( !isset($_SESSION['login']) ){
             color: #F6F7FA;
             padding: 0.8vw;
             font-family: 'Nunito Sans', sans-serif;
-            margin-bottom: 0; /* Hilangkan margin bawah */
+            margin-bottom: 0;
+            /* Hilangkan margin bawah */
         }
 
-        .box-5 { background-color: #d36bff; }
+        .box-5 {
+            background-color: #d36bff;
+        }
+
         .inner-box {
             border-radius: 1vw;
         }
 
         .modal-backdrop {
             background-color: #1F2844;
-            opacity: 100%; /* awalnya 90% */
-        }
-        .modal{
-            background-color: #1F2844;
-            opacity: 100%; /* awalnya 90% */
-        }
-        .modal-content{
-            background-color: #1F2844;
-            opacity: 100%; /* awalnya 90% */
+            opacity: 100%;
+            /* awalnya 90% */
         }
 
+        .modal {
+            background-color: #1F2844;
+            opacity: 100%;
+            /* awalnya 90% */
+        }
+
+        .modal-content {
+            background-color: #1F2844;
+            opacity: 100%;
+            /* awalnya 90% */
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
- </head>
- <body>
-    
+</head>
+
+<body>
 
     <div class="head">
         <nav class="navbar">
@@ -332,7 +401,7 @@ if( !isset($_SESSION['login']) ){
                 <a style="margin: 0;" class="nav-menu" href="mentor.php">Mentor OTODU</a>
                 <a style="margin: 0;" class="nav-menu" href="jasa.php">Desain Web & App</a>
             </div>
-        </nav>  
+        </nav>
         <!-- <div class="text">
             
         </div> -->
@@ -353,103 +422,106 @@ if( !isset($_SESSION['login']) ){
             </div>
         </div>
 
-        <span style="position: relative; background-color: #96AA03; color: white; display: inline-flex; align-items: center; padding: 0.2vw 1vw; 
-              margin-left: 6.5vw; border-radius: 3px; cursor: pointer;" id="koin">
-            <img src="image/coin.png" style="width: 1.7vw; margin-right: 0.5vw;">
-            <b>69</b>
-        </span>
-
-
+        
+        
     </div>
 
-   <div class="side-bar">
-     <header>
-        <div class="close-btn">
-            <i class="fas fa-times"></i>
+    <span style="position: relative; background-color: #96AA03; color: white; display: inline-flex; align-items: center; padding: 0.2vw 1vw; 
+          margin-left: 6.5vw; border-radius: 3px; cursor: pointer;" id="koin">
+        <img src="image/coin.png" style="width: 1.7vw; margin-right: 0.5vw;">
+        <b><?= $koin[0]['koin']; ?></b>
+    </span>
+
+    <div class="side-bar">
+        <header>
+            <div class="close-btn">
+                <i class="fas fa-times"></i>
+            </div>
+            <p id="judul-materi">Materi</p>
+            <p id="nama-materi">Matematika SMA Kelas IX</p>
+        </header>
+        <div class="menu">
+            <p>Bab</p>
+            <div class="item">
+                <a class="sub-btn">Fungsi<i class="fas fa-angle-down dropdown"></i></a>
+                <div class="sub-menu">
+                    <a href="#" class="sub-item">Pengantar</a>
+                    <a href="#" class="sub-item">Fungsi dan Bukan Fungsi</a>
+                    <a href="#" class="sub-item">Komposisi</a>
+                </div>
+            </div>
+            <div class="item">
+                <a class="sub-btn">Matriks<i class="fas fa-angle-down dropdown"></i></a>
+                <div class="sub-menu">
+                    <a href="#" class="sub-item">Sub Item 01</a>
+                    <a href="#" class="sub-item">Sub Item 02</a>
+                    <a href="#" class="sub-item">Sub Item 03</a>
+                </div>
+            </div>
+            <div class="item">
+                <a class="sub-btn">Trigonometri<i class="fas fa-angle-down dropdown"></i></a>
+                <div class="sub-menu">
+                    <a href="#" class="sub-item">Sub Item 01</a>
+                    <a href="#" class="sub-item">Sub Item 02</a>
+                    <a href="#" class="sub-item">Sub Item 03</a>
+                </div>
+            </div>
+            <div class="item">
+                <a class="sub-btn">Ruang 3 Dimensi<i class="fas fa-angle-down dropdown"></i></a>
+                <div class="sub-menu">
+                    <a href="#" class="sub-item">Sub Item 01</a>
+                    <a href="#" class="sub-item">Sub Item 02</a>
+                    <a href="#" class="sub-item">Sub Item 03</a>
+                </div>
+            </div>
+            <div class="item">
+                <a class="sub-btn">Limit<i class="fas fa-angle-down dropdown"></i></a>
+                <div class="sub-menu">
+                    <a href="#" class="sub-item">Sub Item 01</a>
+                    <a href="#" class="sub-item">Sub Item 02</a>
+                    <a href="#" class="sub-item">Sub Item 03</a>
+                </div>
+            </div>
+            <div class="item">
+                <a class="sub-btn">Turunan<i class="fas fa-angle-down dropdown"></i></a>
+                <div class="sub-menu">
+                    <a href="#" class="sub-item">Sub Item 01</a>
+                    <a href="#" class="sub-item">Sub Item 02</a>
+                    <a href="#" class="sub-item">Sub Item 03</a>
+                </div>
+            </div>
+            <div class="item">
+                <a class="sub-btn">Integral<i class="fas fa-angle-down dropdown"></i></a>
+                <div class="sub-menu">
+                    <a href="#" class="sub-item">Sub Item 01</a>
+                    <a href="#" class="sub-item">Sub Item 02</a>
+                    <a href="#" class="sub-item">Sub Item 03</a>
+                </div>
+            </div>
         </div>
-        <p id="judul-materi">Materi</p>
-        <p id="nama-materi">Matematika SMA Kelas IX</p>
-    </header>
-     <div class="menu">
-        <p>Bab</p>
-       <div class="item">
-         <a class="sub-btn">Fungsi<i class="fas fa-angle-down dropdown"></i></a>
-         <div class="sub-menu">
-           <a href="#" class="sub-item">Pengantar</a>
-           <a href="#" class="sub-item">Fungsi dan Bukan Fungsi</a>
-           <a href="#" class="sub-item">Komposisi</a>
-         </div>
-       </div>
-       <div class="item">
-         <a class="sub-btn">Matriks<i class="fas fa-angle-down dropdown"></i></a>
-         <div class="sub-menu">
-           <a href="#" class="sub-item">Sub Item 01</a>
-           <a href="#" class="sub-item">Sub Item 02</a>
-           <a href="#" class="sub-item">Sub Item 03</a>
-         </div>
-       </div>
-       <div class="item">
-         <a class="sub-btn">Trigonometri<i class="fas fa-angle-down dropdown"></i></a>
-         <div class="sub-menu">
-           <a href="#" class="sub-item">Sub Item 01</a>
-           <a href="#" class="sub-item">Sub Item 02</a>
-           <a href="#" class="sub-item">Sub Item 03</a>
-         </div>
-       </div>
-       <div class="item">
-         <a class="sub-btn">Ruang 3 Dimensi<i class="fas fa-angle-down dropdown"></i></a>
-         <div class="sub-menu">
-           <a href="#" class="sub-item">Sub Item 01</a>
-           <a href="#" class="sub-item">Sub Item 02</a>
-           <a href="#" class="sub-item">Sub Item 03</a>
-         </div>
-       </div>
-       <div class="item">
-         <a class="sub-btn">Limit<i class="fas fa-angle-down dropdown"></i></a>
-         <div class="sub-menu">
-           <a href="#" class="sub-item">Sub Item 01</a>
-           <a href="#" class="sub-item">Sub Item 02</a>
-           <a href="#" class="sub-item">Sub Item 03</a>
-         </div>
-       </div>
-       <div class="item">
-         <a class="sub-btn">Turunan<i class="fas fa-angle-down dropdown"></i></a>
-         <div class="sub-menu">
-           <a href="#" class="sub-item">Sub Item 01</a>
-           <a href="#" class="sub-item">Sub Item 02</a>
-           <a href="#" class="sub-item">Sub Item 03</a>
-         </div>
-       </div>
-       <div class="item">
-         <a class="sub-btn">Integral<i class="fas fa-angle-down dropdown"></i></a>
-         <div class="sub-menu">
-           <a href="#" class="sub-item">Sub Item 01</a>
-           <a href="#" class="sub-item">Sub Item 02</a>
-           <a href="#" class="sub-item">Sub Item 03</a>
-         </div>
-       </div>
-     </div>
-   </div>
+    </div>
 
     <div class="row" style="margin-left: 1.5vw; margin-right: 1.5vw;">
         <div class="col-md-6">
             <div class="boxleft box-4">
-                <div class="column d-flex flex-column mb-4 mt-2" >
+                <div class="column d-flex flex-column mb-4 mt-2">
                     <span style="color: #3A425A; margin-left: 0.8vw; font-size: 1.3vw;">Materi NLP</span>
                     <div style="height: 0.1vw; width: 20vw; background-color: #3A425A; margin-left: 0.8vw;"></div>
                 </div>
+
+                <!-- kontent topik -->
                 <div class="row" style="margin-left: 0vw;">
                     <div class="inner-box" style="background-color: #375679; width: 30vw; margin-right: 3vw">
                         <img src="image/01.png" style="width: 1.5vw;">
                         <b>Apa itu fungsi?</b>
-                    </div>  
-                        <div class="inner-box mulai" style="background-color: #46CC6A; color: #24384E; width: 7vw; 
-                        align-items: center; display: flex; justify-content: center; cursor: pointer" data-bs-toggle="modal" 
+                    </div>
+                    <div class="inner-box mulai" style="background-color: #46CC6A; color: #24384E; width: 7vw; 
+                        align-items: center; display: flex; justify-content: center; cursor: pointer" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">
                         <b>Mulai</b>
                     </div>
                 </div>
-                
+
                 <div class="inner-box">
                     <img src="image/02.png" style="width: 1.5vw;">
                     Beda fungsi dan bukan fungsi
@@ -462,24 +534,24 @@ if( !isset($_SESSION['login']) ){
         </div>
         <div class="col-md-6">
             <div class="boxleft box-4">
-                <div class="column d-flex flex-column mb-4" >
+                <div class="column d-flex flex-column mb-4">
                     <span style="color: #3A425A; margin-left: 0.8vw;">
-                        <span style="font-size: 1.3vw;"> 
+                        <span style="font-size: 1.3vw;">
                             Rangkuman Materi
                             <img src="image/01_2.png" style="width: 1.5vw;">
                         </span>
                     </span>
                     <div style="height: 0.1vw; width: 20vw; background-color: #3A425A; margin-left: 0.8vw;"></div>
                 </div>
-                
+
                 <div class="inner-box column d-flex flex-column mb-3" style="background-color: #ffffff; border: 0.1vw solid #B2B5BF; align-items: center;">
                     <img src="image/thumbnail.png" width="420vw">
                     <p style="color: #1F2844; font-size: 1vw; margin-left: 4.5vw; margin-right: 4.5vw; margin-top: 1vw;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a risus vel est maximus volutpat sit amet et ipsum. Duis a massa sodales, pulvinar lectus vel, elementum dolor. Vestibulum nibh nibh, placerat vitae fringilla non, accumsan eget lectus. 
-                    <br>
-                    Phasellus suscipit, odio quis ultricies luctus, ex risus bibendum neque, vitae hendrerit leo turpis ac nisl. Nam sit amet fermentum odio, at posuere tortor. Etiam sit amet lobortis sem. Praesent eget rhoncus tortor. Etiam tincidunt consectetur erat eu tincidunt. Aenean a tellus nec massa tempor consectetur sit amet at metus.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a risus vel est maximus volutpat sit amet et ipsum. Duis a massa sodales, pulvinar lectus vel, elementum dolor. Vestibulum nibh nibh, placerat vitae fringilla non, accumsan eget lectus.
+                        <br>
+                        Phasellus suscipit, odio quis ultricies luctus, ex risus bibendum neque, vitae hendrerit leo turpis ac nisl. Nam sit amet fermentum odio, at posuere tortor. Etiam sit amet lobortis sem. Praesent eget rhoncus tortor. Etiam tincidunt consectetur erat eu tincidunt. Aenean a tellus nec massa tempor consectetur sit amet at metus.
                     </p>
-                </div>  
+                </div>
             </div>
         </div>
     </div>
@@ -520,39 +592,60 @@ if( !isset($_SESSION['login']) ){
                                             style="background-color: #96AA03; border-radius: 0.2vw; padding: 0vw 0.4vw 0.4vw 0.4vw;">
                                             <div style="padding: 0%;">
                                                 <img src="./image/coin.png" width="20" height="20">
-                                                <font style="font-size: 1vw; color: white;">69</font>
+                                                <font style="font-size: 1vw; color: white;"><?= $koin[0]['koin']; ?></font>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="5" style="padding: 0.7vw;"></td>
                                     </tr>
-                                    <tr>
-                                        <!--Baris 1 Sub Topik 1-->
-                                        <td colspan="2" id="subtopik-1"
-                                            style="cursor: pointer; background-color: #B4BFCC; color: white; width: 20vw; max-width: 30vw; padding: 0.5vw 1vw 0.5vw 1.5vw; border-radius: 0.5vw;">
-                                            <div style="display: flex;">
-                                                <div>
-                                                    <img src="./image/gembok.png" width="13" height="15"
-                                                        style="margin-right: 5vw;">
-                                                </div>
-                                                <div style="color: white;">
-                                                    Sub Topik 1
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <!--Buka Baris 1 Sub Topik 1-->
-                                        <td></td>
-                                        <td id="materi" colspan="2"
-                                            style="background-color: #96AA03; color: white;  border-radius: 0.5vw;">
-                                            <button type="button" class="btn"
-                                                style="background-color: #96AA03; color: white;">
-                                                Buka
-                                                <img src="./image/coin.png" width="20" height="20">
-                                                5!</button>
-
-                                        </td>
-                                    </tr>
+                                    <?php $subtopik = ambilData("SELECT * FROM subtopik WHERE kode_topik = 1"); ?>
+                                    <?php foreach ($subtopik as $rowsub) {
+                                        if ($rowsub['keterangan'] == 'materi') { ?>
+                                            <tr><!--Baris 1 Sub Topik 1-->
+                                                <td colspan="2"
+                                                    style="background-color: #B4BFCC; color: white; width: 20vw; max-width: 30vw; padding: 0.5vw 1vw 0.5vw 1.5vw; border-radius: 0.5vw;">
+                                                    <div style="display: flex;">
+                                                        <div>
+                                                            <img src="./image/coin.png" width="18" height="18"
+                                                                style="margin-right: 5vw;">
+                                                        </div>
+                                                        <div style="color: white;">
+                                                            <?= $rowsub['nama_subtopik']; ?>
+                                                        </div>
+                                                    </div>
+                                                </td><!--Baris 1 Sub Topik 1-->
+                                                <td></td>
+                                                <td colspan="2"
+                                                    style="background-color: #96AA03; color: white;  border-radius: 0.5vw;">
+                                                    <form method="post">
+                                                        <input type="hidden" name="kode_subtopik" value="<?= $rowsub['kode_subtopik'] ?>">
+                                                        <input type="hidden" name="harga" value="<?= $rowsub['harga'] ?>">
+                                                        <?php 
+                                                            $kode_subtopik_pilih  = $rowsub['kode_subtopik'];
+                                                            $status_bayar = ambilData("SELECT * FROM pembelian 
+                                                            WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id"); 
+                                                        ?>
+                                                        <?php if ($status_bayar): ?>
+                                                            <button type="submit" class="btn" style="background-color: #96AA03; color: white;">
+                                                                Buka
+                                                                <span style="text-decoration: line-through; text-decoration-color: black;">
+                                                                    <img src="./image/coin.png" width="20" height="20" style="vertical-align: middle;">
+                                                                    <?= $rowsub['harga']; ?>
+                                                                </span>
+                                                            </button>
+                                                        <?php else: ?>
+                                                            <button type="submit" class="btn" style="background-color: #96AA03; color: white;">
+                                                                Beli
+                                                                <img src="./image/coin.png" width="20" height="20" style="vertical-align: middle;">
+                                                                <?= $rowsub['harga']; ?>
+                                                            </button>
+                                                        <?php endif; ?>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    <?php } ?>
                                     <tr>
                                         <td colspan="5" style="padding: 0.7vw;"></td>
                                     </tr>
@@ -570,40 +663,57 @@ if( !isset($_SESSION['login']) ){
                                     <tr>
                                         <td colspan="5" style="padding: 0.7vw;"></td>
                                     </tr>
-                                    <tr><!--Baris 2 Sub Topik 1-->
-                                        <td colspan="2" id="subtopik-2"
-                                            style="cursor: pointer; background-color: #B4BFCC; color: white; width: 20vw; max-width: 30vw; padding: 0.5vw 1vw 0.5vw 1.5vw; border-radius: 0.5vw;">
-                                            <div style="display: flex;">
-                                                <div>
-                                                    <img src="./image/gembok.png" width="13" height="15"
-                                                        style="margin-right: 5vw;">
-                                                </div>
-                                                <div style="color: white;">
-                                                    Sub Topik 1
-                                                </div>
-                                            </div>
-                                        </td><!--Baris 2 Sub Topik 1-->
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                    <?php foreach ($subtopik as $rowsub) {
+                                        if ($rowsub['keterangan'] == 'tambahan') { ?>
+                                            <tr><!--Baris 1 Sub Topik 1-->
+                                                <td colspan="2"
+                                                    style="background-color: #B4BFCC; color: white; width: 20vw; max-width: 30vw; padding: 0.5vw 1vw 0.5vw 1.5vw; border-radius: 0.5vw;">
+                                                    <div style="display: flex;">
+                                                        <div>
+                                                            <img src="./image/coin.png" width="18" height="18"
+                                                                style="margin-right: 5vw;">
+                                                        </div>
+                                                        <div style="color: white;">
+                                                            <?= $rowsub['nama_subtopik']; ?>
+                                                        </div>
+                                                    </div>
+                                                </td><!--Baris 1 Sub Topik 1-->
+                                                <td></td>
+                                                <td colspan="2"
+                                                    style="background-color: #96AA03; color: white;  border-radius: 0.5vw;">
+                                                    <form method="post">
+                                                        <input type="hidden" name="kode_subtopik" value="<?= $rowsub['kode_subtopik'] ?>">
+                                                        <input type="hidden" name="harga" value="<?= $rowsub['harga'] ?>">
+                                                        <?php 
+                                                            $kode_subtopik_pilih  = $rowsub['kode_subtopik'];
+                                                            $status_bayar = ambilData("SELECT * FROM pembelian 
+                                                            WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id"); 
+                                                        ?>
+                                                        <?php if ($status_bayar): ?>
+                                                            <button type="submit" class="btn" style="background-color: #96AA03; color: white;">
+                                                                Buka
+                                                                <span style="text-decoration: line-through; text-decoration-color: black;">
+                                                                    <img src="./image/coin.png" width="20" height="20" style="vertical-align: middle;">
+                                                                    <?= $rowsub['harga']; ?>
+                                                                </span>
+                                                            </button>
+                                                        <?php else: ?>
+                                                            <button type="submit" class="btn" style="background-color: #96AA03; color: white;">
+                                                                Beli
+                                                                <img src="./image/coin.png" width="20" height="20" style="vertical-align: middle;">
+                                                                <?= $rowsub['harga']; ?>
+                                                            </button>
+                                                        <?php endif; ?>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" style="padding: 0.5vw;"></td>
+                                            </tr>
+                                        <?php } ?>
+                                    <?php } ?>
                                     <tr>
                                         <td colspan="5" style="padding: 0.3vw;"></td>
-                                    </tr>
-                                    <tr><!--Baris 3 Sub Topik 1-->
-                                        <td colspan="2" id="subtopik-3"
-                                            style="cursor: pointer; background-color: #B4BFCC; color: white; width: 20vw; max-width: 30vw; padding: 0.5vw 1vw 0.5vw 1.5vw; border-radius: 0.5vw;">
-                                            <div style="display: flex;">
-                                                <div>
-                                                    <img src="./image/gembok.png" width="13" height="15"
-                                                        style="margin-right: 5vw;">
-                                                </div>
-                                                <div style="color: white;">
-                                                    Sub Topik 1
-                                                </div>
-                                            </div>
-                                        </td><!--Baris 3 Sub Topik 1-->
-                                        <td></td>
-                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td colspan="5" style="padding: 0.5vw;"></td>
@@ -622,38 +732,63 @@ if( !isset($_SESSION['login']) ){
                                     <tr>
                                         <td colspan="5" style="padding: 0.7vw;"></td>
                                     </tr>
-                                    <tr><!--Baris 4 Sub Topik 1-->
-                                        <td colspan="2" id="subtopik-3"
-                                            style="cursor: pointer; background-color: #B4BFCC; color: white; width: 20vw; max-width: 30vw; padding: 0.5vw 1vw 0.5vw 1.5vw; border-radius: 0.5vw;">
-                                            <div style="display: flex;">
-                                                <div>
-                                                    <img src="./image/gembok.png" width="13" height="15"
-                                                        style="margin-right: 5vw;">
-                                                </div>
-                                                <div style="color: white; text-align: left;">
-                                                    Sub Topik 1
-                                                </div>
-                                            </div>
-                                        </td><!--Baris 4 Sub Topik 1-->
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                    <?php foreach ($subtopik as $rowsub) {
+                                        if ($rowsub['keterangan'] == 'latihan') { ?>
+                                            <tr><!--Baris 1 Sub Topik 1-->
+                                                <td colspan="2"
+                                                    style="background-color: #B4BFCC; color: white; width: 20vw; max-width: 30vw; padding: 0.5vw 1vw 0.5vw 1.5vw; border-radius: 0.5vw;">
+                                                    <div style="display: flex;">
+                                                        <div>
+                                                            <img src="./image/coin.png" width="18" height="18"
+                                                                style="margin-right: 5vw;">
+                                                        </div>
+                                                        <div style="color: white;">
+                                                            <?= $rowsub['nama_subtopik']; ?>
+                                                        </div>
+                                                    </div>
+                                                </td><!--Baris 1 Sub Topik 1-->
+                                                <td></td>
+                                                <td colspan="2"
+                                                    style="background-color: #96AA03; color: white;  border-radius: 0.5vw;">
+                                                    <form method="post">
+                                                        <input type="hidden" name="kode_subtopik" value="<?= $rowsub['kode_subtopik'] ?>">
+                                                        <input type="hidden" name="harga" value="<?= $rowsub['harga'] ?>">
+                                                        <?php 
+                                                            $kode_subtopik_pilih  = $rowsub['kode_subtopik'];
+                                                            $status_bayar = ambilData("SELECT * FROM pembelian 
+                                                            WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id"); 
+                                                        ?>
+                                                        <?php if ($status_bayar): ?>
+                                                            <button type="submit" class="btn" style="background-color: #96AA03; color: white;">
+                                                                Buka
+                                                                <span style="text-decoration: line-through; text-decoration-color: black;">
+                                                                    <img src="./image/coin.png" width="20" height="20" style="vertical-align: middle;">
+                                                                    <?= $rowsub['harga']; ?>
+                                                                </span>
+                                                            </button>
+                                                        <?php else: ?>
+                                                            <button type="submit" class="btn" style="background-color: #96AA03; color: white;">
+                                                                Beli
+                                                                <img src="./image/coin.png" width="20" height="20" style="vertical-align: middle;">
+                                                                <?= $rowsub['harga']; ?>
+                                                            </button>
+                                                        <?php endif; ?>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    <?php } ?>
                                 </table>
                             </center>
                         </div>
                         <div style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw;">
                             <div style="margin-top: 1vw; text-align: center;">
                                 <video width="250" height="150" style="border-radius: 0.5vw;" controls>
-                                    <source src="./image/CARA MENENTUKAN FUNGSI DAN BUKAN FUNGSI PADA GRAFIK.mp4">
+                                    <source src="<?= $topik[0]['video_url']; ?>">
                                 </video>
                             </div>
                             <div style="padding-left: 4vw; padding-right: 4vw; padding-top: 1vw; font-size: 1.2vw; color: #1F2844">
-
-                                Relasi yang merupakan fungsi adalah relasi
-                                yang menghubungkan satu anggota himpunan input dengan tepat satu anggota
-                                himpunan output. Relasi yang bukan fungsi
-                                adalah relasi yang menghubungkan satu anggota ke dua atau lebih anggota berbeda.
-
+                                <?= $topik[0]['rangkuman']; ?>
                             </div>
                         </div>
                     </div>
@@ -662,115 +797,116 @@ if( !isset($_SESSION['login']) ){
             </div>
         </div>
     </div>
-  
 
-   <script type="text/javascript">
 
-    // Mengatur menu hamburger, dropdown, dan close saat diklik
-    $(document).ready(function(){
-      //jquery for toggle sub menus
-      $('.sub-btn').click(function(){
-        $(this).next('.sub-menu').slideToggle();
-        $(this).find('.dropdown').toggleClass('fa-angle-down fa-angle-up');
-      });
- 
-      //jquery for expand and collapse the sidebar
-      $('.menu-btn').click(function(){
-        $('.side-bar').addClass('active');
-        $('.menu-btn').css("visibility", "hidden");
-      });
- 
-      $('.close-btn').click(function(){
-        $('.side-bar').removeClass('active');
-        $('.menu-btn').css("visibility", "visible");
-      });
-    });
+    <script type="text/javascript">
+        // Mengatur menu hamburger, dropdown, dan close saat diklik
+        $(document).ready(function() {
+            //jquery for toggle sub menus
+            $('.sub-btn').click(function() {
+                $(this).next('.sub-menu').slideToggle();
+                $(this).find('.dropdown').toggleClass('fa-angle-down fa-angle-up');
+            });
 
-    // Mengatur warna list dan isi dropdown di Navbar
-    const subItems = document.querySelectorAll('.sub-item');
+            //jquery for expand and collapse the sidebar
+            $('.menu-btn').click(function() {
+                $('.side-bar').addClass('active');
+                $('.menu-btn').css("visibility", "hidden");
+            });
 
-    subItems.forEach(item => {
-        item.addEventListener('click', function () {
-            subItems.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
-
-            // Seleksi elemen sub-btn terdekat
-            const parentSubBtn = item.closest('.sub-menu').previousElementSibling;
-
-            // Menghapus kelas 'active' dari semua sub-btn
-            document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
-
-            // Menambahkan kelas 'active' pada sub-btn yang sesuai
-            parentSubBtn.classList.add('active');
+            $('.close-btn').click(function() {
+                $('.side-bar').removeClass('active');
+                $('.menu-btn').css("visibility", "visible");
+            });
         });
-    });
 
-    // Mengatur tinggi Sidebar
-    document.addEventListener('DOMContentLoaded', function () {
-        const menuBtn = document.querySelector('.menu-btn');
-        const sidebar = document.querySelector('.side-bar');
-        const closeBtn = document.querySelector('.close-btn');
-        const navbar = document.querySelector('.navbar');
-        
-        // Fungsi untuk mengatur tinggi sidebar sesuai dengan perubahan posisi navbar saat scroll
-        function updateSidebarHeight() {
-            const navbarBottom = navbar.getBoundingClientRect().bottom; // Posisi bawah navbar
-            const sidebarHeight = window.innerHeight - navbarBottom; // Tinggi sidebar yang dibutuhkan
-        
-            // Batasi tinggi sidebar hingga maksimal 100vh
-            if (sidebarHeight < window.innerHeight) {
-                sidebar.style.top = `${navbarBottom}px`;
-                sidebar.style.height = `${sidebarHeight}px`;
-            } else {
-                sidebar.style.top = '0';
-                sidebar.style.height = '100vh';
+        // Mengatur warna list dan isi dropdown di Navbar
+        const subItems = document.querySelectorAll('.sub-item');
+
+        subItems.forEach(item => {
+            item.addEventListener('click', function() {
+                subItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                // Seleksi elemen sub-btn terdekat
+                const parentSubBtn = item.closest('.sub-menu').previousElementSibling;
+
+                // Menghapus kelas 'active' dari semua sub-btn
+                document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+
+                // Menambahkan kelas 'active' pada sub-btn yang sesuai
+                parentSubBtn.classList.add('active');
+            });
+        });
+
+        // Mengatur tinggi Sidebar
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.querySelector('.menu-btn');
+            const sidebar = document.querySelector('.side-bar');
+            const closeBtn = document.querySelector('.close-btn');
+            const navbar = document.querySelector('.navbar');
+
+            // Fungsi untuk mengatur tinggi sidebar sesuai dengan perubahan posisi navbar saat scroll
+            function updateSidebarHeight() {
+                const navbarBottom = navbar.getBoundingClientRect().bottom; // Posisi bawah navbar
+                const sidebarHeight = window.innerHeight - navbarBottom; // Tinggi sidebar yang dibutuhkan
+
+                // Batasi tinggi sidebar hingga maksimal 100vh
+                if (sidebarHeight < window.innerHeight) {
+                    sidebar.style.top = `${navbarBottom}px`;
+                    sidebar.style.height = `${sidebarHeight}px`;
+                } else {
+                    sidebar.style.top = '0';
+                    sidebar.style.height = '100vh';
+                }
             }
-        }
-    
-        // Panggil fungsi saat halaman dimuat, di-scroll, atau diubah ukurannya
-        updateSidebarHeight();
-        window.addEventListener('scroll', updateSidebarHeight);
-        window.addEventListener('resize', updateSidebarHeight);
-    
-        menuBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
+
+            // Panggil fungsi saat halaman dimuat, di-scroll, atau diubah ukurannya
+            updateSidebarHeight();
+            window.addEventListener('scroll', updateSidebarHeight);
+            window.addEventListener('resize', updateSidebarHeight);
+
+            menuBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
+
+            closeBtn.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+            });
         });
-    
-        closeBtn.addEventListener('click', () => {
-            sidebar.classList.remove('active');
+
+        // Mengatur padding Body
+        document.addEventListener('DOMContentLoaded', function() {
+            const head = document.querySelector('.head');
+
+            function adjustBodyPadding() {
+                const headHeight = head.offsetHeight;
+                document.body.style.paddingTop = `${headHeight}px`;
+            }
+
+            // Panggil fungsi saat halaman dimuat
+            adjustBodyPadding();
+
+            // Panggil lagi jika ukuran jendela berubah
+            window.addEventListener('resize', adjustBodyPadding);
         });
-    });
 
-    // Mengatur padding Body
-    document.addEventListener('DOMContentLoaded', function () {
-        const head = document.querySelector('.head');
-        
-        function adjustBodyPadding() {
-            const headHeight = head.offsetHeight;
-            document.body.style.paddingTop = `${headHeight}px`;
-        }
-    
-        // Panggil fungsi saat halaman dimuat
-        adjustBodyPadding();
-    
-        // Panggil lagi jika ukuran jendela berubah
-        window.addEventListener('resize', adjustBodyPadding);
-    });
+        document.getElementById('koin').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = 'price.php';
+        });
 
-    document.getElementById('koin').addEventListener('click', function(event) {
-          event.preventDefault(); 
-          window.location.href = 'price.php'; 
-    });
+        document.getElementById('materi').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = 'isi_subtopik2.php';
+        });
 
-    document.getElementById('materi').addEventListener('click', function(event) {
-          event.preventDefault();
-          window.location.href = 'isi_materi.php'; 
-    });
-   </script>
+    </script>
 
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
- </body>
+</body>
+
 </html>

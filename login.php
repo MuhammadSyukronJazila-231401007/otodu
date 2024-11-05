@@ -27,19 +27,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (password_verify($password, $row['password'])) {
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['user_email'] = $row['email'];
+            $_SESSION['user_name'] = $row['nama'];
+            $_SESSION['no_hp'] = $row['nomor'];
+            $_SESSION['latitude'] = $row['latitude'];
+            $_SESSION['longitude'] = $row['longitude'];
             $_SESSION['login'] = true;
 
             if (str_ends_with($row['nama'], "_new")) {
                 
                 // Hapus "_new" dari username setelah preferensi diatur
                 $newUsername = str_replace("_new", "", $row['nama']);
+                $_SESSION['user_name'] = $newUsername;
                 $updateSql = "UPDATE users SET nama = ? WHERE id = ?";
                 $updateStmt = $conn->prepare($updateSql);
                 $updateStmt->bind_param("si", $newUsername, $row['id']);
                 $updateStmt->execute();
                 $updateStmt->close();
-                $_SESSION['user_name'] = $newUsername;
-                
+
                 echo "new_user";
                 exit();
             }else{

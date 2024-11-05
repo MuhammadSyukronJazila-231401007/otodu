@@ -89,16 +89,17 @@ if( !isset($_SESSION['login']) ){
 
 <body>
 
-<nav class="navbar">
-    <div class="container" style="display: flex; align-items: center;">
-        <div class="logo">
-            <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 1vw;"> <!-- 130px -->
-        </div>
-        <a style="margin: 0;" class="nav-menu" href="dashboard.php">NLP OTODU</a>
-        <a style="margin: 0;" class="nav-menu" href="mentor.php">Mentor OTODU</a>
-        <a style="margin: 0;" class="nav-menu" id="nav-main" href="jasa.php">Desain Web & App</a>
-    </div>
-</nav> 
+  <nav class="navbar">
+      <div class="container" style="display: flex; align-items: center;">
+          <div class="logo">
+              <img src="image/logo otodu2.png" alt="logo" style="width: 10vw;"> <!-- 130px -->
+          </div>
+          <a style="margin: 0; text-decoration: none;" class="nav-menu" href="dashboard.php">NLP OTODU</a>
+          <a style="margin: 0; text-decoration: none;" class="nav-menu" href="mentor.php">Mentor OTODU</a>
+          <a style="margin: 0; text-decoration: none;" class="nav-menu" id="nav-main" href="jasa.php">Desain Web & App</a>
+      </div>
+  </nav>
+
 
   <section class="header">
     <p class="header-p">Kami memiliki professional Developer & Designer <br>

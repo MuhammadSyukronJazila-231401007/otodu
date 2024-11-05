@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'function.php';
 
 if( !isset($_SESSION['login']) ){
     header("Location: login.php");
@@ -229,7 +230,7 @@ if( !isset($_SESSION['login']) ){
                         </tr>
                         <tr>
                             <td style="width: 15vw;"><b>Email</b></td>
-                            <td>adadadadadad@gmail.com</td>
+                            <td><?= $_SESSION['user_email']; ?></td>
                         </tr>
                         <tr>
                             <td><b>Password</b></td>
@@ -248,19 +249,19 @@ if( !isset($_SESSION['login']) ){
                         </tr>
                         <tr>
                             <td style="width: 15vw;"><b>Nama</b></td>
-                            <td>adadadadadad</td>
+                            <td><?= $_SESSION['user_name'];?></td>
                         </tr>
                         <tr>
                             <td><b>No. HP</b></td>
-                            <td>0823144141414</td>
+                            <td><?= $_SESSION['no_hp']; ?></td>
                         </tr>
                         <tr>
                             <td><b>Latitude</b></td>
-                            <td>0.823144141414</td>
+                            <td><?= $_SESSION['latitude']; ?></td>
                         </tr>
                         <tr>
                             <td><b>Longitude</b></td>
-                            <td>0.823144141414</td>
+                            <td><?= $_SESSION['longitude']; ?></td>
                         </tr>
                     </table>
                 </div>
@@ -309,24 +310,24 @@ if( !isset($_SESSION['login']) ){
                         <tr>
                             <td colspan="3" style="border-bottom: 1px solid; padding: 1.5vw 3vw;"><b>Subtopik</b></td>
                         </tr>
-                        <tr>
-                            <td>Apa itu fungsi?</td>
-                            <td>28-10-2024</td>
-                            <td style="width: 20vw;"><img src="image/coin2.png" width="18" height="18"> 20</td>
-                        </tr>
-                        <tr>
-                            <td>Apa itu fungsi?</td>
-                            <td>28-10-2024</td>
-                            <td><img src="image/coin2.png" width="18" height="18"> 20</td>
+                        <?php 
+                            $id = $_SESSION['user_id'];
+                            $riwayatbeli = ambilData("SELECT p.kode_subtopik, p.tanggal_pembelian, s.nama_subtopik, s.harga 
+                                                      FROM pembelian p
+                                                      JOIN subtopik s ON p.kode_subtopik = s.kode_subtopik
+                                                      WHERE p.id_user = $id
+                                                      ORDER BY p.tanggal_pembelian DESC");
 
-                        </tr>
-                        <tr>
-                            <td>Apa itu fungsi?</td>
-                            <td>28-10-2024</td>
-                            <td><img src="image/coin2.png" width="18" height="18"> 20</td>
-
-                        </tr>
-
+                            foreach ($riwayatbeli as $riwayat) :
+                                // Mengubah format tanggal dari yyyy-mm-dd menjadi dd-mm-yyyy
+                                $tanggal_pembelian = date("d-m-Y", strtotime($riwayat['tanggal_pembelian']));
+                        ?>
+                            <tr>
+                                <td><?= htmlspecialchars($riwayat['nama_subtopik']); ?></td>
+                                <td><?= $tanggal_pembelian; ?></td>
+                                <td><img src="image/coin2.png" width="18" height="18"> <?= htmlspecialchars($riwayat['harga']); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
                     </table>
 
                 </div>

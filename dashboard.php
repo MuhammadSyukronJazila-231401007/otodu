@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-$_SESSION['new_user'] = '';
 
 if( !isset($_SESSION['login']) ){
     header("Location: login.php");
@@ -181,7 +180,7 @@ if( !isset($_SESSION['login']) ){
                 </div>
                 <div class="bg-white" style="height:30vw; width:40vw; border-radius: 1vw; padding:5vw;">
                   <div style="color: #1F2844;">
-                    <p>Halo <b>Sigma_SkibidiGajadiPitching6969</b>!</p>
+                    <p>Halo <b><?= $_SESSION['user_name']?></b>!</p>
                     <p style="margin-bottom: 2vw">Kamu terakhir mempelajari <b>Limit Tak Hingga - Subbab III</b>. pengen lanjut lagi ?</p>
                     <p class="text-white" style="background-color:#375679; text-align:center; border-radius:5px; padding:5px; cursor:pointer; font-size: 0.9d:\Download\Materi 2\Materi\pop_upmateri.htmlrem" id="materi-nlp">Buka <b>Limit Tak Hingga - Subbab III</b></p>
                     <p class="bg-white" style="color:#375679; text-align:center; border-radius:5px; padding:3px; border:1px solid; cursor:pointer; font-size: 1rem" id="daftar-materi">Buka materi lainnya</p>
@@ -229,12 +228,12 @@ if( !isset($_SESSION['login']) ){
 <script>
   document.getElementById('bab').addEventListener('click', function(event) {
        event.preventDefault(); // Mencegah perilaku default tautan
-       window.location.href = 'materi3.php'; // Ganti dengan URL yang sesuai
+       window.location.href = 'materi.php'; // Ganti dengan URL yang sesuai
    });
 
   document.getElementById('materi-nlp').addEventListener('click', function(event) {
        event.preventDefault(); // Mencegah perilaku default tautan
-       window.location.href = 'materi3.php'; // Ganti dengan URL yang sesuai
+       window.location.href = 'materi.php'; // Ganti dengan URL yang sesuai
    });
 
   document.getElementById('daftar-materi').addEventListener('click', function(event) {

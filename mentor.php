@@ -1,12 +1,16 @@
 <?php
+include 'function.php';
 session_start();
 
 if( !isset($_SESSION['login']) ){
     header("Location: login.php");
     exit;
 }
-?>
 
+$id = $_SESSION['user_id'];
+$koin = ambilData("SELECT koin FROM users WHERE id = $id");
+
+?>
 
 
 <!doctype html>
@@ -137,7 +141,7 @@ if( !isset($_SESSION['login']) ){
             <div style="margin-right: 0.4vw;">
               <img src="./image/coin.png" width="20" height="20">
             </div>
-            <div style="text-align: left;">69</div>
+            <div style="text-align: left;"><?= $koin[0]['koin'] ?></div>
           </div>
         </a>
       </div>

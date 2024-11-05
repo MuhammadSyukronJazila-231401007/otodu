@@ -1,10 +1,15 @@
 <?php
+include 'function.php';
 session_start();
 
 if( !isset($_SESSION['login']) ){
     header("Location: login.php");
     exit;
 }
+
+$id = $_SESSION['user_id'];
+$koin = ambilData("SELECT koin FROM users WHERE id = $id");
+
 ?>
 
 
@@ -254,7 +259,7 @@ if( !isset($_SESSION['login']) ){
         <span style="position: relative; background-color: #96AA03; color: white; display: inline-flex; align-items: center; padding: 0.2vw 1vw; 
                   margin-left: 9vw; border-radius: 3px; width: fit-content; " id="koin">
                 <img src="image/coin.png" style="width: 1.7vw; margin-right: 0.5vw;">
-                <span style="font-weight: 515">69</span>
+                <span style="font-weight: 515"><?= $koin[0]['koin'] ?></span>
         </span>
         <!-- <p id="kredit-otodu">Kredit OTODU Anda: <span style="font-weight: 600;">69</span></p> -->
         <div class="kredit-satuan">
