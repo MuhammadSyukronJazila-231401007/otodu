@@ -16,7 +16,7 @@ if( !isset($_SESSION['login']) ){
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/pilih.css">
-  <title>Card Selection</title>
+  <title>Pilih Preferensi</title>
 </head>
 
 <body>

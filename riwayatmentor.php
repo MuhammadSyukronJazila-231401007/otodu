@@ -150,7 +150,7 @@ if( !isset($_SESSION['login']) ){
 
     .isi-card {}
   </style>
-  <title>Hello, world!</title>
+  <title>Riwayat Mentor</title>
 </head>
 
 <body>
