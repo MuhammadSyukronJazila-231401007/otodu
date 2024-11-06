@@ -325,7 +325,7 @@ if( !isset($_SESSION['login']) ){
                             <tr>
                                 <td><?= htmlspecialchars($riwayat['nama_subtopik']); ?></td>
                                 <td><?= $tanggal_pembelian; ?></td>
-                                <td><img src="image/coin2.png" width="18" height="18"> <?= htmlspecialchars($riwayat['harga']); ?></td>
+                                <td style="width: 20vw;"><img src="image/coin2.png" width="18" height="18"> <?= htmlspecialchars($riwayat['harga']); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </table>
