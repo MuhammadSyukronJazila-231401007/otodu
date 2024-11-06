@@ -29,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['user_email'] = $row['email'];
             $_SESSION['user_name'] = $row['nama'];
             $_SESSION['no_hp'] = $row['nomor'];
+            $_SESSION['role'] = $row['role'];
             $_SESSION['latitude'] = $row['latitude'];
             $_SESSION['longitude'] = $row['longitude'];
             $_SESSION['login'] = true;

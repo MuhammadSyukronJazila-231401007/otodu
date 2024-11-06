@@ -6,7 +6,7 @@ if( !isset($_SESSION['login']) ){
     header("Location: login.php");
     exit;
 }
-
+// hi test konflik apakah perubahan ini tetap ada meski udah di fetch versi terbaru
 $id = $_SESSION['user_id'];
 $koin = ambilData("SELECT koin FROM users WHERE id = $id");
 
