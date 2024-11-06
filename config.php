@@ -5,5 +5,4 @@ $pass = "";
 $dbname = "otodu";
 // hi
 $conn = new mysqli($host, $user, $pass, $dbname);
-// hi test konflik
 ?>

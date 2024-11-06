@@ -1,12 +1,12 @@
 <?php
 session_start();
 
+// Cek apakah user sudah login, jika belum arahkan ke login.php
 if( !isset($_SESSION['login']) ){
     header("Location: login.php");
     exit;
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -238,85 +238,35 @@ if( !isset($_SESSION['login']) ){
 
     <div class="dropdown-container">
         <div class="dropdown">
-            <select class="form-select dp1" aria-label="Default select example">
+            <select class="form-select dp1" id="dp1" aria-label="Default select example">
                 <option selected>Semua</option>
-                <option value="1">SD</option>
-                <option value="2">SMP</option>
-                <option value="3">SMA</option>
+                <option value="sd">SD</option>
+                <option value="smp">SMP</option>
+                <option value="sma">SMA</option>
             </select>
-            <select class="form-select dp2" aria-label="Default select example">
+            <select class="form-select dp2" id="dp2" aria-label="Default select example">
                 <option selected>Semua</option>
-                <option value="materi1">Matematika</option>
-                <option value="materi2">Bahasa Inggris</option>
-                <option value="materi3">Dasar Pemrograman</option>
-                <option value="materi4">UTBK</option>
+                <option value="matematika">Matematika</option>
+                <option value="bahasa_inggris">Bahasa Inggris</option>
+                <option value="daspro">Dasar Pemrograman</option>
+                <option value="utbk">UTBK</option>
             </select>
         </div>
     </div>
+    
     
     <div class="table-container">
         <table class="content-table">
             <thead>
                 <tr>
-                    <td ><b>No</b></td>
-                    <td ><b>Nama</b></td>
-                    <td ><b>Jenjang</b></td>
-                    <td ><b>Materi</b></td>
-                    <td ><b>Poin</b></td>
+                    <td><b>No</b></td>
+                    <td><b>Nama</b></td>
+                    <td><b>Jenjang</b></td>
+                    <td><b>Materi</b></td>
+                    <td><b>Poin</b></td>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td class="user">
-                        Anugrah
-                        <img src="image/medal 1.png" width="25vw" >
-                    </td>
-                    <td>SMA</td>
-                    <td>Dasar Pemrograman</td>
-                    <td>1000</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td class="user">
-                        M. Dzakwan
-                        <img src="image/medal 2.png" width="25vw">
-                    </td>
-                    <td>SMP</td>
-                    <td>Dasar Pemrograman</td>
-                    <td>800</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td class="user">
-                        M. Syukron
-                        <img src="image/medal 3.png" width="25vw">
-                    </td>
-                    <td>SD</td>
-                    <td>UTBK</td>
-                    <td>700</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td class="user">Timothy</td>
-                    <td>SMA</td>
-                    <td>Matematika</td>
-                    <td>600</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td class="user">Armanda</td>
-                    <td>SMP</td>
-                    <td>Bahasa Inggris</td>
-                    <td>500</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Sigma Skibidi</td>
-                    <td>SMA</td>
-                    <td>UTBK</td>
-                    <td>550</td>
-                </tr>
+            <tbody id="leaderboard-table">
             </tbody>
         </table>
     </div>
@@ -346,7 +296,30 @@ if( !isset($_SESSION['login']) ){
             // Terapkan lebar text-container ke dropdown-container
             dropdownContainer.style.width = textContainerWidth + 'px';
             tableContainer.style.width = textContainerWidth + 'px';
+
+            loadLeaderboard();
         };
+
+         // Fungsi untuk memuat data leaderboard
+         function loadLeaderboard() {
+            console.log("tol")
+             const jenjang = document.getElementById("dp1").value;
+             const materi = document.getElementById("dp2").value;
+
+             const xhr = new XMLHttpRequest();
+             xhr.open("GET", `leaderboard_bc.php?jenjang=${jenjang}&materi=${materi}`, true);
+             xhr.onload = function () {
+                 if (this.status === 200) {
+                     document.getElementById("leaderboard-table").innerHTML = this.responseText;
+                 }
+             };
+             xhr.send();
+         }
+     
+         // Panggil loadLeaderboard ketika dropdown berubah
+         document.getElementById("dp1").addEventListener("change", loadLeaderboard);
+         document.getElementById("dp2").addEventListener("change", loadLeaderboard);
+     
 
     </script>
 
