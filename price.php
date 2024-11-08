@@ -305,147 +305,52 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
             <button type="submit" id="register-btn" class="btn">Redeem</button>
         </div>
     </div>
-    <!doctype html>
-    <html lang="en">
 
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap"
-            rel="stylesheet">
-        <title>Beli Koin</title>
-
-        <style>
-            * {
-                font-family: "Rethink Sans", sans-serif;
-            }
-
-            .kirim {
-                background-color: #25D366;
-                font-size: 1.5vw;
-                transition: background-color 0.3s ease;
-            }
-
-            .kirim:hover {
-                background-color: #1DA851 !important;
-            }
-
-            .custom-btn {
-                background-color: transparent;
-                transition: background-color 0.3s ease;
-            }
-
-            .custom-btn:hover {
-                background-color: rgba(0, 0, 0, 0.1) !important;
-                /* Warna gelap sedikit transparan */
-            }
-        </style>
-    </head>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Launch demo modal
-    </button>
-
-    <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content px-4 py-2">
+            <div class="modal-content">
                 <div class="modal-header" style="border: none;">
-                    <h3 class="modal-title text-center w-100" id="exampleModalLabel">Beli Kredit <i
-                            class="bi bi-cart-fill ms-2"></i>
+                    <h3 class="modal-title text-center w-100" id="exampleModalLabel">Beli Kredit <i class="bi bi-cart-fill"></i>
                     </h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="img/qrcode.png" width="160vw" alt=""> <br>
-                    <img src="img/qris 1.png" width="100vw" alt=""> <br>
-                    <div class="d-flex mt-3 justify-content-center align-items-center mb-4">
-                        <div class="d-flex justify-content-center align-items-end me-2">
-                            <img src="img/chinese-coin.png" width="30vw" height="30wv" alt="">
-                            <span class="ms-1" style="font-weight: 600;"> x 25</span>
+                    <img src="pilih/img-landing/qrcode.png" width="160vw" alt=""> <br>
+                    <img src="pilih/img-landing/qris 1.png" width="100vw" alt="">
+                    <h4 class="mt-2" style="font-weight: bold;">Rp35.000</h4>
+                    <button class="btn btn-primary w-100 mb-3 text-start" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle
+                        second element</button>
+                    <br>
+                    <button class="btn btn-primary w-100 text-start" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Toggle
+                        second element</button>
+                    <div class="row">
+                        <div class="col">
+                            <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                <div class="card card-body">
+                                    Some placeholder content for the first collapse component of this multi-collapse example. This panel is
+                                    hidden by default but revealed when the user activates the relevant trigger.
+                                </div>
+                            </div>
                         </div>
-                        <h4 class="p-0 m-0" style="font-weight: bold;">= Rp35.000</h4>
-                    </div>
-                    <button
-                        class="custom-btn px-3 btn w-100 mb-3 text-start bg-transparent border d-flex justify-content-between align-items-center"
-                        type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample1" aria-expanded="false"
-                        aria-controls="multiCollapseExample1">
-                        <img src="img/mandiri 1.png" width="100vw" alt=""><i class="bi bi-chevron-down py-2"></i></button>
-                    <div class="collapse multi-collapse" id="multiCollapseExample1">
-                        <ol class="list-group list-group-numbered text-start">
-                            <li class="list-group-item border-0">
-                                <span>ATM</span> <br>
-                                <ul>
-                                    <li>Pergi ke ATM terdekat</li>
-                                    <li>Lakukan transfer menggunakan mesin ATM ke nomor rekening berikut:</li>
-                                    <li>Nomor Rekening: 123-456-7890 (Bank ABC)</li>
-                                    <li>Ikuti instruksi pada layar ATM untuk transfer ke nomor rekening tersebut.</li>
-                                </ul>
-                            </li>
-                            <li class="list-group-item border-0">
-                                <span>Mobile Banking</span> <br>
-                                <ul>
-                                    <li>Melalui aplikasi mobile banking di ponsel Anda, pilih opsi transfer ke rekening Bank ABC dan
-                                        masukkan nomor rekening:</li>
-                                    <li>Nomor Rekening: 123-456-7890</li>
-                                    <li>Konfirmasi pembayaran setelah memasukkan jumlah yang sesuai.</li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </div>
-                    <button
-                        class="custom-btn px-3 btn w-100 mb-3 text-start bg-transparent border d-flex justify-content-between align-items-center"
-                        type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false"
-                        aria-controls="multiCollapseExample2">
-                        <img src="img/bca 1.png" width="90vw" alt=""><i class="bi bi-chevron-down py-2"></i></button>
-                    <div class="collapse multi-collapse" id="multiCollapseExample2">
-                        <ol class="list-group list-group-numbered text-start">
-                            <li class="list-group-item border-0">
-                                <span>ATM</span> <br>
-                                <ul>
-                                    <li>Pergi ke ATM terdekat</li>
-                                    <li>Lakukan transfer menggunakan mesin ATM ke nomor rekening berikut:</li>
-                                    <li>Nomor Rekening: 123-456-7890 (Bank ABC)</li>
-                                    <li>Ikuti instruksi pada layar ATM untuk transfer ke nomor rekening tersebut.</li>
-                                </ul>
-                            </li>
-                            <li class="list-group-item border-0">
-                                <span>Mobile Banking</span> <br>
-                                <ul>
-                                    <li>Melalui aplikasi mobile banking di ponsel Anda, pilih opsi transfer ke rekening Bank ABC dan
-                                        masukkan nomor rekening:</li>
-                                    <li>Nomor Rekening: 123-456-7890</li>
-                                    <li>Konfirmasi pembayaran setelah memasukkan jumlah yang sesuai.</li>
-                                </ul>
-                            </li>
-                        </ol>
+                        <div class="col">
+                            <div class="collapse multi-collapse" id="multiCollapseExample2">
+                                <div class="card card-body">
+                                    Some placeholder content for the second collapse component of this multi-collapse example. This panel is
+                                    hidden by default but revealed when the user activates the relevant trigger.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer border-0">
-                    <button style="background-color: #25D366; font-size: 1.5vw;" type="button"
-                        class="kirim btn d-block w-100 text-white fw-bold ">Kirim
-                        Bukti <i class="bi bi-whatsapp ms-2"></i></button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <body>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
-    </body>
-
-    </html>
-
-    Cagar budaya berfungsi untuk memperjelas identitas suatu bangsa karena berupa hasil-hasil budaya yang khas dan dimiliki bersama oleh suatu bangatersebut (Bahri, dkk: 2019). Pembelajaran tentangcagar budaya dapat mendukung adanya pembangunanpendidikan dan pariwisata budaya yang telah digalakkanoleh Kementerian Pendidikan beberapa tahun terakhir.Materi mengenai cagar budaya dapat dimasukkankedalam pembelajaran sehingga siswa mengenalmencintai dan merasa memiliki peninggalan sejarahlokal di wilayahnya. Urgensi pembelajaran berbasis cagarbudaya selain untuk meningkatkan pendidikan karakterjuga diharapkan untuk meningkatkan kesadaran sejarahsiswa. Kesadaran sejarah berguna untuk mengetahuifakta-fakta sejarah yang ada sekaligus untuk membentukidentitas suatu bangsa yang luhur dan disegani.
 
 
     <footer>
