@@ -2,7 +2,7 @@
 include 'function.php';
 session_start();
 
-if( !isset($_SESSION['login']) ){
+if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit;
 }
@@ -15,6 +15,7 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,73 +42,87 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
         .navbar {
             background-color: white;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1.5vw; 
+            padding: 1.5vw;
             align-items: center;
         }
-    
+
         .nav-menu {
-          margin: 0;
-          padding: 0.8vw 2vw; 
-          position: relative;
-          align-self: center;
-          font-size: 1.2vw; 
-          cursor: pointer;
-          font-family: 'Rethink Sans';
-          text-decoration: none;
-          color: #4D62A5;
+            margin: 0;
+            padding: 0.8vw 2vw;
+            position: relative;
+            align-self: center;
+            font-size: 1.2vw;
+            cursor: pointer;
+            font-family: 'Rethink Sans';
+            text-decoration: none;
+            color: #4D62A5;
         }
-    
+
         .nav-menu:not(:last-child)::after {
-          content: '';
-          position: absolute;
-          right: 0; 
-          top: 0;
-          width: 1px;
-          height: 100%;
-          background-color: #4D62A5;
-          transform: translateX(50%); /* Memindahkan garis ke tengah-tengah jarak antara elemen a */
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background-color: #4D62A5;
+            transform: translateX(50%);
+            /* Memindahkan garis ke tengah-tengah jarak antara elemen a */
         }
-    
+
         .nav-menu:hover {
-          background-color: #4D62A5;
-          color: white; 
-          font-weight: 450;
+            background-color: #4D62A5;
+            color: white;
+            font-weight: 450;
         }
-    
+
         #nav-main {
-          background-color: #4D62A5;
-          color: white;
+            background-color: #4D62A5;
+            color: white;
         }
-    
+
         .logo img {
-          width: 10vw;
-          margin-right: 1vw;
+            width: 10vw;
+            margin-right: 1vw;
         }
 
         .text {
-            position: relative; /* Mengatur posisi relatif untuk overlay */
+            position: relative;
+            /* Mengatur posisi relatif untuk overlay */
             text-align: center;
-            width: 100%; /* Mengambil lebar penuh layar */
-            overflow: hidden; /* Menghindari elemen keluar dari tampilan */
+            width: 100%;
+            /* Mengambil lebar penuh layar */
+            overflow: hidden;
+            /* Menghindari elemen keluar dari tampilan */
         }
 
         .background-image {
-            width: 100%; /* Mengatur gambar agar mengikuti lebar elemen */
-            height: auto; /* Menjaga proporsi gambar */
-            display: block; /* Menghindari spasi di bawah gambar */
+            width: 100%;
+            /* Mengatur gambar agar mengikuti lebar elemen */
+            height: auto;
+            /* Menjaga proporsi gambar */
+            display: block;
+            /* Menghindari spasi di bawah gambar */
         }
 
         .overlay {
-            position: absolute; /* Memungkinkan teks berada di atas gambar */
-            top: 50%; /* Posisi vertikal tengah */
-            left: 50%; /* Posisi horizontal tengah */
-            transform: translate(-50%, -50%); /* Memusatkan teks */
-            color: white; /* Warna teks */
-            z-index: 1; /* Memastikan teks di atas gambar */
+            position: absolute;
+            /* Memungkinkan teks berada di atas gambar */
+            top: 50%;
+            /* Posisi vertikal tengah */
+            left: 50%;
+            /* Posisi horizontal tengah */
+            transform: translate(-50%, -50%);
+            /* Memusatkan teks */
+            color: white;
+            /* Warna teks */
+            z-index: 1;
+            /* Memastikan teks di atas gambar */
         }
 
         #text-2 {
-            margin-top: 3vw; /* 20px */
+            margin-top: 3vw;
+            /* 20px */
         }
 
         h4 {
@@ -118,7 +133,7 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
         #kredit-otodu {
             color: #1F2844;
             margin-top: 3vh;
-            margin-left: 5vw; 
+            margin-left: 5vw;
         }
 
         .kredit-satuan {
@@ -129,23 +144,26 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
         }
 
         .kredit-satuan p {
-            font-size: 1.1vw; /* 13px */
+            font-size: 1.1vw;
+            /* 13px */
             align-self: center;
         }
 
         .nomor {
             width: 5.5vw;
-            height: 5vh; 
+            height: 5vh;
             border-radius: 5px;
-            margin-right: 1.5vw; 
-            margin-left: 1.5vw; 
-            margin-bottom: 2vh; 
+            margin-right: 1.5vw;
+            margin-left: 1.5vw;
+            margin-bottom: 2vh;
         }
 
         .rounded-text {
             background-color: #F26D0F;
-            padding: 0.5vw 1.3vw; /* 5px 15px */
-            border-radius: 12px; /* 10px */
+            padding: 0.5vw 1.3vw;
+            /* 5px 15px */
+            border-radius: 12px;
+            /* 10px */
             display: inline-block;
             color: #fff;
         }
@@ -154,8 +172,8 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 4vh; 
-        }   
+            margin-top: 4vh;
+        }
 
         .kredit-diskon {
             display: flex;
@@ -164,23 +182,24 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
         }
 
         .kredit-diskon img {
-            height: 23vw; 
+            height: 23vw;
             cursor: pointer;
-            transition: transform 0.3s ease; 
+            transition: transform 0.3s ease;
         }
 
         .kredit-diskon img:hover {
-            transform: scale(1.1); 
+            transform: scale(1.1);
         }
 
         #disc-0 {
-            height: 21.2vw; /* 235px */
-            margin-top: 1vw; 
-            margin-left: 2vw; 
+            height: 21.2vw;
+            /* 235px */
+            margin-top: 1vw;
+            margin-left: 2vw;
         }
-        
+
         #disc-50 {
-            margin-left: 4vw; 
+            margin-left: 4vw;
             height: 22vw
         }
 
@@ -198,22 +217,26 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
         }
 
         .redeem {
-            width: 15vw; 
-            height: 5vh; 
+            width: 15vw;
+            height: 5vh;
             border-radius: 5px;
-            margin-right: 1.5vw; 
-            margin-left: 1.5vw; 
-            margin-bottom: 2vh; 
+            margin-right: 1.5vw;
+            margin-left: 1.5vw;
+            margin-bottom: 2vh;
         }
 
         .btn {
             background-color: white;
             color: black;
-            border: 0.05vw solid black; /* 0.5px */
-            padding: 0.2vw 0.7vw; /* 2px 7px */
-            border-radius: 8px; /* 10px */
-            cursor: pointer;      
-            margin-bottom: 1vw; /* 10px */
+            border: 0.05vw solid black;
+            /* 0.5px */
+            padding: 0.2vw 0.7vw;
+            /* 2px 7px */
+            border-radius: 8px;
+            /* 10px */
+            cursor: pointer;
+            margin-bottom: 1vw;
+            /* 10px */
         }
 
         .btn:hover {
@@ -226,14 +249,15 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
             justify-content: flex-start;
             align-items: center;
             background-color: #1F2844;
-            padding: 2vw; /* 20px */
+            padding: 2vw;
+            /* 20px */
             color: white;
         }
-        
     </style>
-    
+
 </head>
-<body>    
+
+<body>
 
     <nav class="navbar">
         <div class="container" style="display: flex; align-items: center;">
@@ -244,7 +268,7 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
             <a style="margin: 0; text-decoration: none;" class="nav-menu" href="mentor.php">Mentor OTODU</a>
             <a style="margin: 0; text-decoration: none;" class="nav-menu" href="jasa.php">Desain Web & App</a>
         </div>
-    </nav> 
+    </nav>
 
     <div class="text">
         <img src="./image/price bc.png" alt="Gambar Latar" class="background-image">
@@ -258,8 +282,8 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
     <div class="card">
         <span style="position: relative; background-color: #96AA03; color: white; display: inline-flex; align-items: center; padding: 0.2vw 1vw; 
                   margin-left: 9vw; border-radius: 3px; width: fit-content; " id="koin">
-                <img src="image/coin.png" style="width: 1.7vw; margin-right: 0.5vw;">
-                <span style="font-weight: 515"><?= $koin[0]['koin'] ?></span>
+            <img src="image/coin.png" style="width: 1.7vw; margin-right: 0.5vw;">
+            <span style="font-weight: 515"><?= $koin[0]['koin'] ?></span>
         </span>
         <!-- <p id="kredit-otodu">Kredit OTODU Anda: <span style="font-weight: 600;">69</span></p> -->
         <div class="kredit-satuan">
@@ -281,14 +305,169 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
             <button type="submit" id="register-btn" class="btn">Redeem</button>
         </div>
     </div>
+    <!doctype html>
+    <html lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap"
+            rel="stylesheet">
+        <title>Beli Koin</title>
+
+        <style>
+            * {
+                font-family: "Rethink Sans", sans-serif;
+            }
+
+            .kirim {
+                background-color: #25D366;
+                font-size: 1.5vw;
+                transition: background-color 0.3s ease;
+            }
+
+            .kirim:hover {
+                background-color: #1DA851 !important;
+            }
+
+            .custom-btn {
+                background-color: transparent;
+                transition: background-color 0.3s ease;
+            }
+
+            .custom-btn:hover {
+                background-color: rgba(0, 0, 0, 0.1) !important;
+                /* Warna gelap sedikit transparan */
+            }
+        </style>
+    </head>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content px-4 py-2">
+                <div class="modal-header" style="border: none;">
+                    <h3 class="modal-title text-center w-100" id="exampleModalLabel">Beli Kredit <i
+                            class="bi bi-cart-fill ms-2"></i>
+                    </h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="img/qrcode.png" width="160vw" alt=""> <br>
+                    <img src="img/qris 1.png" width="100vw" alt=""> <br>
+                    <div class="d-flex mt-3 justify-content-center align-items-center mb-4">
+                        <div class="d-flex justify-content-center align-items-end me-2">
+                            <img src="img/chinese-coin.png" width="30vw" height="30wv" alt="">
+                            <span class="ms-1" style="font-weight: 600;"> x 25</span>
+                        </div>
+                        <h4 class="p-0 m-0" style="font-weight: bold;">= Rp35.000</h4>
+                    </div>
+                    <button
+                        class="custom-btn px-3 btn w-100 mb-3 text-start bg-transparent border d-flex justify-content-between align-items-center"
+                        type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample1" aria-expanded="false"
+                        aria-controls="multiCollapseExample1">
+                        <img src="img/mandiri 1.png" width="100vw" alt=""><i class="bi bi-chevron-down py-2"></i></button>
+                    <div class="collapse multi-collapse" id="multiCollapseExample1">
+                        <ol class="list-group list-group-numbered text-start">
+                            <li class="list-group-item border-0">
+                                <span>ATM</span> <br>
+                                <ul>
+                                    <li>Pergi ke ATM terdekat</li>
+                                    <li>Lakukan transfer menggunakan mesin ATM ke nomor rekening berikut:</li>
+                                    <li>Nomor Rekening: 123-456-7890 (Bank ABC)</li>
+                                    <li>Ikuti instruksi pada layar ATM untuk transfer ke nomor rekening tersebut.</li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item border-0">
+                                <span>Mobile Banking</span> <br>
+                                <ul>
+                                    <li>Melalui aplikasi mobile banking di ponsel Anda, pilih opsi transfer ke rekening Bank ABC dan
+                                        masukkan nomor rekening:</li>
+                                    <li>Nomor Rekening: 123-456-7890</li>
+                                    <li>Konfirmasi pembayaran setelah memasukkan jumlah yang sesuai.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <button
+                        class="custom-btn px-3 btn w-100 mb-3 text-start bg-transparent border d-flex justify-content-between align-items-center"
+                        type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false"
+                        aria-controls="multiCollapseExample2">
+                        <img src="img/bca 1.png" width="90vw" alt=""><i class="bi bi-chevron-down py-2"></i></button>
+                    <div class="collapse multi-collapse" id="multiCollapseExample2">
+                        <ol class="list-group list-group-numbered text-start">
+                            <li class="list-group-item border-0">
+                                <span>ATM</span> <br>
+                                <ul>
+                                    <li>Pergi ke ATM terdekat</li>
+                                    <li>Lakukan transfer menggunakan mesin ATM ke nomor rekening berikut:</li>
+                                    <li>Nomor Rekening: 123-456-7890 (Bank ABC)</li>
+                                    <li>Ikuti instruksi pada layar ATM untuk transfer ke nomor rekening tersebut.</li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item border-0">
+                                <span>Mobile Banking</span> <br>
+                                <ul>
+                                    <li>Melalui aplikasi mobile banking di ponsel Anda, pilih opsi transfer ke rekening Bank ABC dan
+                                        masukkan nomor rekening:</li>
+                                    <li>Nomor Rekening: 123-456-7890</li>
+                                    <li>Konfirmasi pembayaran setelah memasukkan jumlah yang sesuai.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button style="background-color: #25D366; font-size: 1.5vw;" type="button"
+                        class="kirim btn d-block w-100 text-white fw-bold ">Kirim
+                        Bukti <i class="bi bi-whatsapp ms-2"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    </body>
+
+    </html>
+
+    Cagar budaya berfungsi untuk memperjelas identitas suatu bangsa karena berupa hasil-hasil budaya yang khas dan dimiliki bersama oleh suatu bangatersebut (Bahri, dkk: 2019). Pembelajaran tentangcagar budaya dapat mendukung adanya pembangunanpendidikan dan pariwisata budaya yang telah digalakkanoleh Kementerian Pendidikan beberapa tahun terakhir.Materi mengenai cagar budaya dapat dimasukkankedalam pembelajaran sehingga siswa mengenalmencintai dan merasa memiliki peninggalan sejarahlokal di wilayahnya. Urgensi pembelajaran berbasis cagarbudaya selain untuk meningkatkan pendidikan karakterjuga diharapkan untuk meningkatkan kesadaran sejarahsiswa. Kesadaran sejarah berguna untuk mengetahuifakta-fakta sejarah yang ada sekaligus untuk membentukidentitas suatu bangsa yang luhur dan disegani.
+
 
     <footer>
         <img src="image/logo otodu terang.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;"> <!-- 120px -->
         <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
     </footer>
+    <script>
+        // Dapatkan elemen gambar
+        const images = document.querySelectorAll('#disc-0, #disc-50, #disc-100');
 
+        // Tambahkan event listener ke setiap gambar
+        images.forEach(image => {
+            image.addEventListener('click', () => {
+                // Tampilkan modal
+                const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+                modal.show();
+            });
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 </body>
+
 </html>
