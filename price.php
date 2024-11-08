@@ -6,9 +6,11 @@ if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit;
 }
-// hi test konflik apakah perubahan ini tetap ada meski udah di fetch versi terbaru
+
 $id = $_SESSION['user_id'];
 $koin = ambilData("SELECT koin FROM users WHERE id = $id");
+
+include 'navbar.php';
 
 ?>
 
@@ -39,54 +41,7 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
             background-color: rgb(150, 137, 137);
         }
 
-        .navbar {
-            background-color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1.5vw;
-            align-items: center;
-        }
-
-        .nav-menu {
-            margin: 0;
-            padding: 0.8vw 2vw;
-            position: relative;
-            align-self: center;
-            font-size: 1.2vw;
-            cursor: pointer;
-            font-family: 'Rethink Sans';
-            text-decoration: none;
-            color: #4D62A5;
-        }
-
-        .nav-menu:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 1px;
-            height: 100%;
-            background-color: #4D62A5;
-            transform: translateX(50%);
-            /* Memindahkan garis ke tengah-tengah jarak antara elemen a */
-        }
-
-        .nav-menu:hover {
-            background-color: #4D62A5;
-            color: white;
-            font-weight: 450;
-        }
-
-        #nav-main {
-            background-color: #4D62A5;
-            color: white;
-        }
-
-        .logo img {
-            width: 10vw;
-            margin-right: 1vw;
-        }
-
-        .text {
+        .text {`
             position: relative;
             /* Mengatur posisi relatif untuk overlay */
             text-align: center;
@@ -259,16 +214,16 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
 
 <body>
 
-    <nav class="navbar">
+    <!-- <nav class="navbar">
         <div class="container" style="display: flex; align-items: center;">
             <div class="logo">
-                <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 1vw;"> <!-- 130px -->
+                <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 1vw;"> 
             </div>
             <a style="margin: 0; text-decoration: none;" class="nav-menu" id="nav-main" href="dashboard.php">NLP OTODU</a>
             <a style="margin: 0; text-decoration: none;" class="nav-menu" href="mentor.php">Mentor OTODU</a>
             <a style="margin: 0; text-decoration: none;" class="nav-menu" href="jasa.php">Desain Web & App</a>
         </div>
-    </nav>
+    </nav> -->
 
     <div class="text">
         <img src="./image/price bc.png" alt="Gambar Latar" class="background-image">
@@ -295,9 +250,9 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
             <p>Atau</p>
         </div>
         <div class="kredit-diskon">
-            <img id="disc-0" src="image/disc 10 f.png" alt="">
-            <img id="disc-50" src="image/disc 50 f.png" alt="">
-            <img id="disc-100" src="image/disc 100 f.png" alt="">
+            <img data-bs-target="#exampleModal" data-bs-toggle="modal" id="disc-0" src="image/disc 10 f.png" alt="">
+            <img data-bs-target="#exampleModal" data-bs-toggle="modal" id="disc-50" src="image/disc 50 f.png" alt="">
+            <img data-bs-target="#exampleModal" data-bs-toggle="modal" id="disc-100" src="image/disc 100 f.png" alt="">
         </div>
         <div class="kredit-redeem">
             <p>Sudah punya kode? Redeem kode!</p>
@@ -315,8 +270,8 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="pilih/img-landing/qrcode.png" width="160vw" alt=""> <br>
-                    <img src="pilih/img-landing/qris 1.png" width="100vw" alt="">
+                    <img src="image/qrcode.png" width="160vw" alt=""> <br>
+                    <img src="image/qris 1.png" width="100vw" alt="">
                     <h4 class="mt-2" style="font-weight: bold;">Rp35.000</h4>
                     <button class="btn btn-primary w-100 mb-3 text-start" type="button" data-bs-toggle="collapse"
                         data-bs-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle
