@@ -24,10 +24,11 @@ include 'navbar.php';
     * {
       font-family: "Rethink Sans";
     }
-      .logo img {
-        width: 10vw;
-        margin-right: 1vw;
-      }
+    
+    .logo img {
+      width: 10vw;
+      margin-right: 1vw;
+    }
 
     .intro {
       padding: 5vw 5vw 10vw 27vw;

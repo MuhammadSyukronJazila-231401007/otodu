@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-// if (!isset($_SESSION['login'])) {
-//     header("Location: login.php");
-//     exit;
-// }
+if (!isset($_SESSION['login'])) {
+    header("Location: login.php");
+    exit;
+}
 
 include 'function.php';
 $kode_materi = 1; //$_GET['kode_materi'];
@@ -799,7 +799,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
 
-    <script type="text/javascript">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+    <script>
         // Mengatur menu hamburger, dropdown, dan close saat diklik
         $(document).ready(function() {
             //jquery for toggle sub menus

@@ -6,6 +6,8 @@ if( !isset($_SESSION['login']) ){
     header("Location: login.php");
     exit;
 }
+
+include 'navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -30,49 +32,6 @@ if( !isset($_SESSION['login']) ){
 
         body {
             background-color: #E3ECF5;
-        }
-
-        .navbar {
-            background-color: white;
-            padding-inline-start: 1.5vw; /* 15px */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1.5vw; /* 20px */
-            align-items: center;
-        }
-
-        .navbar a {
-          margin: 0;
-          padding: 0.8vw 2vw;
-          position: relative;
-          color: black;
-          align-self: center;
-          font-size: 1.2vw; 
-          color: #4D62A5;
-          cursor: pointer;
-          font-family: 'Rethink Sans';
-          text-decoration: none;
-        }
-    
-        .navbar a:not(:last-child)::after {
-          content: '';
-          position: absolute;
-          right: 0; 
-          top: 0;
-          width: 1px;
-          height: 100%;
-          background-color: #4D62A5;
-          transform: translateX(50%); /* Memindahkan garis ke tengah-tengah jarak antara elemen a */
-        }
-    
-        .navbar a:hover {
-          background-color: #4D62A5;
-          color: white; 
-          font-weight: 450;
-        }
-
-        .logo img {
-          width: 10vw;
-          margin-right: 1vw;
         }
     
         .container {
@@ -211,21 +170,16 @@ if( !isset($_SESSION['login']) ){
           color: white;
         }
 
+        .nlp {
+          background-color: #4D62A5;
+          color: white; 
+          font-weight: 450;
+        }
+
     </style>
     
 </head>
 <body>
-    
-    <nav class="navbar">
-        <div class="container" style="display: flex; align-items: center; gap: 0;">
-            <div class="logo">
-                <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 1vw;"> <!-- 130px -->
-            </div>
-            <a style="margin: 0;" class="nav-menu" id="nav-main" href="dashboard.php">NLP OTODU</a>
-            <a style="margin: 0;" class="nav-menu" href="mentor.php">Mentor OTODU</a>
-            <a style="margin: 0;" class="nav-menu" href="jasa.php">Desain Web & App</a>
-        </div>
-    </nav>      
 
     <div class="container-2">
         <div class="text-container">
