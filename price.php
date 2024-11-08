@@ -22,15 +22,24 @@ include 'navbar.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harga</title>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
 
     <style>
         * {
@@ -80,7 +89,7 @@ include 'navbar.php';
             /* 20px */
         }
 
-        h4 {
+        .h4-tes {
             color: white;
             font-weight: 400;
         }
@@ -180,7 +189,7 @@ include 'navbar.php';
             margin-bottom: 2vh;
         }
 
-        .btn {
+        .btn-redem {
             background-color: white;
             color: black;
             border: 0.05vw solid black;
@@ -194,7 +203,7 @@ include 'navbar.php';
             /* 10px */
         }
 
-        .btn:hover {
+        .btn-redem:hover {
             background-color: black;
             color: white;
         }
@@ -207,6 +216,26 @@ include 'navbar.php';
             padding: 2vw;
             /* 20px */
             color: white;
+        }
+
+        .kirim {
+            background-color: #25D366;
+            font-size: 1.5vw;
+            transition: background-color 0.3s ease;
+        }
+
+        .kirim:hover {
+            background-color: #1DA851 !important;
+        }
+
+        .custom-btn {
+            background-color: transparent;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-btn:hover {
+            background-color: rgba(0, 0, 0, 0.1) !important;
+            /* Warna gelap sedikit transparan */
         }
     </style>
 
@@ -228,8 +257,10 @@ include 'navbar.php';
     <div class="text">
         <img src="./image/price bc.png" alt="Gambar Latar" class="background-image">
         <div class="overlay">
-            <h4>Jelajahi pembelajaran otodidak Kamu untuk</h4>
-            <h4 id="text-2">NLP dan Mentor dengan <span style="font-family: 'Martian Mono'; font-weight: 600;">Kredit OTODU</span></h4>
+            <h4 class=".h4-tes">Jelajahi pembelajaran otodidak Kamu untuk</h4>
+            <h4 class=".h4-tes" id="text-2">NLP dan Mentor dengan <span
+                    style="font-family: 'Martian Mono'; font-weight: 600;">Kredit
+                    OTODU</span></h4>
         </div>
     </div>
 
@@ -238,7 +269,6 @@ include 'navbar.php';
         <span style="position: relative; background-color: #96AA03; color: white; display: inline-flex; align-items: center; padding: 0.2vw 1vw; 
                   margin-left: 9vw; border-radius: 3px; width: fit-content; " id="koin">
             <img src="image/coin.png" style="width: 1.7vw; margin-right: 0.5vw;">
-            <span style="font-weight: 515"><?= $koin[0]['koin'] ?></span>
         </span>
         <!-- <p id="kredit-otodu">Kredit OTODU Anda: <span style="font-weight: 600;">69</span></p> -->
         <div class="kredit-satuan">
@@ -257,21 +287,22 @@ include 'navbar.php';
         <div class="kredit-redeem">
             <p>Sudah punya kode? Redeem kode!</p>
             <input type="text" class="form-control redeem" placeholder="Redeem Kode" required>
-            <button type="submit" id="register-btn" class="btn">Redeem</button>
+            <button type="submit" id="register-btn" class="btn-redem">Redeem</button>
         </div>
     </div>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content px-4 py-2">
                 <div class="modal-header" style="border: none;">
-                    <h3 class="modal-title text-center w-100" id="exampleModalLabel">Beli Kredit <i class="bi bi-cart-fill"></i>
+                    <h3 class="modal-title text-center w-100" id="exampleModalLabel">Beli Kredit <i
+                            class="bi bi-cart-fill ms-2"></i>
                     </h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="image/qrcode.png" width="160vw" alt=""> <br>
-                    <img src="image/qris 1.png" width="100vw" alt="">
+                    <img src="pilih/img-landing/qrcode.png" width="160vw" alt=""> <br>
+                    <img src="pilih/img-landing/qris 1.png" width="100vw" alt="">
                     <h4 class="mt-2" style="font-weight: bold;">Rp35.000</h4>
                     <button class="btn btn-primary w-100 mb-3 text-start" type="button" data-bs-toggle="collapse"
                         data-bs-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle
@@ -289,19 +320,67 @@ include 'navbar.php';
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="collapse multi-collapse" id="multiCollapseExample2">
-                                <div class="card card-body">
-                                    Some placeholder content for the second collapse component of this multi-collapse example. This panel is
-                                    hidden by default but revealed when the user activates the relevant trigger.
-                                </div>
-                            </div>
-                        </div>
+                        <h4 class="p-0 m-0" style="font-weight: bold;">= Rp35.000</h4>
+                    </div>
+                    <button
+                        class="custom-btn px-3 btn w-100 mb-3 text-start bg-transparent border d-flex justify-content-between align-items-center"
+                        type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample1" aria-expanded="false"
+                        aria-controls="multiCollapseExample1">
+                        <img src="image/mandiri 1.png" width="100vw" alt=""><i class="bi bi-chevron-down py-2"></i></button>
+                    <div class="collapse multi-collapse" id="multiCollapseExample1">
+                        <ol class="list-group list-group-numbered text-start">
+                            <li class="list-group-item border-0">
+                                <span>ATM</span> <br>
+                                <ul>
+                                    <li>Pergi ke ATM terdekat</li>
+                                    <li>Lakukan transfer menggunakan mesin ATM ke nomor rekening berikut:</li>
+                                    <li>Nomor Rekening: 123-456-7890 (Bank ABC)</li>
+                                    <li>Ikuti instruksi pada layar ATM untuk transfer ke nomor rekening tersebut.</li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item border-0">
+                                <span>Mobile Banking</span> <br>
+                                <ul>
+                                    <li>Melalui aplikasi mobile banking di ponsel Anda, pilih opsi transfer ke rekening Bank ABC dan
+                                        masukkan nomor rekening:</li>
+                                    <li>Nomor Rekening: 123-456-7890</li>
+                                    <li>Konfirmasi pembayaran setelah memasukkan jumlah yang sesuai.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <button
+                        class="custom-btn px-3 btn w-100 mb-3 text-start bg-transparent border d-flex justify-content-between align-items-center"
+                        type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false"
+                        aria-controls="multiCollapseExample2">
+                        <img src="image/bca 1.png" width="90vw" alt=""><i class="bi bi-chevron-down py-2"></i></button>
+                    <div class="collapse multi-collapse" id="multiCollapseExample2">
+                        <ol class="list-group list-group-numbered text-start">
+                            <li class="list-group-item border-0">
+                                <span>ATM</span> <br>
+                                <ul>
+                                    <li>Pergi ke ATM terdekat</li>
+                                    <li>Lakukan transfer menggunakan mesin ATM ke nomor rekening berikut:</li>
+                                    <li>Nomor Rekening: 123-456-7890 (Bank ABC)</li>
+                                    <li>Ikuti instruksi pada layar ATM untuk transfer ke nomor rekening tersebut.</li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item border-0">
+                                <span>Mobile Banking</span> <br>
+                                <ul>
+                                    <li>Melalui aplikasi mobile banking di ponsel Anda, pilih opsi transfer ke rekening Bank ABC dan
+                                        masukkan nomor rekening:</li>
+                                    <li>Nomor Rekening: 123-456-7890</li>
+                                    <li>Konfirmasi pembayaran setelah memasukkan jumlah yang sesuai.</li>
+                                </ul>
+                            </li>
+                        </ol>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                <div class="modal-footer border-0">
+                    <button style="background-color: #25D366; font-size: 1.5vw;" type="button"
+                        class="kirim btn d-block w-100 text-white fw-bold ">Kirim
+                        Bukti <i class="bi bi-whatsapp ms-2"></i></button>
                 </div>
             </div>
         </div>
@@ -309,7 +388,8 @@ include 'navbar.php';
 
 
     <footer>
-        <img src="image/logo otodu terang.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;"> <!-- 120px -->
+        <img src="image/logo otodu terang.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;">
+        <!-- 120px -->
         <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
     </footer>
     <script>
@@ -325,7 +405,9 @@ include 'navbar.php';
             });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 </body>
