@@ -10,13 +10,15 @@ if (isset($_SESSION['login'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $nama = $_POST['nama'];
-    $nama .= "_new";
     $nomor = $_POST['nomor'];
     $latitude = $_POST['latitude'];
     $longitude = $_POST['longitude'];
     $password = $_POST['password'];
     $passwordKonfirmasi = $_POST['passwordKonfirmasi'];
     $role = $_POST['role'];
+    if ($role == 'Siswa'){
+        $nama .= "_new";
+    }
 
     if ($password !== $passwordKonfirmasi) {
         echo "Password dan Konfirmasi Password tidak sama.";

@@ -313,21 +313,31 @@ if( !isset($_SESSION['login']) ){
                         <?php 
                             $id = $_SESSION['user_id'];
                             $riwayatbeli = ambilData("SELECT p.kode_subtopik, p.tanggal_pembelian, s.nama_subtopik, s.harga 
-                                                      FROM pembelian p
+                                                      FROM beli_subtopik p
                                                       JOIN subtopik s ON p.kode_subtopik = s.kode_subtopik
                                                       WHERE p.id_user = $id
                                                       ORDER BY p.tanggal_pembelian DESC");
 
-                            foreach ($riwayatbeli as $riwayat) :
-                                // Mengubah format tanggal dari yyyy-mm-dd menjadi dd-mm-yyyy
-                                $tanggal_pembelian = date("d-m-Y", strtotime($riwayat['tanggal_pembelian']));
+                            if (empty($riwayatbeli)) : // Mengecek jika riwayat pembelian kosong
                         ?>
-                            <tr>
-                                <td><?= htmlspecialchars($riwayat['nama_subtopik']); ?></td>
-                                <td><?= $tanggal_pembelian; ?></td>
-                                <td><img src="image/coin2.png" width="18" height="18"> <?= htmlspecialchars($riwayat['harga']); ?></td>
-                            </tr>
-                        <?php endforeach; ?>
+                                <tr>
+                                    <td colspan="3" style="text-align: center;">Anda belum membeli subtopik apapun</td>
+                                </tr>
+                        <?php
+                            else:
+                                foreach ($riwayatbeli as $riwayat) :
+                                    // Mengubah format tanggal dari yyyy-mm-dd menjadi dd-mm-yyyy
+                                    $tanggal_pembelian = date("d-m-Y", strtotime($riwayat['tanggal_pembelian']));
+                        ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($riwayat['nama_subtopik']); ?></td>
+                                        <td><?= $tanggal_pembelian; ?></td>
+                                        <td style="width: 20vw;"><img src="image/coin2.png" width="18" height="18"> <?= htmlspecialchars($riwayat['harga']); ?></td>
+                                    </tr>
+                        <?php 
+                                endforeach; 
+                            endif;
+                        ?>
                     </table>
 
                 </div>

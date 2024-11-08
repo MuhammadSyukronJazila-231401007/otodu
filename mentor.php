@@ -1,5 +1,6 @@
 <?php
 include 'function.php';
+include 'navbar.php';
 session_start();
 
 if( !isset($_SESSION['login']) ){
@@ -10,8 +11,45 @@ if( !isset($_SESSION['login']) ){
 $id = $_SESSION['user_id'];
 $koin = ambilData("SELECT koin FROM users WHERE id = $id");
 
-include 'navbar.php';
+// Ambil latitude dan longitude pengguna dari POST
+$userLat = $_SESSION['latitude']; 
+$userLng = $_SESSION['longitude']; 
+
+// Query untuk mengambil data Mentor (role = 'Mentor')
+$mentors = ambilData("SELECT nama, latitude, longitude FROM users WHERE role = 'Mentor'");
+
+// Fungsi untuk menghitung jarak antara dua koordinat (Haversine formula)
+function calculateDistance($lat1, $lon1, $lat2, $lon2) {
+    $earthRadius = 6371; // Radius bumi dalam kilometer
+    
+    $latFrom = deg2rad($lat1);
+    $lonFrom = deg2rad($lon1);
+    $latTo = deg2rad($lat2);
+    $lonTo = deg2rad($lon2);
+
+    $latDiff = $latTo - $latFrom;
+    $lonDiff = $lonTo - $lonFrom;
+
+    $a = sin($latDiff / 2) * sin($latDiff / 2) +
+         cos($latFrom) * cos($latTo) *
+         sin($lonDiff / 2) * sin($lonDiff / 2);
+    $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+    return $earthRadius * $c; // Mengembalikan jarak dalam kilometer
+}
+
+// Filter mentor yang jaraknya kurang dari 2 km
+// $nearbyMentors = [['nama' => 'Lokasi pengguna', 'latitude' => $userLat, 'longitude' => $userLng]];
+$nearbyMentors = [];
+foreach ($mentors as $mentor) {
+    $distance = calculateDistance($userLat, $userLng, $mentor['latitude'], $mentor['longitude']);
+    if ($distance <= 10) {
+        $nearbyMentors[] = $mentor; // Menambahkan mentor ke array jika jaraknya <= 2 km
+    }
+}
+
 ?>
+
 
 
 <!doctype html>
@@ -898,67 +936,56 @@ include 'navbar.php';
     <script async defer src="https://maps.gomaps.pro/maps/api/js?key=AlzaSyeT3ed8_nmf_1VGDtIOF0Z0FYT88xg945v&callback=initMap"></script>
 
     <script>
-        function initMap() {
-            // Lokasi default (Medan) jika geolokasi tidak diizinkan
-            var defaultLocation = { lat: 3.5833, lng: 98.6667 };
+         // Data dari PHP (Mentor dan lokasi pengguna)
+        let nearbyMentors = <?php echo json_encode($nearbyMentors); ?>;
+        let userLat = <?php echo $userLat; ?>;
+        let userLng = <?php echo $userLng; ?>;
 
-            // Inisialisasi peta
+        // Fungsi untuk menginisialisasi peta
+        function initMap() {
+            let userLocation = { lat: userLat, lng: userLng };
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 13,
-                center: defaultLocation
+                center: userLocation
             });
-        
-            // Marker default pada lokasi Medan
-            var marker = new google.maps.Marker({
-                position: defaultLocation,
-                map: map,
-                draggable: true
-            });
-        
-            // Fungsi untuk memperbarui marker dan pusat peta
-            function updateMapLocation(lat, lng) {
-                var newLocation = { lat: lat, lng: lng };
-                map.setCenter(newLocation);  
-                marker.setPosition(newLocation);  // Pindahkan marker ke lokasi baru
 
-                // Update nilai latitude dan longitude ke input tersembunyi
-                document.getElementById('latitude').value = lat;
-                document.getElementById('longitude').value = lng;
-            }
-        
-            // Gunakan Geolocation API untuk mendapatkan lokasi pengguna
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    function (position) {
-                        var userLat = position.coords.latitude;
-                        var userLng = position.coords.longitude;
-                        updateMapLocation(userLat, userLng);  // Perbarui peta dengan lokasi pengguna
-                    },
-                    function () {
-                        // Jika pengguna menolak akses lokasi, tetap gunakan defaultLocation
-                        alert("Geolocation tidak diizinkan, menggunakan lokasi default.");
+            // Menambahkan marker untuk setiap mentor
+            nearbyMentors.forEach(function(mentor) {
+                // Konversi lat dan lng ke angka menggunakan Number() atau parseFloat()
+                let mentorLat = Number(mentor.latitude); 
+                let mentorLng = Number(mentor.longitude);
+
+                console.log(mentor.nama);
+                
+                // Cek apakah lat dan lng mentor valid
+                if (!isNaN(mentorLat) && !isNaN(mentorLng)) {
+                    let mentorLocation = { lat: mentorLat, lng: mentorLng };
+                    // console.log(mentorLocation);
+                    
+                    let ikon;
+                    if(mentor.nama == 'Lokasi pengguna'){
+                      ikon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                    }else{
+                      ikon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
                     }
-                );
-            } else {
-                // Jika browser tidak mendukung Geolocation API
-                alert("Browser Anda tidak mendukung Geolocation, menggunakan lokasi default.");
-            }
-        
-            // Listener untuk marker yang dapat dipindahkan
-            marker.addListener('dragend', function (event) {
-                var lat = event.latLng.lat();
-                var lng = event.latLng.lng();
-                updateMapLocation(lat, lng); // Perbarui lokasi
-                // alert("Latitude: " + lat + ", Longitude: " + lng);
+                
+                    var mentorMarker = new google.maps.Marker({
+                        position: mentorLocation,
+                        map: map,
+                        title: mentor.name,
+                        icon: ikon
+                    });
+                } else {
+                    console.log('Invalid mentor location for: ' + mentor.name);
+                }
             });
-        
-            // Listener untuk klik di peta
-            map.addListener('click', function (event) {
-                var lat = event.latLng.lat();
-                var lng = event.latLng.lng();
-                marker.setPosition(event.latLng); // Pindahkan marker ke lokasi yang diklik
-                updateMapLocation(lat, lng); // Perbarui lokasi
-                // alert("Latitude: " + lat + ", Longitude: " + lng);
+
+             // Marker untuk lokasi pengguna
+             var userMarker = new google.maps.Marker({
+                position: userLocation,
+                map: map,
+                title: 'Your Location',
+                icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' // Merah untuk pengguna
             });
         }
     </script>
