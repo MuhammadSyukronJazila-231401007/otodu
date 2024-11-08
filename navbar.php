@@ -43,10 +43,6 @@
         font-weight: 450;
       }
 
-      /* #nav-main {
-        background-color: #4D62A5;
-        color: white;
-      } */
 
   </style>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -62,11 +58,11 @@
                 <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 1vw;"> <!-- 130px -->
             </div>
             <div style="display: flex; align-items: center; justify-content: end;">
-            <a style="margin: 0.7rem 2vw;" class="nav-menu" href="dashboard.php">NLP OTODU</a>
-            <div style="font-size: 3vw; font-weight: 100; color: #4D62A5;">|</div>
-            <a style="margin: 0.7rem 2vw;" class="nav-menu" href="mentor.php">Mentor OTODU</a>
+            <a style="margin: 0.7rem 2vw;" class="nav-menu nlp" href="dashboard.php">NLP OTODU</a>
             <div style="font-size: 3vw; color: #4D62A5;">|</div>
-            <a style="margin: 0.7rem 2vw;" class="nav-menu" href="jasa.php">Desain Web & App</a>
+            <a style="margin: 0.7rem 2vw;" class="nav-menu mentor" href="mentor.php">Mentor OTODU</a>
+            <div style="font-size: 3vw; color: #4D62A5;">|</div>
+            <a style="margin: 0.7rem 2vw;" class="nav-menu jasa" href="jasa.php">Desain Web & App</a>
           </div>
         </div>
         </div>
