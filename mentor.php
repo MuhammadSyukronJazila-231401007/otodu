@@ -467,7 +467,7 @@ foreach ($mentors as $mentor) {
         </a>
       </div>
       <div style="background-color: #4D62A5; color: white; padding: 0;">
-        <a href="riwayat.html" class="btn btn-primary" style="background-color: #4D62A5;  font-size: 12px; text-align: center; border: 0cm;" tabindex="-1" role="button" aria-disabled="true">
+        <a href="riwayatmentor.php" class="btn btn-primary" style="background-color: #4D62A5;  font-size: 12px; text-align: center; border: 0cm;" tabindex="-1" role="button" aria-disabled="true">
         <div style="display: flex;" id="riwayat-mentor">
           <div style="margin-right: 0.4vw;">
             <img src="./image/riwayat.png" width="20" height="20">
@@ -1434,11 +1434,6 @@ foreach ($mentors as $mentor) {
     </script>
   
     <script>
-      document.getElementById('riwayat-mentor').addEventListener('click', function(event) {
-            event.preventDefault(); 
-            window.location.href = 'riwayatmentor.php'; 
-        });
-
       document.getElementById('koin').addEventListener('click', function(event) {
           event.preventDefault();
           window.location.href = 'price.php'; 

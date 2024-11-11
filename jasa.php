@@ -27,12 +27,6 @@ include 'navbar.php';
   <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
   <title>Desain Web & App</title>
   <style>
-    
-      .logo img {
-        width: 10vw;
-        margin-right: 1vw;
-      }
-
       footer {
         display: flex;
         justify-content: flex-start;

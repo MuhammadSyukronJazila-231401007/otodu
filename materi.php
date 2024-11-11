@@ -23,7 +23,7 @@ $topik = ambilData("SELECT * FROM topik WHERE kode_subbab= $kode_subbab");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $kode_subtopik_pilih = $_POST['kode_subtopik'];
     $harga_subtopik = $_POST['harga'];
-    $status_bayar = ambilData("SELECT * FROM pembelian WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id");
+    $status_bayar = ambilData("SELECT * FROM beli_subtopik WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id");
 
     if ($status_bayar) {
         if($kode_subtopik_pilih == 1){
@@ -37,16 +37,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Update koin
         $new_koin = $koin[0]['koin'] - $harga_subtopik;
         mysqli_query($conn, "UPDATE users SET koin = $new_koin WHERE id = $id;");
-        mysqli_query($conn, "INSERT INTO pembelian (kode_subtopik, id_user) VALUES ($kode_subtopik_pilih, $id);");
+        mysqli_query($conn, "INSERT INTO beli_subtopik (kode_subtopik, id_user) VALUES ($kode_subtopik_pilih, $id);");
 
         // Redirect ke halaman isi_subtopik
+        echo "tesss";
 
-        if($kode_subtopik_pilih == 1){
-            echo "<script>alert('Selamat anda telah membeli subtopik ini!');</script>";
-            header("Location: isi_subtopik.php");
-        }else{
-            echo "<script>alert('Selamat anda telah membeli subtopik ini!');</script>";
-            header("Location: isi_subtopik2.php");
+        if ($kode_subtopik_pilih == 1) {
+            echo "<script>
+                    alert('Selamat anda telah membeli subtopik ini!');
+                    window.location.href = 'isi_subtopik.php';
+                  </script>";
+        } else {
+            echo "<script>
+                    alert('Selamat anda telah membeli subtopik ini!');
+                    window.location.href = 'isi_subtopik2.php';
+                  </script>";
         }
         
         exit;
@@ -66,6 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Materi</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <style media="screen">
         * {
@@ -81,6 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: white;
             background-size: cover;
             background-position: center;
+            margin: 0;
+            overflow-x: hidden;
         }
 
         .top-element {
@@ -245,67 +255,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-bottom: 0.5vw;
         }
 
-        /* Navbar */
-        .navbar {
-            background-color: white;
-            padding-inline-start: 1.5vw;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1.5vw;
-            align-items: center;
-        }
-
-        .nav-menu {
-            margin: 0;
-            padding: 0.8vw 2vw;
-            position: relative;
-            align-self: center;
-            font-size: 1.2vw;
-            cursor: pointer;
-            font-family: 'Rethink Sans';
-            text-decoration: none;
-            color: #4D62A5;
-        }
-
-        .nav-menu:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 1px;
-            height: 100%;
-            background-color: #4D62A5;
-            transform: translateX(50%);
-            /* Memindahkan garis ke tengah-tengah jarak antara elemen a */
-        }
-
-        .nav-menu:hover {
-            background-color: #4D62A5;
-            color: white;
-            font-weight: 450;
-        }
-
-        #nav-main {
-            background-color: #4D62A5;
-            color: white;
-        }
-
-        .logo img {
-            width: 10vw;
-            margin-right: 1vw;
-        }
-
         .container {
             display: flex;
             align-items: center;
             justify-content: space-around;
         }
-
-        /* End of Navbar */
-
-        /* .text {
-            padding: 1.2vw; 
-            background-color: #375679;
-        } */
 
         .head {
             position: fixed;
@@ -384,6 +338,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             opacity: 100%;
             /* awalnya 90% */
         }
+
+        #nlp {
+          background-color: #4D62A5;
+          color: white; 
+          font-weight: 450;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
@@ -391,17 +351,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
-    <div class="head">
-        <nav class="navbar">
-            <div class="container" style="display: flex; align-items: center;">
-                <div class="logo">
-                    <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 1vw;"> <!-- 130px -->
-                </div>
-                <a style="margin: 0;" class="nav-menu" id="nav-main" href="dashboard.php">NLP OTODU</a>
-                <a style="margin: 0;" class="nav-menu" href="mentor.php">Mentor OTODU</a>
-                <a style="margin: 0;" class="nav-menu" href="jasa.php">Desain Web & App</a>
-            </div>
-        </nav>
+       <?php include 'navbar.php'; ?>
         <!-- <div class="text">
             
         </div> -->
@@ -432,7 +382,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <b><?= $koin[0]['koin']; ?></b>
     </span>
 
-    <div class="side-bar">
+    <div class="side-bar" style="color: white;">
         <header>
             <div class="close-btn">
                 <i class="fas fa-times"></i>
@@ -623,7 +573,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                         <input type="hidden" name="harga" value="<?= $rowsub['harga'] ?>">
                                                         <?php 
                                                             $kode_subtopik_pilih  = $rowsub['kode_subtopik'];
-                                                            $status_bayar = ambilData("SELECT * FROM pembelian 
+                                                            $status_bayar = ambilData("SELECT * FROM beli_subtopik 
                                                             WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id"); 
                                                         ?>
                                                         <?php if ($status_bayar): ?>
@@ -686,7 +636,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                         <input type="hidden" name="harga" value="<?= $rowsub['harga'] ?>">
                                                         <?php 
                                                             $kode_subtopik_pilih  = $rowsub['kode_subtopik'];
-                                                            $status_bayar = ambilData("SELECT * FROM pembelian 
+                                                            $status_bayar = ambilData("SELECT * FROM beli_subtopik 
                                                             WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id"); 
                                                         ?>
                                                         <?php if ($status_bayar): ?>
@@ -755,7 +705,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                         <input type="hidden" name="harga" value="<?= $rowsub['harga'] ?>">
                                                         <?php 
                                                             $kode_subtopik_pilih  = $rowsub['kode_subtopik'];
-                                                            $status_bayar = ambilData("SELECT * FROM pembelian 
+                                                            $status_bayar = ambilData("SELECT * FROM beli_subtopik 
                                                             WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id"); 
                                                         ?>
                                                         <?php if ($status_bayar): ?>
@@ -801,43 +751,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
     <script>
-        // Mengatur menu hamburger, dropdown, dan close saat diklik
         $(document).ready(function() {
-            //jquery for toggle sub menus
+            // jquery for toggle sub menus
             $('.sub-btn').click(function() {
                 $(this).next('.sub-menu').slideToggle();
                 $(this).find('.dropdown').toggleClass('fa-angle-down fa-angle-up');
             });
-
-            //jquery for expand and collapse the sidebar
+        
+            // jquery for expand and collapse the sidebar
             $('.menu-btn').click(function() {
                 $('.side-bar').addClass('active');
                 $('.menu-btn').css("visibility", "hidden");
             });
-
+        
             $('.close-btn').click(function() {
                 $('.side-bar').removeClass('active');
                 $('.menu-btn').css("visibility", "visible");
             });
-        });
-
-        // Mengatur warna list dan isi dropdown di Navbar
-        const subItems = document.querySelectorAll('.sub-item');
-
-        subItems.forEach(item => {
-            item.addEventListener('click', function() {
-                subItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-
-                // Seleksi elemen sub-btn terdekat
-                const parentSubBtn = item.closest('.sub-menu').previousElementSibling;
-
-                // Menghapus kelas 'active' dari semua sub-btn
-                document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
-
-                // Menambahkan kelas 'active' pada sub-btn yang sesuai
-                parentSubBtn.classList.add('active');
-            });
+        
+            // Mengatur padding Body
+            const head = document.querySelector('.head');
+        
+            function adjustBodyPadding() {
+                const headHeight = head.offsetHeight;
+                document.body.style.paddingTop = `${headHeight}px`;
+            }
+        
+            // Panggil fungsi saat halaman dimuat
+            adjustBodyPadding();
+        
+            // Panggil lagi jika ukuran jendela berubah
+            window.addEventListener('resize', adjustBodyPadding);
         });
 
         // Mengatur tinggi Sidebar
@@ -876,30 +820,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             });
         });
 
-        // Mengatur padding Body
-        document.addEventListener('DOMContentLoaded', function() {
-            const head = document.querySelector('.head');
+        // Mengatur warna list dan isi dropdown di Navbar
+        const subItems = document.querySelectorAll('.sub-item');
 
-            function adjustBodyPadding() {
-                const headHeight = head.offsetHeight;
-                document.body.style.paddingTop = `${headHeight}px`;
-            }
+        subItems.forEach(item => {
+            item.addEventListener('click', function() {
+                subItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
 
-            // Panggil fungsi saat halaman dimuat
-            adjustBodyPadding();
+                // Seleksi elemen sub-btn terdekat
+                const parentSubBtn = item.closest('.sub-menu').previousElementSibling;
 
-            // Panggil lagi jika ukuran jendela berubah
-            window.addEventListener('resize', adjustBodyPadding);
+                // Menghapus kelas 'active' dari semua sub-btn
+                document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+
+                // Menambahkan kelas 'active' pada sub-btn yang sesuai
+                parentSubBtn.classList.add('active');
+            });
         });
 
         document.getElementById('koin').addEventListener('click', function(event) {
             event.preventDefault();
             window.location.href = 'price.php';
-        });
-
-        document.getElementById('materi').addEventListener('click', function(event) {
-            event.preventDefault();
-            window.location.href = 'isi_subtopik2.php';
         });
 
     </script>

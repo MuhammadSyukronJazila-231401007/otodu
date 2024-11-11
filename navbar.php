@@ -21,6 +21,7 @@
     }
 
       .nav-menu {
+        text-decoration: none;
         margin: 0;
         padding: 0.5vw 2.5vw; 
         position: relative;
@@ -28,7 +29,6 @@
         font-size: 1.4vw; 
         cursor: pointer;
         font-family: 'Rethink Sans';
-        text-decoration: none;
         color: #4D62A5;
       }
       .nav-menu.highlight {
@@ -58,7 +58,7 @@
                 <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 1vw;"> <!-- 130px -->
             </div>
             <div style="display: flex; align-items: center; justify-content: end;">
-            <a style="margin: 0.7rem 2vw;" class="nav-menu nlp" href="dashboard.php">NLP OTODU</a>
+            <a style="margin: 0.7rem 2vw;" id="nlp" class="nav-menu" href="dashboard.php">NLP OTODU</a>
             <div style="font-size: 3vw; color: #4D62A5;">|</div>
             <a style="margin: 0.7rem 2vw;" class="nav-menu mentor" href="mentor.php">Mentor OTODU</a>
             <div style="font-size: 3vw; color: #4D62A5;">|</div>

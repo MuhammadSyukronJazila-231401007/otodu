@@ -17,6 +17,7 @@ include 'navbar.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Papan Peringkat</title>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,12 +33,18 @@ include 'navbar.php';
 
         body {
             background-color: #E3ECF5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Minimal setinggi layar */
+            margin: 0; /* Menghilangkan margin body default */
         }
-    
-        .container {
-          display: flex;
-          align-items: center;
-          gap: 0;
+
+        a {
+            text-decoration: none;
+        }
+
+        .main{
+            flex: 1;
         }
 
         .container-2 {
@@ -165,12 +172,7 @@ include 'navbar.php';
             padding: 2vw;
         }
 
-        #nav-main {
-          background-color: #4D62A5;
-          color: white;
-        }
-
-        .nlp {
+        #nlp {
           background-color: #4D62A5;
           color: white; 
           font-weight: 450;
@@ -181,50 +183,51 @@ include 'navbar.php';
 </head>
 <body>
 
-    <div class="container-2">
-        <div class="text-container">
-            <img src="image/trophy.png" style="width: 3vw;" id="trophy"> 
-            <h4>Papan Peringkat</h4>
-            <img src="image/logo otodu.png"  style="height: 5vh;" id="logo"> 
-            <h4 style="font-family: 'Martian Mono'; font-weight: 600;" id="text-logo">OTODU</h4>
+    <div class="main">
+        <div class="container-2">
+            <div class="text-container">
+                <img src="image/trophy.png" style="width: 3vw;" id="trophy"> 
+                <h4>Papan Peringkat</h4>
+                <img src="image/logo otodu.png"  style="height: 5vh;" id="logo"> 
+                <h4 style="font-family: 'Martian Mono'; font-weight: 600;" id="text-logo">OTODU</h4>
+            </div>
         </div>
-    </div>
 
-    <div class="dropdown-container">
-        <div class="dropdown">
-            <select class="form-select dp1" id="dp1" aria-label="Default select example">
-                <option selected>Semua</option>
-                <option value="sd">SD</option>
-                <option value="smp">SMP</option>
-                <option value="sma">SMA</option>
-            </select>
-            <select class="form-select dp2" id="dp2" aria-label="Default select example">
-                <option selected>Semua</option>
-                <option value="matematika">Matematika</option>
-                <option value="bahasa_inggris">Bahasa Inggris</option>
-                <option value="daspro">Dasar Pemrograman</option>
-                <option value="utbk">UTBK</option>
-            </select>
+        <div class="dropdown-container">
+            <div class="dropdown">
+                <select class="form-select dp1" id="dp1" aria-label="Default select example">
+                    <option selected>Semua</option>
+                    <option value="sd">SD</option>
+                    <option value="smp">SMP</option>
+                    <option value="sma">SMA</option>
+                </select>
+                <select class="form-select dp2" id="dp2" aria-label="Default select example">
+                    <option selected>Semua</option>
+                    <option value="matematika">Matematika</option>
+                    <option value="bahasa_inggris">Bahasa Inggris</option>
+                    <option value="daspro">Dasar Pemrograman</option>
+                    <option value="utbk">UTBK</option>
+                </select>
+            </div>
+        </div>
+        
+        
+        <div class="table-container">
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <td><b>No</b></td>
+                        <td><b>Nama</b></td>
+                        <td><b>Jenjang</b></td>
+                        <td><b>Materi</b></td>
+                        <td><b>Poin</b></td>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-table">
+                </tbody>
+            </table>
         </div>
     </div>
-    
-    
-    <div class="table-container">
-        <table class="content-table">
-            <thead>
-                <tr>
-                    <td><b>No</b></td>
-                    <td><b>Nama</b></td>
-                    <td><b>Jenjang</b></td>
-                    <td><b>Materi</b></td>
-                    <td><b>Poin</b></td>
-                </tr>
-            </thead>
-            <tbody id="leaderboard-table">
-            </tbody>
-        </table>
-    </div>
-    
 
     <footer>
         <img src="image/logo otodu terang.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;"> <!-- 120px -->
@@ -256,7 +259,6 @@ include 'navbar.php';
 
          // Fungsi untuk memuat data leaderboard
          function loadLeaderboard() {
-            console.log("tol")
              const jenjang = document.getElementById("dp1").value;
              const materi = document.getElementById("dp2").value;
 
