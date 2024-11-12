@@ -44,6 +44,7 @@ $nearbyMentors = [];
 foreach ($mentors as $mentor) {
     $distance = calculateDistance($userLat, $userLng, $mentor['latitude'], $mentor['longitude']);
     if ($distance <= 10) {
+        $mentor['jarak'] = number_format($distance,2);
         $nearbyMentors[] = $mentor; // Menambahkan mentor ke array jika jaraknya <= 2 km
     }
 }
@@ -964,16 +965,31 @@ foreach ($mentors as $mentor) {
                     
                     let ikon;
                     if(mentor.nama == 'Lokasi pengguna'){
-                      ikon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                      ikon = "image/red-marker-mini.png"
+                      // ikon = "https://img.icons8.com/color/48/google-maps-new.png"
+                      // ikon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
                     }else{
-                      ikon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                      ikon = "image/blue-marker-mini.png"
+                      // ikon = "https://img.icons8.com/color-glass/480/google-maps-new.png"
+                      // ikon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
                     }
                 
-                    var mentorMarker = new google.maps.Marker({
+                    let mentorMarker = new google.maps.Marker({
                         position: mentorLocation,
                         map: map,
                         title: mentor.name,
                         icon: ikon
+                    });
+
+                     // Event listener untuk klik pada marker
+                    google.maps.event.addListener(mentorMarker, 'click', function() {
+                        // alert('Marker ' + mentor.nama + ' diklik!');
+
+                        // menampilkan info window
+                        let infoWindow = new google.maps.InfoWindow({
+                            content: `<h4>${mentor.nama}</h4><h5>Jarak: ${mentor.jarak} KM</h5>`
+                        });
+                        infoWindow.open(map, mentorMarker);
                     });
                 } else {
                     console.log('Invalid mentor location for: ' + mentor.name);
@@ -981,16 +997,22 @@ foreach ($mentors as $mentor) {
             });
 
              // Marker untuk lokasi pengguna
-             var userMarker = new google.maps.Marker({
+             let userMarker = new google.maps.Marker({
                 position: userLocation,
                 map: map,
                 title: 'Your Location',
-                icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' // Merah untuk pengguna
+                icon: "image/red-marker-mini.png" // Merah untuk pengguna
+            });
+
+            // Event listener untuk klik pada marker lokasi pengguna
+            google.maps.event.addListener(userMarker, 'click', function() {
+                let infoWindow = new google.maps.InfoWindow({
+                  content: `<h5>Lokasi anda</h5>`
+                });
+                infoWindow.open(map, userMarker);
             });
         }
-    </script>
-  
-    <script>
+
       document.getElementById('koin').addEventListener('click', function(event) {
           event.preventDefault();
           window.location.href = 'price.php'; 

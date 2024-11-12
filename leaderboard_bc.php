@@ -54,11 +54,11 @@ if (empty($result)) {
         }
 
         // Menentukan gambar medal berdasarkan ranking
-        if ($rank == 1) {
+        if ($rank == 1 && $poin != 0) {
             $medal = 'image/medal 1.png';
-        } elseif ($rank == 2) {
+        } elseif ($rank == 2 && $poin != 0) {
             $medal = 'image/medal 2.png';
-        } elseif ($rank == 3) {
+        } elseif ($rank == 3 && $poin != 0) {
             $medal = 'image/medal 3.png';
         } else {
             $medal = ''; // Tidak ada gambar untuk peringkat lebih dari 3

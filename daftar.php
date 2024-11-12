@@ -26,7 +26,7 @@ include 'navbar.php';
     <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
     <style>
-      #nlp {
+      nlp {
         background-color: #4D62A5;
         color: white; 
         font-weight: 450;
@@ -86,35 +86,36 @@ include 'navbar.php';
                 <option value="1">Bahasa Inggris </option>
                 <option value="2">Pemrograman</option>
                 <option value="3">UTBK</option>
-              </select><br>
+            </select><br>
             <h6 style="margin-bottom: 1.5vw;">Pilih Bab</h6>
-              <select class="form-select" aria-label="Default select example" style="background-color: white; padding: 1vw 4vw 1vw 2vw; border-radius: 1vw;">
-                  <option selected>Fungsi</option>
-                  <option value="1">Trigonometri </option>
-                  <option value="2">Statistik</option>
-                  <option value="3">Bangun Ruang</option>
-                </select>
-
+            <select class="form-select" aria-label="Default select example" style="background-color: white; padding: 1vw 4vw 1vw 2vw; border-radius: 1vw;">
+                <option selected>Fungsi</option>
+                <option value="1">Trigonometri </option>
+                <option value="2">Statistik</option>
+                <option value="3">Bangun Ruang</option>
+            </select>
         </div>
+
         <a class="btn " href="materi.php" role="button" style="background-color: white; outline-color: white;  height: 9vw; text-align: left; box-shadow: 0vw 0.02vw 0.05vw;">
         <div style="background-color: white; border-radius: 1vw; width: 32vw; padding-top: 1vw; padding-left: 2vw; height: 8vw; ">
-            
-        <table style="border-collapse: collapse;">
-            <tr>
-                <td rowspan="4" style="padding-right: 1.5vw;"><img src="image/Bab.png" width="60" height="60"></td>
-                <td style="font-size: 16px; padding-bottom: 0;"><b>Pengantar</b></td>
-            </tr>
-            <tr>
-                <td style="font-size: 16px; padding-top: 0;">Fungsi - Matematika Kelas XI</td>
-            </tr>
-            <tr>
-                <td style="padding: 0.3vw;"></td>
-            </tr>
-            <tr>
-                <td style="font-size: 12px;">1/2 subtopik selesai</td>
-            </tr>
-        </table>
-    </div></a>
+          <table style="border-collapse: collapse;">
+              <tr>
+                  <td rowspan="4" style="padding-right: 1.5vw;"><img src="image/Bab.png" width="60" height="60"></td>
+                  <td style="font-size: 16px; padding-bottom: 0;"><b>Pengantar</b></td>
+              </tr>
+              <tr>
+                  <td style="font-size: 16px; padding-top: 0;">Fungsi - Matematika Kelas XI</td>
+              </tr>
+              <tr>
+                  <td style="padding: 0.3vw;"></td>
+              </tr>
+              <tr>
+                  <td style="font-size: 12px;">1/2 subtopik selesai</td>
+              </tr>
+          </table>
+        </div>
+        </a>
+    </div>
 </div>
 </div>
 <footer>
