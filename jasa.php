@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-if( !isset($_SESSION['login']) ){
-    header("Location: login.php");
-    exit;
+if (!isset($_SESSION['login'])) {
+  header("Location: login.php");
+  exit;
 }
 include 'navbar.php';
 ?>
@@ -27,17 +27,17 @@ include 'navbar.php';
   <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
   <title>Desain Web & App</title>
   <style>
-      footer {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        background-color: #1F2844;
-        color: white;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-        padding: 2vw;
-      }
+    footer {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: #1F2844;
+      color: white;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 2vw;
+    }
   </style>
 </head>
 
@@ -247,32 +247,36 @@ include 'navbar.php';
           <div class="modal-body">
             <div class="mb-3">
               <label for="nama" class="form-label">Nama</label>
-              <input type="text" class="form-control" id="nama" aria-describedby="emailHelp">
+              <input type="text" class="form-control" id="nama" aria-describedby="emailHelp" required>
               <div id="emailHelp" class="form-text"></div>
             </div>
             <div class="mb-3">
               <label for="dropdown" class="form-label">Pilih Opsi</label>
-              <select class="form-select" id="dropdown" aria-label="Dropdown">
-                <option selected>Pilih opsi...</option>
-                <option value="1">Opsi 1</option>
-                <option value="2">Opsi 2</option>
-                <option value="3">Opsi 3</option>
+              <select class="form-select" id="dropdown" aria-label="Dropdown" required>
+                <option value="" selected>Pilih opsi...</option>
+                <option value="Desain Grafis - Logo">Desain Grafis - Logo</option>
+                <option value="Desain Grafis - Desain Website">Desain Grafis - Desain Website</option>
+                <option value="Desain Grafis - Banner 3">Desain Grafis - Banner 3</option>
+                <option value="Website - Promosi">Website - Promosi</option>
+                <option value="Website - Company Profile">Website - Company Profile</option>
+                <option value="Website - Sistem Informasi">Website - Sistem Informasi</option>
+                <option value="Aplikasi - Bisnis">Aplikasi - Bisnis</option>
+                <option value="Aplikasi - Edukasi">Aplikasi - Edukasi</option>
+                <option value="Aplikasi - Kustom">Aplikasi - Kustom</option>
               </select>
             </div>
-
             <div class="mb-3">
               <label for="whatsapp" class="form-label">No. Whatsapp</label>
-              <input type="text" class="form-control" id="whatsapp">
+              <input type="text" class="form-control" id="whatsapp" required>
             </div>
             <div class="mb-3">
               <label for="description" class="form-label">Deskripsi</label>
-              <textarea class="form-control" id="description" rows="6" placeholder="Masukkan deskripsi..."></textarea>
+              <textarea class="form-control" id="description" rows="6" placeholder="Masukkan deskripsi..." required></textarea>
             </div>
-
           </div>
           <div class="modal-footer border-0">
-            <button type="submit" class="btn w-100 text-center border-0" data-bs-dismiss="modal">
-              Submit <i class="bi bi-check-circle-fill"></i>
+            <button onclick="sendToWhatsApp()" style="background-color: #25D366; font-size: 1.5vw;" type="submit" class="btn w-100 text-center text-white border-0" data-bs-dismiss="modal">
+              Kirim <i class="bi bi-whatsapp ms-1"></i>
             </button>
           </div>
 
@@ -282,9 +286,37 @@ include 'navbar.php';
   </form>
 
   <footer>
-      <img src="image/logo otodu terang.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;"> <!-- 120px -->
-      <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
+    <img src="image/logo otodu terang.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;"> <!-- 120px -->
+    <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
   </footer>
+
+  <script>
+    function sendToWhatsApp() {
+      // Ambil nilai input
+      const nama = document.getElementById("nama").value.trim();
+      const dropdown = document.getElementById("dropdown").value;
+      const whatsapp = document.getElementById("whatsapp").value.trim();
+      const description = document.getElementById("description").value.trim();
+
+      // Validasi form
+      if (!nama || !dropdown || !whatsapp || !description) {
+        alert("Semua kolom harus diisi!");
+        return;
+      }
+
+      // Ganti dengan nomor tujuan WhatsApp
+      const nomorWhatsApp = "628123456789"; // contoh nomor (62 adalah kode negara Indonesia)
+
+      // Buat pesan untuk dikirim
+      const message = `Halo, saya ${nama}. Saya ingin memesan:\n\n- Layanan: ${dropdown}\n- Deskripsi: ${description}\n- Nomor Whatsapp: ${whatsapp}`;
+
+      // Encode pesan untuk URL
+      const encodedMessage = encodeURIComponent(message);
+
+      // Buka WhatsApp dengan pesan yang sudah dibuat
+      window.open(`https://wa.me/${nomorWhatsApp}?text=${encodedMessage}`, "_blank");
+    }
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

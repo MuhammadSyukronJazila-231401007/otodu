@@ -1,0 +1,134 @@
+.content {
+            display: none; /* Default sembunyikan semua konten */
+
+        }
+        
+        .active {
+            display: grid;
+            place-items: center;
+        }
+
+        .active p{
+            margin-top:5vw;
+            font-size:3vw;
+            text-align:justify;
+        }
+
+        .pagination button {
+            margin: 5px;
+            cursor: pointer;
+        }
+        .pagination .nav-button {
+            font-size: 20px; /* Ukuran font untuk memperbesar */
+            font-weight: bold; /* Membuat tombol tebal */
+        }
+        .pagination .active-button {
+            background-color:#1EA2F6;
+            color: white; /* Warna teks tombol aktif */
+            border: none;
+        }
+
+        .pagination button:not(.active-button) {
+            background-color: #5D81AB; /* Warna highlight untuk halaman aktif */
+            color: white; /* Warna teks tombol aktif */
+            border: none;
+        }
+        
+        .btn-pagination{
+            width:8vw; 
+            height:1vw; 
+            border-radius:5vw;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .question {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .answer-slot {
+            display: flex;
+            margin-top: 10px;
+        }
+        .answer-slot div, .choices div {
+            padding: 10px;
+            margin: 5px;
+            border: 2px solid #6578B2;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .choices {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .pernyataan {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 1em;
+            cursor: pointer;
+            
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            
+        }
+
+        .pernyataan:hover {
+            background-color: #e0e0e0;
+        }
+
+        .benar {
+            background-color: #4CAF50; /* Hijau */
+            color: white;
+        }
+
+        #hasil {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        #lanjut a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #lanjut a:hover {
+            background-color: #0056b3;
+        }
+        
+        .svg{
+            ackground-color:blue;
+        }
+        
+        .pembungkus-content{
+              display:grid; 
+              grid-template-columns:1fr 1fr; 
+              gap:3vw;
+          }
+          
+          #materi img{
+              margin-top:4vw;
+          }
+          
+          #materi p{
+              font-size:2vw;
+          }
