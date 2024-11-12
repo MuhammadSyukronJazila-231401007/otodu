@@ -56,27 +56,42 @@ include 'navbar.php';
         }
 
         .text {
-            position: relative; /* Mengatur posisi relatif untuk overlay */
+            position: relative;
+            /* Mengatur posisi relatif untuk overlay */
             text-align: center;
-            width: 100%; /* Mengambil lebar penuh layar */
-            overflow: hidden; /* Menghindari elemen keluar dari tampilan */
+            width: 100%;
+            /* Mengambil lebar penuh layar */
+            overflow: hidden;
+            /* Menghindari elemen keluar dari tampilan */
         }
+
         .background-image {
-            width: 100%; /* Mengatur gambar agar mengikuti lebar elemen */
-            height: auto; /* Menjaga proporsi gambar */
-            display: block; /* Menghindari spasi di bawah gambar */
+            width: 100%;
+            /* Mengatur gambar agar mengikuti lebar elemen */
+            height: auto;
+            /* Menjaga proporsi gambar */
+            display: block;
+            /* Menghindari spasi di bawah gambar */
         }
+
         .overlay {
-            position: absolute; /* Memungkinkan teks berada di atas gambar */
-            top: 50%; /* Posisi vertikal tengah */
-            left: 50%; /* Posisi horizontal tengah */
-            transform: translate(-50%, -50%); /* Memusatkan teks */
-            color: white; /* Warna teks */
-            z-index: 1; /* Memastikan teks di atas gambar */
+            position: absolute;
+            /* Memungkinkan teks berada di atas gambar */
+            top: 50%;
+            /* Posisi vertikal tengah */
+            left: 50%;
+            /* Posisi horizontal tengah */
+            transform: translate(-50%, -50%);
+            /* Memusatkan teks */
+            color: white;
+            /* Warna teks */
+            z-index: 1;
+            /* Memastikan teks di atas gambar */
         }
 
         #text-2 {
-            margin-top: 3vw; /* 20px */
+            margin-top: 3vw;
+            /* 20px */
         }
 
         #kredit-otodu {
@@ -224,32 +239,20 @@ include 'navbar.php';
         }
 
         .mentor {
-          background-color: #4D62A5;
-          color: white; 
-          font-weight: 450;
+            background-color: #4D62A5;
+            color: white;
+            font-weight: 450;
         }
     </style>
 
 </head>
 
 <body>
-
-    <!-- <nav class="navbar">
-        <div class="container" style="display: flex; align-items: center;">
-            <div class="logo">
-                <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 1vw;"> 
-            </div>
-            <a style="margin: 0; text-decoration: none;" class="nav-menu" id="nav-main" href="dashboard.php">NLP OTODU</a>
-            <a style="margin: 0; text-decoration: none;" class="nav-menu" href="mentor.php">Mentor OTODU</a>
-            <a style="margin: 0; text-decoration: none;" class="nav-menu" href="jasa.php">Desain Web & App</a>
-        </div>
-    </nav> -->
-
     <div class="text">
         <img src="./image/price bc.png" alt="Gambar Latar" class="background-image">
         <div class="overlay">
-            <h4 class="judul">Jelajahi pembelajaran otodidak Kamu untuk</h4>
-            <h4 class="judul" id="text-2">NLP dan Mentor dengan <span
+            <h4 class=".h4-tes">Jelajahi pembelajaran otodidak Kamu untuk</h4>
+            <h4 class=".h4-tes" id="text-2">NLP dan Mentor dengan <span
                     style="font-family: 'Martian Mono'; font-weight: 600;">Kredit
                     OTODU</span></h4>
         </div>
@@ -259,110 +262,23 @@ include 'navbar.php';
     <div class="card">
         <span style="position: relative; background-color: #96AA03; color: white; display: inline-flex; align-items: center; padding: 0.2vw 1vw; 
                   margin-left: 9vw; border-radius: 3px; width: fit-content; " id="koin">
-            <img src="image/coin.png" style="width: 1.7vw; margin-right: 0.5vw;">
-            <span style="font-weight: 515"><?= $koin[0]['koin'] ?></span>
+            <img src="image/coin.png" style="width: 1.7vw; margin-right: 0.5vw;"><?= $koin[0]['koin']; ?>
         </span>
         <!-- <p id="kredit-otodu">Kredit OTODU Anda: <span style="font-weight: 600;">69</span></p> -->
         <div class="kredit-satuan">
             <p style="font-size: 1rem;">Beli kredit satuan</p>
-            <input type="number" class="form-control nomor" placeholder="000" required>
-            <p class="rounded-text">Beli <u>Rp 69.420 </u><b>(hemat Rp 1.998)</b></p>
+            <input min=1 id="jumlah-koin" value="1" type="number" class="form-control nomor" placeholder="0" required oninput="updatePrice()">
+            <p style="cursor: pointer;" onclick="konfirmasi(0,0,'Satuan')" class="rounded-text">Beli <u>Rp <span id="total-price">2000</span></u> <b>(hemat Rp <span id="discount">1998</span>)</b></p>
         </div>
         <div class="atau">
             <p>Atau</p>
         </div>
-        <div class="kredit-diskon">
-            <img data-bs-target="#exampleModal" data-bs-toggle="modal" id="disc-0" src="image/disc 10 f.png" alt="" data-price="Rp5.000">
-            <img data-bs-target="#exampleModal" data-bs-toggle="modal" id="disc-50" src="image/disc 50 f.png" alt="" data-price="Rp20.000">
-            <img data-bs-target="#exampleModal" data-bs-toggle="modal" id="disc-100" src="image/disc 100 f.png" alt="" data-price="Rp35.000">
-        </div>
-        <div class="kredit-redeem">
-            <p>Sudah punya kode? Redeem kode!</p>
-            <input type="text" class="form-control redeem" placeholder="Redeem Kode" required>
-            <button type="submit" id="register-btn" class="btn-redem">Redeem</button>
+        <div style="margin-bottom: 8vh;" class="kredit-diskon">
+            <img id="disc-0" src="image/disc 10 f.png" alt="" onclick="konfirmasi(1,5000, 'Paket Sehari')">
+            <img id="disc-50" src="image/disc 50 f.png" alt="" onclick="konfirmasi(1,20000, 'Paket 5 Hari')">
+            <img id="disc-100" src="image/disc 100 f.png" alt="" onclick="konfirmasi(1,35000, 'Paket 10 Hari')">
         </div>
     </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content px-4 py-2">
-                <div class="modal-header" style="border: none;">
-                    <h3 class="modal-title text-center w-100" id="exampleModalLabel">Beli Kredit <i
-                            class="bi bi-cart-fill ms-2"></i>
-                    </h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <img src="image/qrcode.png" width="160vw" alt=""> <br>
-                    <img src="image/qris 1.png" width="100vw" alt="">
-                    <h4 class="mt-2" style="font-weight: bold;">Rp35.000</h4>
-                    <button
-                        id="toggleButton1"
-                        class="custom-btn px-3 btn w-100 mb-3 text-start bg-transparent border d-flex justify-content-between align-items-center"
-                        type="button" aria-expanded="false" aria-controls="multiCollapseExample1">
-                        <img src="image/mandiri 1.png" width="100vw" alt="">
-                        <i class="bi bi-chevron-down py-2"></i>
-                    </button>
-                    <div class="collapse multi-collapse" id="multiCollapseExample1">
-                        <ol class="list-group list-group-numbered text-start">
-                            <li class="list-group-item border-0">
-                                <span>ATM</span> <br>
-                                <ul>
-                                    <li>Pergi ke ATM terdekat</li>
-                                    <li>Lakukan transfer menggunakan mesin ATM ke nomor rekening berikut:</li>
-                                    <li>Nomor Rekening: 123-456-7890 (Bank ABC)</li>
-                                    <li>Ikuti instruksi pada layar ATM untuk transfer ke nomor rekening tersebut.</li>
-                                </ul>
-                            </li>
-                            <li class="list-group-item border-0">
-                                <span>Mobile Banking</span> <br>
-                                <ul>
-                                    <li>Melalui aplikasi mobile banking di ponsel Anda, pilih opsi transfer ke rekening Bank ABC dan masukkan nomor rekening:</li>
-                                    <li>Nomor Rekening: 123-456-7890</li>
-                                    <li>Konfirmasi pembayaran setelah memasukkan jumlah yang sesuai.</li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </div>
-
-                    <button
-                        id="toggleButton2"
-                        class="custom-btn px-3 btn w-100 mb-3 text-start bg-transparent border d-flex justify-content-between align-items-center"
-                        type="button" aria-expanded="false" aria-controls="multiCollapseExample2">
-                        <img src="image/bca 1.png" width="90vw" alt="">
-                        <i class="bi bi-chevron-down py-2"></i>
-                    </button>
-                    <div class="collapse multi-collapse" id="multiCollapseExample2">
-                        <ol class="list-group list-group-numbered text-start">
-                            <li class="list-group-item border-0">
-                                <span>ATM</span> <br>
-                                <ul>
-                                    <li>Pergi ke ATM terdekat</li>
-                                    <li>Lakukan transfer menggunakan mesin ATM ke nomor rekening berikut:</li>
-                                    <li>Nomor Rekening: 123-456-7890 (Bank ABC)</li>
-                                    <li>Ikuti instruksi pada layar ATM untuk transfer ke nomor rekening tersebut.</li>
-                                </ul>
-                            </li>
-                            <li class="list-group-item border-0">
-                                <span>Mobile Banking</span> <br>
-                                <ul>
-                                    <li>Melalui aplikasi mobile banking di ponsel Anda, pilih opsi transfer ke rekening Bank ABC dan masukkan nomor rekening:</li>
-                                    <li>Nomor Rekening: 123-456-7890</li>
-                                    <li>Konfirmasi pembayaran setelah memasukkan jumlah yang sesuai.</li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-                <div class="modal-footer border-0">
-                    <button style="background-color: #25D366; font-size: 1.5vw;" type="button"
-                        class="kirim btn d-block w-100 text-white fw-bold " onclick="sendWhatsApp()">Kirim
-                        Bukti <i class="bi bi-whatsapp ms-2"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     <footer>
         <img src="image/logo otodu terang.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;">
@@ -370,39 +286,120 @@ include 'navbar.php';
         <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
     </footer>
     <script>
-        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
-            button.addEventListener('click', function () {
-                const price = this.getAttribute('data-price');
-                const modalPriceElement = document.querySelector('#exampleModal h4');
-                if (modalPriceElement) {
-                    modalPriceElement.textContent = price;
+        function konfirmasi(banyak, harga, keterangan) {
+            let jumlah, biaya, nama, detail; // Deklarasikan di luar blok if/else
+
+            // Tentukan nilai jumlah dan biaya
+            if (banyak == 0) {
+                const inputJumlah = document.getElementById('jumlah-koin').value; // Mengambil jumlah koin dari input
+                biaya = inputJumlah * 2000; // Menghitung biaya berdasarkan jumlah koin
+                jumlah = inputJumlah; // Menetapkan jumlah dari input
+            } else {
+                biaya = harga; // Menggunakan harga yang diteruskan ke fungsi
+                jumlah = banyak; // Menggunakan banyak yang diteruskan ke fungsi
+            }
+
+            //Untuk ke database
+            if (harga == 5000) detail = 10;
+            else if (harga == 20000) detail = 50;
+            else if (harga == 35000) detail = 100;
+            else detail = jumlah;
+            setSession(jumlah, biaya, keterangan);
+            console.log("jumlah = " + jumlah + " biaya = " + biaya + " ket = " + keterangan); // Log jumlah untuk debugging
+            if (keterangan == "Satuan") nama = "Beli " + jumlah + " koin ";
+            else nama = "Beli " + keterangan;
+            // Menampilkan SweetAlert untuk konfirmasi
+            Swal.fire({
+                title: nama + "?",
+                text: nama + " seharga Rp" + biaya,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "Tidak",
+                confirmButtonText: "Beli"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    redirectToCheckout(detail);
                 }
             });
-        });
-        
-        // Menggunakan Bootstrap Collapse API
-        document.getElementById('toggleButton1').addEventListener('click', function () {
-            const targetElement = new bootstrap.Collapse(document.getElementById('multiCollapseExample1'), {
-                toggle: true
-            });
-            targetElement.toggle();
-        });
 
-        document.getElementById('toggleButton2').addEventListener('click', function () {
-            const targetElement = new bootstrap.Collapse(document.getElementById('multiCollapseExample2'), {
-                toggle: true
-            });
-            targetElement.toggle();
-        });
+            // Mengirim jumlah dan biaya ke session
+        }
 
-        function sendWhatsApp() {
-            const phoneNumber = "628973267766";
-            const message = "Halo, saya ingin mengirim bukti pembayaran."; // Pesan default
-            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-            window.location.href = url;
+        function setSession(jumlah, biaya, keterangan) {
+            // Kirim permintaan AJAX ke server PHP untuk mengatur sesi
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "price_function.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log("Session updated:", xhr.responseText);
+                }
+            };
+            xhr.send("jumlah=" + jumlah + "&biaya=" + biaya + "&keterangan=" + keterangan);
         }
     </script>
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-vP30I6evwPVV5p-F"></script>
+    <script type="text/javascript">
+        function redirectToCheckout(detail) {
+            // Ambil order_id dari PHP atau buat di sini jika diperlukan
+            const order_id = Math.floor(Math.random() * 1000000); // Contoh random order ID
+
+            // Mengirim request AJAX ke skrip PHP untuk mendapatkan snap_token
+            fetch(`./Payment/examples/snap/checkout-process-simple-version.php?order_id=${order_id}`)
+                .then(response => response.text())
+                .then(snap_token => {
+                    // Memanggil Snap dengan token yang didapatkan
+                    snap.pay(snap_token, {
+                        onSuccess: function(result) {
+                            // Buat objek XMLHttpRequest
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", "price_function.php", true);
+                            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                            xhr.send("detail_transaksi=" + detail);
+
+                            Swal.fire({
+                                title: 'Pembayaran Berhasil!',
+                                text: 'Terima kasih telah melakukan pembayaran. Silahkan refresh laman bila koin belum masuk',
+                                icon: 'success',
+                                confirmButtonText: 'Ok'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = 'price.php'
+                                }
+                            });;
+                        }
+                    });
+
+                })
+                .catch(error => {
+                    console.error("Error mendapatkan snap_token:", error);
+                });
+        }
+    </script>
+
+    <script>
+        function updatePrice() {
+            // Ambil nilai input jumlah koin
+            var jumlahKoin = document.querySelector('.nomor').value;
+
+            // Set harga satu koin
+            var hargaSatuan = 2000;
+
+            // Hitung total harga
+            var totalHarga = jumlahKoin * hargaSatuan;
+
+            // Hitung diskon (misalnya Rp 1.998 per koin dikali jumlah koin)
+            var diskon = 1998 * jumlahKoin;
+
+            // Update harga total dan diskon di dalam tag p
+            document.getElementById('total-price').textContent = totalHarga;
+            document.getElementById('discount').textContent = diskon;
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
