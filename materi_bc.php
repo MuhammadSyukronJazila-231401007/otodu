@@ -101,13 +101,13 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
             <!-- popup -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-xl">
-                    <div class="modal-content">
+                    <div class="modal-content" style = "background-color: #1F2844; opacity: 100%;">
                         <div style="text-align: right; margin-right: 0.8vw;">
                             <button type="button" data-bs-dismiss="modal" aria-label="Close"
                                 style="margin-top: 0.7vw; margin-right: 0.7vw; background-color: white; border-radius: 5vw; font-size: 15px; padding: 0px 0.2vw"> &nbsp;X&nbsp;</button>
                         </div>
                         <div class="modal-body">
-                            <div style="display: flex; background-color: #375679; border-radius: 0.5vw; margin-bottom: 2vw;">
+                            <div style="display: flex; background-color: #375679; border-radius: 0.5vw; margin-bottom: 1vw;">
                                 <div
                                     style="border-radius: 4vw; font-size: 1vw; background-color: #F6F7FA; padding-left: 0.25vw; padding-right: 0.25vw; margin: 1.2vw 1vw 1.2vw 2.5vw; color: #375679">
                                     0<?php echo $indeks_terpilih ?>
@@ -118,9 +118,20 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
                             </div>
 
                             <div style="display: flex; justify-content: space-around">
-                                <div style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw;">
+                                <div style="width: 40vw; height: 33vw; background-color: white; border-radius: 0.5vw;">
                                     <center>
-                                        <table style="margin-left: 2vw; margin-right: 2vw;">
+                                        <table style="margin-left: 1vw; margin-right: 1vw;">
+                                            <tr>
+                                                <td colspan = "4"></td>
+                                                <td
+                                                    style="background-color: #96AA03; padding: 0vw">
+                                                    <!-- <div style="padding: 0%;">
+                                                        <img src="./image/coin.png" width="20" height="20">
+                                                        <font style="font-size: 1vw; color: white;"><?= $koin[0]['koin']; ?></font>
+                                                    </div> -->
+                                                    <?php include "koin.php"; ?>
+                                               </td>
+                                            </tr>
                                             <tr>
                                                 <td style="margin: 1vw;">
                                                     <font
@@ -130,13 +141,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
                                                 <td></td>
                                                 <td style="padding: 0.8vw;"></td>
                                                 <td style="padding-left: 3.8vw;"></td>
-                                                <td
-                                                    style="background-color: #96AA03; border-radius: 0.2vw; padding: 0vw 0.4vw 0.4vw 0.4vw;">
-                                                    <div style="padding: 0%;">
-                                                        <img src="./image/coin.png" width="20" height="20">
-                                                        <font style="font-size: 1vw; color: white;"><?= $koin[0]['koin']; ?></font>
-                                                    </div>
-                                                </td>
+                                                <td></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="5" style="padding: 0.7vw;"></td>
@@ -329,7 +334,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
                                         </table>
                                     </center>
                                 </div>
-                                <div style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw;">
+                                <div style="width: 40vw; height: 33vw; background-color: white; border-radius: 0.5vw;">
                                     <div style="margin-top: 1vw; text-align: center;">
                                         <video width="250" height="150" style="border-radius: 0.5vw;" controls>
                                             <source src="<?php echo htmlspecialchars($video_topik); ?>">
