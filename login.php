@@ -2,7 +2,7 @@
 session_start();
 include 'config.php';
 
-if ( isset($_SESSION['login']) ) {
+if (isset($_SESSION['login'])) {
     header("Location: dashboard.php");
     exit();
 }
@@ -15,7 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "Email dan password harus diisi.";
         exit();
     }
-
     $sql = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
@@ -34,8 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['longitude'] = $row['longitude'];
             $_SESSION['login'] = true;
 
+            //$_SESSION['nama_target'] = $row2['nama_target'];
+
             if (str_ends_with($row['nama'], "_new")) {
-                
+
                 // Hapus "_new" dari username setelah preferensi diatur
                 $newUsername = str_replace("_new", "", $row['nama']);
                 $_SESSION['user_name'] = $newUsername;
@@ -47,11 +48,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 echo "new_user";
                 exit();
-            }else{
+            } else {
                 echo "success";
+                $id = $_SESSION['user_id'];
+                $sql = "SELECT nama_target FROM user_materi INNER JOIN target ON user_materi.kode_target = target.kode_target WHERE id_user = $id";
+                $result = mysqli_query($conn, $sql);
+                $row2 = mysqli_fetch_assoc($result);
+                $_SESSION['nama_target'] = $row2['nama_target'];
                 exit();
             }
-
         } else {
             echo "Password salah.";
             exit();
@@ -69,11 +74,12 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk</title>
-   
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8×4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -88,7 +94,8 @@ $conn->close();
             font-family: "Rethink Sans";
         }
 
-        body, html {
+        body,
+        html {
             height: 100%;
         }
 
@@ -98,7 +105,7 @@ $conn->close();
 
         .main {
             height: 100vh;
-          }
+        }
 
         .login-left {
             background-color: #4D62A5;
@@ -106,7 +113,7 @@ $conn->close();
         }
 
         h2 {
-            margin-bottom: 10px;     
+            margin-bottom: 10px;
         }
 
         .logo {
@@ -123,7 +130,7 @@ $conn->close();
 
         .logo img {
             width: 90px;
-          }
+        }
 
         .form-control:focus {
             border-color: #4D62A5;
@@ -167,7 +174,7 @@ $conn->close();
         }
 
         .content {
-            width: 50%; 
+            width: 50%;
         }
 
         .daftar {
@@ -176,8 +183,8 @@ $conn->close();
 
         footer {
             display: none;
-            justify-content: flex-start;  
-            align-items: center;          
+            justify-content: flex-start;
+            align-items: center;
             background-color: #1F2844;
             padding: 20px;
             color: white;
@@ -185,50 +192,50 @@ $conn->close();
         }
 
         @media (max-width: 600px) {
-          body {
-            font-size: 4vw;
-          }
+            body {
+                font-size: 4vw;
+            }
 
-          .container-fluid {
-              height: 80vh;
-          }
+            .container-fluid {
+                height: 80vh;
+            }
 
-          .main {
-            height: 70vh;
-          }
+            .main {
+                height: 70vh;
+            }
 
-          .logo-container {
-            height: 15vh;
-          }
-          
-          .logo img {
-              width: 70px;
-          }
+            .logo-container {
+                height: 15vh;
+            }
 
-          .content {
-            width: 85%; 
-            padding: 0;
-            margin-top: 5vh;
-          }
+            .logo img {
+                width: 70px;
+            }
 
-          .form-control {
-            height: 50px;
-            font-size: 1.2rem;
-          }
-    
+            .content {
+                width: 85%;
+                padding: 0;
+                margin-top: 5vh;
+            }
 
-          #login-btn {
-              height: 5.5vh;
-              font-size: 1.1rem;
-          }
+            .form-control {
+                height: 50px;
+                font-size: 1.2rem;
+            }
 
-          footer {
-              display: flex;
-          }
+
+            #login-btn {
+                height: 5.5vh;
+                font-size: 1.1rem;
+            }
+
+            footer {
+                display: flex;
+            }
         }
-
     </style>
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row main">
@@ -241,7 +248,7 @@ $conn->close();
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-lg-6 d-flex justify-content-center align-items-center form-container">
                 <div class="content w-80">
                     <h2 style="margin-bottom: 4.5vh;">Masuk</h2>
@@ -250,7 +257,7 @@ $conn->close();
                         <div class="form-group">
                             <input type="email" class="form-control" name="email" required placeholder="Email">
                         </div>
-                        
+
                         <div class="form-group" style="margin: 4.2vh 0;">
                             <input type="password" class="form-control" name="password" required placeholder="Kata Sandi">
                         </div>
@@ -266,7 +273,7 @@ $conn->close();
                         <button type="submit" id="login-btn" class="btn btn-block">Masuk</button>
                     </form>
 
-                    <p class="text-center mt-3">Belum punya akun? 
+                    <p class="text-center mt-3">Belum punya akun?
                         <a href="registrasi.php" class="daftar">Daftar disini</a>
                     </p>
                 </div>
@@ -284,7 +291,7 @@ $conn->close();
         <img src="image/logo otodu terang.png" alt="logo" style="width: 120px; margin-right: 2vw; margin-left: 5vw;">
         <p style="font-family: 'Martian Mono'; font-size: 10px; margin-top: 17px;">@2024 OTODU Limited</p>
     </footer>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-6tZaiXQNNBsq5fNrJxrqcZjC6kMiO1hldCtIwhJbfLRzex51OXLD64kR1f64zE5x" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -301,32 +308,31 @@ $conn->close();
                     success: function(response) {
                         if (response === 'success') {
                             window.location.href = 'dashboard.php'; // Arahkan ke halaman dashboard jika berhasil
-                        } else if (response === 'new_user'){
+                        } else if (response === 'new_user') {
                             window.location.href = 'pilih.php'; // Arahkan ke halaman pilih jika user baru
                         } else {
                             const notyf = new Notyf({
-                              duration: 1000,
-                              position: {
-                                x: 'right',
-                                y: 'top',
-                              },
-                              ripple: true,
-                              types: [
-                                {
-                                  type: 'warning',
-                                  background: 'orange',
-                                  icon: {
-                                    className: 'material-icons',
-                                    tagName: 'i',
-                                    text: 'warning'
-                                  }
+                                duration: 1000,
+                                position: {
+                                    x: 'right',
+                                    y: 'top',
                                 },
-                                {
-                                  type: 'error',
-                                  background: 'indianred',
-                                  duration: 2000,
-                                }
-                              ]
+                                ripple: true,
+                                types: [{
+                                        type: 'warning',
+                                        background: 'orange',
+                                        icon: {
+                                            className: 'material-icons',
+                                            tagName: 'i',
+                                            text: 'warning'
+                                        }
+                                    },
+                                    {
+                                        type: 'error',
+                                        background: 'indianred',
+                                        duration: 2000,
+                                    }
+                                ]
                             });
                             notyf.error(response);
                         }
@@ -337,4 +343,5 @@ $conn->close();
     </script>
 
 </body>
+
 </html>
