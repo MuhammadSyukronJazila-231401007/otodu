@@ -22,46 +22,6 @@ $topik = ambilData("SELECT * FROM topik WHERE kode_subbab=$kode_subbab");
 // Set topik terpilih ke topik pertama secara default
 $topik_terpilih = $topik[0]['kode_topik'] ?? null;
 
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $kode_subtopik_pilih = $_POST['kode_subtopik'];
-    $harga_subtopik = $_POST['harga'];
-    $status_bayar = ambilData("SELECT * FROM beli_subtopik WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id");
-
-    if ($status_bayar) {
-        if($kode_subtopik_pilih == 1){
-            header("Location: isi_subtopik.php");
-        }else{
-            header("Location: isi_subtopik2.php");
-        }
-
-        exit;
-    } else if ($koin[0]['koin'] >= $harga_subtopik) {
-        // Update koin
-        $new_koin = $koin[0]['koin'] - $harga_subtopik;
-        mysqli_query($conn, "UPDATE users SET koin = $new_koin WHERE id = $id;");
-        mysqli_query($conn, "INSERT INTO beli_subtopik (kode_subtopik, id_user) VALUES ($kode_subtopik_pilih, $id);");
-
-        // Redirect ke halaman isi_subtopik
-        echo "tesss";
-
-        if ($kode_subtopik_pilih == 1) {
-            echo "<script>
-                    alert('Selamat anda telah membeli subtopik ini!');
-                    window.location.href = 'isi_subtopik.php';
-                  </script>";
-        } else {
-            echo "<script>
-                    alert('Selamat anda telah membeli subtopik ini!');
-                    window.location.href = 'isi_subtopik2.php';
-                  </script>";
-        }
-        
-        exit;
-    } else {
-        echo "<script>alert('Koin anda belum cukup!');</script>";
-    }
-}
 ?>
 
 
@@ -350,6 +310,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
 </head>
 
 <body>
@@ -608,7 +569,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        function postRequest(form) {
+            $.ajax({
+                url: 'materi_bc.php', // Arahkan ke file PHP untuk proses
+                type: 'POST',
+                data: $(form).serialize(), // Mengirim data form
+                success: function(response) {
+                    const notyf = new Notyf({
+                          duration: 2000,
+                          position: {
+                            x: 'right',
+                            y: 'top',
+                          },
+                          ripple: true,
+                          dismissible: false,
+                        });
+                    if (response == 'Koin anda belum cukup!') {
+                        notyf.error(response);
+                    } else if (response == 'Selamat anda telah membeli subtopik ini!'){
+                        notyf.success(response);
+                        setTimeout(function() {
+                            location.reload(); // Merefresh halaman
+                        }, 1600); // Durasi waktu (2 detik)
+                    } else {
+                        window.location.href = response;
+                    }
+                }
+            });
+        }
+        function formLogic() {
+            $('.form-beli').on('submit', function(e) {
+                e.preventDefault();
+                let form = this;
+                let harga = $(this).find('.btn-beli').data('harga');
+                let nama = $(this).find('.btn-beli').data('nama');
+
+                if(harga){
+                   Swal.fire({
+                       title: `Beli ${nama}?`,
+                       text: `Anda yakin beli ${nama} seharga ${harga}  koin` ,
+                       icon: "question",
+                       showCancelButton: true,
+                       confirmButtonColor: "#3085d6",
+                       cancelButtonColor: "#d33",
+                       cancelButtonText: "Tidak",
+                       confirmButtonText: "Beli"
+                   }).then((result) => {
+                    if (result.isConfirmed) {
+                        harga = null
+                        postRequest(form);
+                    }
+                   });
+                }else{
+                   postRequest(form);
+                }
+            });
+
+        };
+        
         const kodeSubbab = "<?php echo $kode_subbab; ?>";
         function selectTopik(topikId) {
             // Mengirim request AJAX untuk mendapatkan HTML dari server
@@ -622,8 +643,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .then(response => response.text())
             .then(html => {
                 // Update bagian konten di halaman dengan HTML yang diterima
-                console.log(html);
+                // console.log(html);
                 document.getElementById('konten-dinamis').innerHTML = html;
+                formLogic();
             })
             .catch(error => console.error('Error:', error));
         }
@@ -632,8 +654,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             selectTopik(1);
         };
 
-    
     </script>
+
+    <!-- <script>
+        function btnLogic() {
+            $('#btn-beli').on('submit', function(e) {
+                console.log("tesss")
+                e.preventDefault(); // Mencegah submit form secara default
+                $.ajax({
+                    url: 'materi_bc.php', // Arahkan ke file PHP untuk proses
+                    type: 'POST',
+                    data: $(this).serialize(), // Mengirim data form
+                    success: function(response) {
+                        console.log("tesss")
+                        const notyf = new Notyf({
+                              duration: 1000,
+                              position: {
+                                x: 'right',
+                                y: 'top',
+                              },
+                              ripple: true,
+                              dismissible: true,
+                            });
+                        if (response === 'Koin anda belum cukup!') {
+                            notyf.error(response);
+                        } else {
+                            notyf.success(response);
+                        }
+                    }
+                });
+            });
+        };
+    </script> -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

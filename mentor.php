@@ -288,63 +288,6 @@ foreach ($mentors as $mentor) {
             margin-bottom: 0.5vw;
         }
 
-        /* Navbar */
-        .navbar {
-            background-color: white;
-            padding-inline-start: 1.5vw;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1.5vw;
-            align-items: center;
-        }
-
-        .nav-menu {
-            margin: 0;
-            padding: 0.8vw 2vw;
-            position: relative;
-            align-self: center;
-            font-size: 1.2vw;
-            cursor: pointer;
-            font-family: 'Rethink Sans';
-            text-decoration: none;
-            color: #4D62A5;
-        }
-
-        .nav-menu:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 1px;
-            height: 100%;
-            background-color: #4D62A5;
-            transform: translateX(50%);
-            /* Memindahkan garis ke tengah-tengah jarak antara elemen a */
-        }
-
-        .nav-menu:hover {
-            background-color: #4D62A5;
-            color: white;
-            font-weight: 450;
-        }
-
-        #nav-main {
-            background-color: #4D62A5;
-            color: white;
-        }
-
-        .logo img {
-            width: 10vw;
-            margin-right: 1vw;
-        }
-
-        .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-        }
-
-        /* End of Navbar */
-
         /* .text {
             padding: 1.2vw; 
             background-color: #375679;
