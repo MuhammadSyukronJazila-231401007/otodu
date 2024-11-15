@@ -1,13 +1,12 @@
 <?php
 session_start();
 include 'function.php';
+include 'config.php';
 
-if( !isset($_SESSION['login']) ){
+if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit;
 }
-
-include 'navbar.php';
 ?>
 
 
@@ -25,9 +24,9 @@ include 'navbar.php';
     <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
     <style>
         #nlp {
-          background-color: #4D62A5;
-          color: white; 
-          font-weight: 450;
+            background-color: #4D62A5;
+            color: white;
+            font-weight: 450;
         }
 
         .form-select {
@@ -82,7 +81,8 @@ include 'navbar.php';
             bottom: 0;
             width: 100%;
             text-align: center;
-            position: relative; /* Default position */
+            position: relative;
+            /* Default position */
             padding: 2vw;
             margin-top: 2.8vw
         }
@@ -98,15 +98,15 @@ include 'navbar.php';
             cursor: pointer;
             font-size: 16px;
         }
-        
+
         .logout-btn i {
-            margin-right: 8px; /* Jarak antara ikon dan teks */
+            margin-right: 8px;
+            /* Jarak antara ikon dan teks */
         }
-        
+
         .logout-btn:hover {
             background-color: #ff3333;
         }
-
     </style>
 </head>
 
@@ -172,7 +172,7 @@ include 'navbar.php';
         </div>
         <div class="collapse" id="profil">
             <div class="card card-body" style="border: 0;">
-                <div style="box-shadow: 0 0.1vw 0.2vw;">
+                <div class="mb-4" style="box-shadow: 0 0.1vw 0.2vw;">
                     <table class="t2">
                         <tr>
                             <td colspan="2" style="border-bottom: 1px solid; padding: 1.5vw 3vw; width: 50vw;">
@@ -182,6 +182,10 @@ include 'navbar.php';
                         <tr>
                             <td style="width: 15vw;"><b>Email</b></td>
                             <td><?= $_SESSION['user_email']; ?></td>
+                        </tr>
+                        <tr>
+                            <td><b>Jenis Target</b></td>
+                            <td><?= ucfirst($_SESSION['nama_target']) ?></td>
                         </tr>
                         <tr>
                             <td><b>Password</b></td>
@@ -200,7 +204,7 @@ include 'navbar.php';
                         </tr>
                         <tr>
                             <td style="width: 15vw;"><b>Nama</b></td>
-                            <td><?= $_SESSION['user_name'];?></td>
+                            <td><?= $_SESSION['user_name']; ?></td>
                         </tr>
                         <tr>
                             <td><b>No. HP</b></td>
@@ -253,34 +257,34 @@ include 'navbar.php';
                             <td>Rp5.000</td>
                             <td>27-10-2024</td>
                         </tr> -->
-                        <?php 
-                            $id = $_SESSION['user_id'];
-                            $riwayatbeli = ambilData("SELECT jumlah, biaya, waktu
+                        <?php
+                        $id = $_SESSION['user_id'];
+                        $riwayatbeli = ambilData("SELECT jumlah, biaya, waktu
                                                       FROM transaksi
                                                       WHERE id_user = $id
                                                       ORDER BY waktu DESC");
 
-                            if (empty($riwayatbeli)) : // Mengecek jika riwayat pembelian kosong
+                        if (empty($riwayatbeli)) : // Mengecek jika riwayat pembelian kosong
                         ?>
+                            <tr>
+                                <td colspan="3" style="text-align: center; width:100%">Anda belum membeli koin apapun</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <?php
+                        else:
+                            foreach ($riwayatbeli as $riwayat) :
+                                // Mengubah format tanggal dari yyyy-mm-dd menjadi dd-mm-yyyy
+                                $tanggal_pembelian = date("d-m-Y", strtotime($riwayat['waktu']));
+                            ?>
                                 <tr>
-                                    <td colspan="3" style="text-align: center; width:100%">Anda belum membeli koin apapun</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><img src="image/coin2.png" width="18" height="18"><?= "  " . htmlspecialchars($riwayat['jumlah']); ?></td>
+                                    <td><?= htmlspecialchars($riwayat['biaya']); ?></td>
+                                    <td style="width: 58%;"><?= $tanggal_pembelian; ?></td>
                                 </tr>
                         <?php
-                            else:
-                                foreach ($riwayatbeli as $riwayat) :
-                                    // Mengubah format tanggal dari yyyy-mm-dd menjadi dd-mm-yyyy
-                                    $tanggal_pembelian = date("d-m-Y", strtotime($riwayat['waktu']));
-                        ?>
-                                    <tr>
-                                        <td><img src="image/coin2.png" width="18" height="18"><?= "  ".htmlspecialchars($riwayat['jumlah']); ?></td>
-                                        <td><?= htmlspecialchars($riwayat['biaya']); ?></td>
-                                        <td style="width: 58%;"><?= $tanggal_pembelian; ?></td>
-                                    </tr>
-                        <?php 
-                                endforeach; 
-                            endif;
+                            endforeach;
+                        endif;
                         ?>
                     </table>
 
@@ -290,35 +294,35 @@ include 'navbar.php';
                         <tr>
                             <td colspan="3" style="border-bottom: 1px solid; padding: 1.5vw 3vw;"><b>Subtopik</b></td>
                         </tr>
-                        <?php 
-                            $id = $_SESSION['user_id'];
-                            $riwayatbeli = ambilData("SELECT p.kode_subtopik, p.tanggal_pembelian, s.nama_subtopik, s.harga 
+                        <?php
+                        $id = $_SESSION['user_id'];
+                        $riwayatbeli = ambilData("SELECT p.kode_subtopik, p.tanggal_pembelian, s.nama_subtopik, s.harga 
                                                       FROM beli_subtopik p
                                                       JOIN subtopik s ON p.kode_subtopik = s.kode_subtopik
                                                       WHERE p.id_user = $id
                                                       ORDER BY p.tanggal_pembelian DESC");
 
-                            if (empty($riwayatbeli)) : // Mengecek jika riwayat pembelian kosong
+                        if (empty($riwayatbeli)) : // Mengecek jika riwayat pembelian kosong
                         ?>
+                            <tr>
+                                <td colspan="3" style="text-align: center; width:100%;">Anda belum membeli subtopik apapun</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <?php
+                        else:
+                            foreach ($riwayatbeli as $riwayat) :
+                                // Mengubah format tanggal dari yyyy-mm-dd menjadi dd-mm-yyyy
+                                $tanggal_pembelian = date("d-m-Y", strtotime($riwayat['tanggal_pembelian']));
+                            ?>
                                 <tr>
-                                    <td colspan="3" style="text-align: center; width:100%;">Anda belum membeli subtopik apapun</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><?= htmlspecialchars($riwayat['nama_subtopik']); ?></td>
+                                    <td><?= $tanggal_pembelian; ?></td>
+                                    <td style="width: 20vw;"><img src="image/coin2.png" width="18" height="18"> <?= htmlspecialchars($riwayat['harga']); ?></td>
                                 </tr>
                         <?php
-                            else:
-                                foreach ($riwayatbeli as $riwayat) :
-                                    // Mengubah format tanggal dari yyyy-mm-dd menjadi dd-mm-yyyy
-                                    $tanggal_pembelian = date("d-m-Y", strtotime($riwayat['tanggal_pembelian']));
-                        ?>
-                                    <tr>
-                                        <td><?= htmlspecialchars($riwayat['nama_subtopik']); ?></td>
-                                        <td><?= $tanggal_pembelian; ?></td>
-                                        <td style="width: 20vw;"><img src="image/coin2.png" width="18" height="18"> <?= htmlspecialchars($riwayat['harga']); ?></td>
-                                    </tr>
-                        <?php 
-                                endforeach; 
-                            endif;
+                            endforeach;
+                        endif;
                         ?>
                     </table>
 
@@ -380,34 +384,34 @@ include 'navbar.php';
 
 
 
+                        <div style="display: flex; ">
                             <div style="display: flex; ">
-                                <div style="display: flex; ">
-                                    <div style="display: flex; width: 8vw;">
-                                        <img src="image/9.png" width="30" height="30">
-                                        <b>
-                                            <font style="color: black; font-size: 0.8vw;">mk933</font>
-                                        </b>
-                                    </div>
+                                <div style="display: flex; width: 8vw;">
+                                    <img src="image/9.png" width="30" height="30">
+                                    <b>
+                                        <font style="color: black; font-size: 0.8vw;">mk933</font>
+                                    </b>
                                 </div>
-                                <div style="display: flex; ">
-                                    <div style="display: flex; width: 8vw;">
-                                        <img src="image/10.png" width="30" height="30">
-                                        <b>
-                                            <font style="color: black; font-size: 0.8vw;">Maxim Basinski
-                                            </font>
-                                        </b>
-                                    </div>
+                            </div>
+                            <div style="display: flex; ">
+                                <div style="display: flex; width: 8vw;">
+                                    <img src="image/10.png" width="30" height="30">
+                                    <b>
+                                        <font style="color: black; font-size: 0.8vw;">Maxim Basinski
+                                        </font>
+                                    </b>
                                 </div>
-
                             </div>
 
-
                         </div>
-                    </div>
 
+
+                    </div>
                 </div>
+
             </div>
         </div>
+    </div>
     </div>
     <br><br>
 
@@ -458,10 +462,8 @@ include 'navbar.php';
         document.getElementById("logoutButton").addEventListener("click", function() {
             window.location.href = "logout.php";
         });
-
-
     </script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
