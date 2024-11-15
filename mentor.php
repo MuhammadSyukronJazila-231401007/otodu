@@ -43,10 +43,13 @@ function calculateDistance($lat1, $lon1, $lat2, $lon2) {
 $nearbyMentors = [];
 foreach ($mentors as $mentor) {
     $distance = calculateDistance($userLat, $userLng, $mentor['latitude'], $mentor['longitude']);
-    if ($distance <= 10) {
-        $mentor['jarak'] = number_format($distance,2);
-        $nearbyMentors[] = $mentor; // Menambahkan mentor ke array jika jaraknya <= 2 km
-    }
+    $mentor['jarak'] = number_format($distance,2);
+    $nearbyMentors[] = $mentor; // Menambahkan mentor ke array jika jaraknya <= 2 km
+
+    usort($nearbyMentors, function ($a, $b) {
+        return $a['jarak'] <=> $b['jarak'];
+    });
+  
 }
 
 ?>
@@ -59,7 +62,7 @@ foreach ($mentors as $mentor) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;700&display=swap">
+
     <title>Cari Mentor</title>
     <style>
     .logo img {
@@ -86,8 +89,17 @@ foreach ($mentors as $mentor) {
         background-attachment: fixed;
         background-size: cover;
         color: white;
-        font-size: 2vw;
+        font-size: 16px;
+    }
 
+    .intro {
+        padding: 5vw 5vw 10vw 27vw;
+        background-image: url('./image/gradien\ blue.avif');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        color: white;
+        font-size: 16px;
     }
 
     #map {
@@ -96,6 +108,12 @@ foreach ($mentors as $mentor) {
     }
 
     .modal-backdrop {
+        background-color: #1F2844;
+        opacity: 100%;
+        /* awalnya 90% */
+    }
+
+    .modal {
         background-color: #1F2844;
         opacity: 100%;
         /* awalnya 90% */
@@ -139,6 +157,17 @@ foreach ($mentors as $mentor) {
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
+    .top-element {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        /* Supaya elemen ini berada di atas elemen lainnya */
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
     .side-bar {
         background: #375679;
         backdrop-filter: blur(15px);
@@ -160,6 +189,12 @@ foreach ($mentors as $mentor) {
         /* Lebar scrollbar */
     }
 
+    /* Menampilkan scrollbar pada .side-bar */
+    .side-bar::-webkit-scrollbar {
+        width: 8px;
+        /* Lebar scrollbar */
+    }
+
     .side-bar::-webkit-scrollbar-thumb {
         background-color: #6A6A6A;
         /* Warna thumb scrollbar */
@@ -171,8 +206,18 @@ foreach ($mentors as $mentor) {
         /* Warna track scrollbar */
     }
 
+    .side-bar::-webkit-scrollbar-track {
+        background: #434041;
+        /* Warna track scrollbar */
+    }
+
     .side-bar.active {
         left: 0;
+    }
+
+    .side-bar .menu {
+        width: 100%;
+        margin-top: 30px;
     }
 
     .side-bar .menu {
@@ -195,6 +240,16 @@ foreach ($mentors as $mentor) {
         border-radius: 10px;
     }
 
+    .side-bar .menu .item a {
+        color: #fff;
+        font-size: 0.9rem;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        padding: 2vh 1.5vw;
+        border-radius: 10px;
+    }
+
     .sub-btn {
         font-weight: 600;
         margin: 0 0.9vw;
@@ -205,8 +260,20 @@ foreach ($mentors as $mentor) {
         transition: 0.3s ease;
     }
 
+    .side-bar .menu .item a:hover {
+        background: #455E95;
+        transition: 0.3s ease;
+    }
+
     .side-bar .menu .item i {
         margin-right: 15px;
+    }
+
+    .side-bar .menu .item a .dropdown {
+        position: absolute;
+        right: 0;
+        transition: 0.3s ease;
+        padding-right: 0.8vw;
     }
 
     .side-bar .menu .item a .dropdown {
@@ -227,6 +294,10 @@ foreach ($mentors as $mentor) {
         padding-left: 2.5vw;
     }
 
+    .side-bar .menu .item .sub-menu a {
+        padding-left: 2.5vw;
+    }
+
     .side-bar .menu .item .sub-btn.active {
         background-color: #4D62A5;
         color: #fff;
@@ -237,8 +308,22 @@ foreach ($mentors as $mentor) {
         color: #fff;
     }
 
+    .side-bar .menu .item .sub-menu .sub-item.active {
+        background-color: #6B7FA7;
+        color: #fff;
+    }
+
     .rotate {
         transform: rotate(-180deg);
+    }
+
+    .menu-btn {
+        color: rgb(255, 255, 255);
+        font-size: 1.5rem;
+        margin: 1.2px;
+        margin-left: 3vw;
+        margin-right: 3vw;
+        cursor: pointer;
     }
 
     .menu-btn {
@@ -262,6 +347,10 @@ foreach ($mentors as $mentor) {
         background: #5E88B6;
     }
 
+    header {
+        background: #5E88B6;
+    }
+
     .close-btn {
         position: absolute;
         color: #fff;
@@ -276,12 +365,23 @@ foreach ($mentors as $mentor) {
         padding-left: 1vw;
     }
 
+    #judul-materi {
+        padding-top: 2vw;
+        padding-left: 1vw;
+    }
+
     #nama-materi {
         padding-top: 0.5vw;
         padding-left: 1vw;
         padding-bottom: 1vw;
         font-weight: 700;
         font-size: 1em;
+    }
+
+    .menu p {
+        margin-left: 1vw;
+        margin-top: 1vw;
+        margin-bottom: 0.5vw;
     }
 
     .menu p {
@@ -307,6 +407,10 @@ foreach ($mentors as $mentor) {
         border: 1px;
     }
 
+    table td {
+        border: 1px;
+    }
+
     /* css konten halaman (kode anugrah) */
     .box {
         height: 4.5vw;
@@ -315,6 +419,13 @@ foreach ($mentors as $mentor) {
         justify-content: center;
         align-items: center;
         font-size: 1.4vw;
+    }
+
+    .boxleft {
+        color: white;
+        display: flex;
+        font-size: 1.4vw;
+        flex-direction: column;
     }
 
     .boxleft {
@@ -338,6 +449,23 @@ foreach ($mentors as $mentor) {
         /* Jarak antar elemen */
     }
 
+    .box-4 {
+        padding: 3vw;
+        display: flex;
+        flex-direction: column;
+        gap: 1vw;
+        /* Jarak antar elemen */
+    }
+
+    .box-4 .inner-box {
+        background-color: #C2C5CD;
+        color: #F6F7FA;
+        padding: 0.8vw;
+        font-family: 'Nunito Sans', sans-serif;
+        margin-bottom: 0;
+        /* Hilangkan margin bawah */
+    }
+
     .box-4 .inner-box {
         background-color: #C2C5CD;
         color: #F6F7FA;
@@ -356,6 +484,18 @@ foreach ($mentors as $mentor) {
     }
 
     .modal-backdrop {
+        background-color: #1F2844;
+        opacity: 100%;
+        /* awalnya 90% */
+    }
+
+    .modal-backdrop {
+        background-color: #1F2844;
+        opacity: 100%;
+        /* awalnya 90% */
+    }
+
+    .modal {
         background-color: #1F2844;
         opacity: 100%;
         /* awalnya 90% */
@@ -388,22 +528,35 @@ foreach ($mentors as $mentor) {
     <header>
 
         <div class="intro">
-            <div style="width: 30vw;">Otodidak jauh lebih terarah
+            <div style="width: 20vw;">Otodidak jauh lebih terarah
                 dengan..</div>
             <div style="display: flex;">
                 <b>
                     Mentor &nbsp;
-                    <img src="./image/otodu putih.png" width="25" height="15">
-                    <font style="font-family: 'Martian Mono', monospace;">OTODU</font>
+                    <img src="./image/otodu putih.png" width="20" height="12">
+                    OTODU!
                 </b>
             </div>
         </div>
     </header>
 
     <main>
-        <div style="display: flex; justify-content: space-between; margin-left: 5vw; margin-top: 0;">
+        <div style="display: flex; justify-content: space-between; margin-left: 5vw;">
             <div style="display: flex;">
-                <div><?php include "koin.php"; ?></div>
+                <div style="background-color: #96AA03; color: white; font-size: 12px; text-align: center;">
+                    <a href="" class="btn btn-primary"
+                        style="background-color: #96AA03;  font-size: 12px; text-align: center; border: 0cm;"
+                        tabindex="-1" role="button" aria-disabled="true">
+                        <div style="display: flex;" id="koin">
+                            <div style="margin-right: 0.4vw;">
+                                <img src="./image/coin.png" width="20" height="20">
+                            </div>
+                            <div style="text-align: left;">
+                                <?= $koin[0]['koin'] ?>
+                            </div>
+                        </div>
+                    </a>
+                </div>
                 <div style="background-color: #4D62A5; color: white; padding: 0;">
                     <a href="riwayatmentor.php" class="btn btn-primary"
                         style="background-color: #4D62A5;  font-size: 12px; text-align: center; border: 0cm;"
@@ -418,21 +571,20 @@ foreach ($mentors as $mentor) {
                 </div>
             </div>
 
-            <!-- <div>
-          <font style="background-color: #4D62A5; margin-right: 5vw; padding: 0vw 0.4vw 0.4vw 0.4vw;">   
-              <a href="leaderboard.php">
-                  <img src="image/rank.png" width="18" height="18" style="margin-left: 0.7vw;">
-              </a>
-              <a href="">
-                  <img src="image/mail.png" width="18" height="18" style="margin-left: 1.5vw; margin-right: 1.5vw;">
-              </a>
-              <a href="profil.php">
-                  <img src="image/user2.png" width="18" height="18" style="margin-right: 0.7vw;">
-              </a>
-              </font>
-        </div> -->
-
-            <?php include "navbarkecil.php"; ?>
+            <div>
+                <font style="background-color: #4D62A5; margin-right: 5vw; padding: 0vw 0.4vw 0.4vw 0.4vw;">
+                    <a href="leaderboard.php">
+                        <img src="image/rank.png" width="18" height="18" style="margin-left: 0.7vw;">
+                    </a>
+                    <a href="">
+                        <img src="image/mail.png" width="18" height="18"
+                            style="margin-left: 1.5vw; margin-right: 1.5vw;">
+                    </a>
+                    <a href="profil.php">
+                        <img src="image/user2.png" width="18" height="18" style="margin-right: 0.7vw;">
+                    </a>
+                </font>
+            </div>
         </div>
 
         <center>
@@ -562,205 +714,175 @@ foreach ($mentors as $mentor) {
         </center><br>
         <h5 style="margin-left: 5vw;">List mentor</h5><br>
         <!--Baris pertama-->
-        <?php 
-          $mentors = ambilData("SELECT * FROM users WHERE role='Mentor'");
-        ?>
-
-        <div>
-            <center style="display: flex; margin-left: 5vw; margin-right: 5vw; justify-content: space-between;">
-                <?php foreach ($nearbyMentors as $mentor) { ?>
-                <table style="background-color: #4D62A5; border-radius: 1vw; margin-bottom: 1vw;">
-                    <tr>
-                        <td rowspan="2">
-                            <img src="./image/user.png" width="30" height="30"
-                                style="margin-left: 2vw; margin-top: 1vw;">
-                        </td>
-                        <td colspan="2" style="color: white; padding-top: 1vw;">
-                            Mentor <?= htmlspecialchars($mentor['nama']); ?>, S.Komedi
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="color: white; font-size: 12px; border-bottom: 1px solid white;">
-                            <img src="./image/pin.png" width="17" height="17">
-                            <?= htmlspecialchars($mentor['jarak']); ?> Km
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 5px;"></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <!-- <tr>
-                        <td colspan="3">
-                            <div style="display: flex;">
-                                <?php
-                            // $subjects = explode(',', $mentor['pelajaran']); // Pelajaran disimpan sebagai string dipisahkan koma
-                            // foreach ($subjects as $subject) {
-                            //     echo "<div><button type='button' class='btn btn-secondary' 
-                            //         style='font-size: 12px; padding: 5px 12px; border-radius: 1.5vw; margin-left: 1.7vw;'>"
-                            //         . htmlspecialchars(trim($subject)) . "</button></div>";
-                            // }
-                            ?>
-                            </div>
-                        </td>
-                    </tr> -->
-
-                    <tr>
-                        <td colspan="3">
-                            <div style="display: flex;">
-                                <div><button type="button" class="btn btn-danger"
-                                        style="background-color: #793738; border-color: #793738; font-size: 12px; padding: 5px 12px 5px 12px; border-radius: 1.5vw; margin-left: 1.7vw; margin-right: 0vw;">
-                                        Matematika </button></div>
-                                <div><button type="button" class="btn btn-secondary"
-                                        style="background-color: #6C3779; border-color: #6C3779; font-size: 12px; padding: 5px 12px 5px 12px; border-radius: 1.5vw; margin-left: 1.7vw; margin-bottom: 4px; margin-right: 3vw;">Dasar
-                                        Pemrograman</button></div>
-                            </div>
-                        </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <div style="display: flex;">
-                                <div><button type="button" class="btn btn-success"
-                                        style="background-color: #89622B; border-color: #89622B; font-size: 12px; padding: 5px 12px 5px 12px; border-radius: 1.5vw; margin-left: 1.7vw; margin-right: 0;">UTBK</button>
+        <div style="display: flex; margin-left: 5vw; margin-right: 5vw; justify-content: space-between;">
+            <div>
+                <center>
+                    <table style="background-color: #4D62A5; border-radius: 1vw; ">
+                        <tr>
+                            <td rowspan="2"><img src="./image/user.png" width="30" height="30"
+                                    style="margin-left: 2vw; margin-top: 1vw; "></td>
+                            <td colspan="2" style="color: white; padding-top: 1vw; ">
+                                Mentor Skibidi L., S.Komedi
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="color: white; font-size: 12px; border-bottom: 1px solid white;"><img
+                                    src="./image/pin.png" width="17" height="17">690m</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px;"></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <div style="display: flex;">
+                                    <div><button type="button" class="btn btn-danger"
+                                            style="font-size: 12px; padding: 5px 12px 5px 12px; border-radius: 1.5vw; margin-left: 1.7vw; margin-right: 0vw;">
+                                            Matematika </button></div>
+                                    <div><button type="button" class="btn btn-secondary"
+                                            style="font-size: 12px; padding: 5px 12px 5px 12px; border-radius: 1.5vw; margin-left: 1.7vw; margin-bottom: 4px; margin-right: 3vw;">Dasar
+                                            Pemrograman</button></div>
                                 </div>
-                                <div><button type="button" class="btn btn-success"
-                                        style="background-color: #377939; border-color: #377939; font-size: 12px; padding: 5px 12px 5px 12px; border-radius: 1.5vw; margin-left: 1.7vw;">Luring</button>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <div style="display: flex;">
+                                    <div><button type="button" class="btn btn-warning"
+                                            style="font-size: 12px; padding: 5px 12px 5px 12px; border-radius: 1.5vw; margin-left: 1.7vw; margin-right: 0;">UTBK</button>
+                                    </div>
+                                    <div><button type="button" class="btn btn-success"
+                                            style="font-size: 12px; padding: 5px 12px 5px 12px; border-radius: 1.5vw; margin-left: 1.7vw;">Luring</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3" style="text-align: end; padding: 0 0 4px 0; margin-top: 0;">
-                            <button type="button" class="btn" data-bs-toggle="modal"
-                                data-bs-target="#modal<?= $mentor['id']; ?>"
-                                style="color: white; font-size: 12px; margin-right: 1vw;">
-                                Pesan Jasa
-                            </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="text-align: end; padding: 0 0 4px 0; margin-top: 0;">
+                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                    style="color: white; font-size: 12px; margin-right: 1vw; ">
+                                    Pesan Jasa
+                                </button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="modal<?= $mentor['id']; ?>" tabindex="-1"
-                                aria-labelledby="modalLabel<?= $mentor['id']; ?>" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-xl">
-                                    <div class="modal-content">
-                                        <div style="text-align: right; margin-right: 0.8vw;">
-                                            <button type="button" data-bs-dismiss="modal" aria-label="Close"
-                                                style="margin-top: 0.7vw; margin-right: 0.7vw; background-color: white; border-radius: 5vw; font-size: 15px; padding: 0px 0.2vw">
-                                                &nbsp;X&nbsp;</button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div
-                                                style="display: flex; background-color: #375679; border-radius: 0.5vw; margin-bottom: 2vw;">
-                                                <div
-                                                    style="margin-top: 0.8vw; color: #F6F7FA; border-radius: 4vw; font-size: 1.5vw; padding-left: 0.25vw; padding-right: 0.25vw; margin: 1.2vw 1vw 1.2vw 2.5vw;">
-                                                    Pesan jasa mentor OTODU
-                                                </div>
+                                <!-- popup -->
+
+                                <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModal" role="button"
+                                    id="open" style="display: none;"></a>
+                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                        <div class="modal-content bg-transparent">
+                                            <div style="text-align: right; margin-right: 0.8vw;">
+                                                <button type="button" data-bs-dismiss="modal" aria-label="Close"
+                                                    style="margin-top: 0.7vw; margin-right: 0.7vw; background-color: white; border-radius: 5vw; font-size: 15px; padding: 0px 0.2vw">
+                                                    &nbsp;X&nbsp;</button>
                                             </div>
-
-                                            <div style="display: flex; justify-content: space-around">
+                                            <div class="modal-body">
                                                 <div
-                                                    style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw;">
-                                                    <center>
-                                                        <div style="display: flex; align-items: center;">
-                                                            <img src="image/user.png" alt="User Image"
-                                                                style="width: 50px; margin-right: 15px;">
+                                                    style="display: flex; background-color: #375679; border-radius: 0.5vw; margin-bottom: 2vw;">
+                                                    <div
+                                                        style="margin-top: 0.8vw; color: #F6F7FA; border-radius: 4vw; font-size: 1.5vw; padding-left: 0.25vw; padding-right: 0.25vw; margin: 1.2vw 1vw 1.2vw 2.5vw;">
+                                                        Pesan jasa mentor OTODU
+                                                    </div>
+                                                </div>
+
+                                                <div style="display: flex; justify-content: space-around">
+                                                    <div
+                                                        style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw; margin:0; padding: 2vw; overflow-y: auto">
+                                                        <center>
+                                                            <div style="display: flex; align-items: center;">
+                                                                <img src="image/user.png" alt="User Image"
+                                                                    style="width: 50px; margin-right: 15px; margin:0; padding:0 ">
+
+                                                                <div
+                                                                    style="display: flex; flex-direction: column; border-bottom: 1px solid black; margin:0; padding: 0; margin-left: 1vw; width:30vw;">
+                                                                    <p style="margin: 0; padding: 0; text-align: left">
+                                                                        Mentor Skibidi L., S.Komedi</p>
+
+                                                                    <div
+                                                                        style="display: flex; align-items: center; margin: 0; padding: 0">
+                                                                        <img src="image/pinhitam.png" alt="Location Pin"
+                                                                            style="width: 20px; margin-right: 5px;">
+                                                                        <div>690 m</div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
+                                                                <font
+                                                                    style="border-bottom: 1px solid #3A425A; width: 20vw; text-align: left; margin-top: 1.5vw">
+                                                                    Mengajar</font>
+                                                            </div>
 
                                                             <div
-                                                                style="display: flex; flex-direction: column; border-bottom: 1px solid black;">
-                                                                <p> <?= htmlspecialchars($mentor['nama']); ?>,
-                                                                    S.Komedi
-                                                                </p>
-
-                                                                <div style="display: flex; align-items: center;">
-                                                                    <img src="image/pinhitam.png" alt="Location Pin"
-                                                                        style="width: 20px; margin-right: 5px;">
-                                                                    <div><?= htmlspecialchars($mentor['jarak']); ?>
-                                                                        Km
-                                                                    </div>
-                                                                </div>
-
+                                                                style="display: flex; gap: 10px; align-items: center; margin-top: 1vw;">
+                                                                <b>
+                                                                    <span
+                                                                        style="padding: 7px 23px; background-color: #793738; color: white; border-radius: 15px; font-size: 13px;">Matematika</span>
+                                                                    <span
+                                                                        style="padding: 7px 23px; background-color: #6C3779; color: white; border-radius: 15px; font-size: 13px;">Dasar
+                                                                        Pemrograman</span>
+                                                                    <span
+                                                                        style="padding: 7px 23px; background-color: #89622B; color: white; border-radius: 15px; font-size: 13px;">UTBK</span>
+                                                                </b>
                                                             </div>
-                                                        </div>
-                                                        <div
-                                                            style="border-bottom: 1px solid #3A425A; color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
-                                                            <font>Mengajar</font>
-                                                        </div>
 
-                                                        <div
-                                                            style="display: flex; gap: 10px; align-items: center; margin-top: 1vw;">
-                                                            <span
-                                                                style="padding: 10px 20px; background-color: #FF6F00; color: white; border-radius: 5px; font-size: 16px;">Matematika</span>
-                                                            <span
-                                                                style="padding: 10px 20px; background-color: #388E3C; color: white; border-radius: 5px; font-size: 16px;">Dasar
-                                                                Pemrograman</span>
-                                                            <span
-                                                                style="padding: 10px 20px; background-color: #1976D2; color: white; border-radius: 5px; font-size: 16px;">UTBK</span>
-                                                        </div>
+                                                            <div
+                                                                style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
+                                                                <font
+                                                                    style="border-bottom: 1px solid #3A425A; width: 20vw; text-align: left; margin-top: 1.5vw">
+                                                                    Ketersediaan</font>
+                                                            </div>
 
-                                                        <div
-                                                            style="border-bottom: 1px solid #3A425A; color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
-                                                            <font>Ketersediaan</font>
-                                                        </div>
+                                                            <div
+                                                                style="display: grid; gap: 10px; margin:auto; margin-top: 1vw;">
+                                                                <span
+                                                                    style="padding: 7px 23px; background-color: #377939; color: white; border-radius: 13px; font-size: 13px; width: fit-content"><b>Luring
+                                                                        @ 13:00 - 16:00, 16:30 - 19:00</b></span>
+                                                                <span
+                                                                    style="padding: 7px 23px; background-color: #6A7937; color: white; border-radius: 13px; font-size: 13px; width: fit-content"><b>Daring
+                                                                        @ 13:00 - 16:00, 16:30 - 19:00, 19:30 -
+                                                                        22:30</b></span>
+                                                            </div>
 
-                                                        <div
-                                                            style="display: flex; flex-direction: column; gap: 10px; margin-top: 1vw;">
-                                                            <span
-                                                                style="padding: 5px 10px; background-color: #FF6F00; color: white; border-radius: 5px; font-size: 16px;">Luring
-                                                                @ 13:00 - 16:00, 16:30 - 19:00</span>
-                                                            <span
-                                                                style="padding: 5px 10px; background-color: #388E3C; color: white; border-radius: 5px; font-size: 16px;">Daring
-                                                                @ 13:00 - 16:00, 16:30 - 19:00, 19:30 - 22:30</span>
-                                                        </div>
+                                                            <div
+                                                                style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
+                                                                <font
+                                                                    style="border-bottom: 1px solid #3A425A; width: 20vw; text-align: left; margin-top: 1.5vw">
+                                                                    Riwayat studi</font>
+                                                            </div>
 
-                                                        <div
-                                                            style="border-bottom: 1px solid #3A425A; color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
-                                                            <font>Riwayat studi</font>
-                                                        </div>
+                                                            <div
+                                                                style="display: flex; flex-direction: column; gap: 5px; margin-top: 1vw; align-items: flex-start;">
+                                                                <p style="font-size: 16px; color: #3A425A; margin: 0;">
+                                                                    Sarjana Ilmu Komedi - Universitas
+                                                                    Kampus Institut</p>
+                                                                <p style="font-size: 16px; color: #3A425A; margin: 0;">
+                                                                    Magister Sastra Mesin - Institut
+                                                                    Teknologi Dimensi</p>
+                                                            </div>
 
-                                                        <div
-                                                            style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px; align-items: flex-start;">
-                                                            <p style="font-size: 16px; color: #3A425A; margin: 0;">
-                                                                Sarjana Ilmu Komedi - Universitas Kampus Institut
-                                                            </p>
-                                                            <p style="font-size: 16px; color: #3A425A; margin: 0;">
-                                                                Magister Sastra Mesin - Institut Teknologi Dimensi
-                                                            </p>
-                                                        </div>
-
-                                                    </center>
-                                                </div>
-                                                <div
-                                                    style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw;">
-                                                    <div style="margin-top: 1vw; text-align: center;">
-
-                                                        <div
-                                                            style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
-                                                            <font>Materi yang ingin dipelajari</font>
-                                                        </div>
-
-                                                        <div
-                                                            style="margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
-                                                            <select
-                                                                style="padding: 10px 20px; font-size: 16px; color: #3A425A; border: 1px solid #3A425A; border-radius: 5px; width: 100%;">
-                                                                <option value="matematika" style="font-weight: bold;">
-                                                                    Matematika</option>
-                                                            </select>
-                                                        </div>
-
+                                                        </center>
+                                                    </div>
+                                                    <div
+                                                        style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw; padding: 2vw; overflow-y: auto">
                                                         <div style="margin-top: 1vw; text-align: center;">
 
                                                             <div
                                                                 style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
-                                                                <font>Topik</font>
+                                                                <font>Materi yang ingin dipelajari</font>
                                                             </div>
 
                                                             <div
                                                                 style="margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
                                                                 <select
                                                                     style="padding: 10px 20px; font-size: 16px; color: #3A425A; border: 1px solid #3A425A; border-radius: 5px; width: 100%;">
-                                                                    <option value="Fungsi" style="font-weight: bold;">
-                                                                        Matematika</option>
+                                                                    <option value="matematika"
+                                                                        style="font-weight: bold;">Matematika</option>
                                                                 </select>
                                                             </div>
 
@@ -768,38 +890,97 @@ foreach ($mentors as $mentor) {
 
                                                                 <div
                                                                     style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
-                                                                    <font>Fungsi</font>
+                                                                    <font>Topik</font>
                                                                 </div>
 
                                                                 <div
                                                                     style="margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
                                                                     <select
                                                                         style="padding: 10px 20px; font-size: 16px; color: #3A425A; border: 1px solid #3A425A; border-radius: 5px; width: 100%;">
-                                                                        <option value="matematika"
-                                                                            style="font-weight: bold;">Daring
+                                                                        <option value="Fungsi"
+                                                                            style="font-weight: bold;">Matematika
                                                                         </option>
                                                                     </select>
                                                                 </div>
 
-                                                                <button
-                                                                    style="margin-top: 20px; padding: 10px 0; background-color: #FF6F00; color: white; border: none; border-radius: 5px; font-size: 16px; width: 100%; text-align: center;">
-                                                                    Pesan
-                                                                </button>
+                                                                <div style="margin-top: 1vw; text-align: center;">
+
+                                                                    <div
+                                                                        style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
+                                                                        <font>Daring/ luring</font>
+                                                                    </div>
+
+                                                                    <div
+                                                                        style="margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
+                                                                        <select
+                                                                            style="padding: 10px 20px; font-size: 16px; color: #3A425A; border: 1px solid #3A425A; border-radius: 5px; width: 100%;">
+                                                                            <option value="Fungsi"
+                                                                                style="font-weight: bold;">Daring
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div style="margin-top: 1vw; text-align: center;">
+
+                                                                        <div
+                                                                            style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
+                                                                            <font>Jam belajar</font>
+                                                                        </div>
+
+                                                                        <div
+                                                                            style="margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
+                                                                            <select
+                                                                                style="padding: 10px 20px; font-size: 16px; color: #3A425A; border: 1px solid #3A425A; border-radius: 5px; width: 100%;">
+                                                                                <option value="matematika"
+                                                                                    style="font-weight: bold;">13:00 -
+                                                                                    14:00 WIB</option>
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div
+                                                                            style="margin-top: 1vw; text-align: center;">
+
+                                                                            <div
+                                                                                style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
+                                                                                <font>Deskripsi materi yang ingin
+                                                                                    dipelajari</font>
+                                                                            </div>
+
+                                                                            <div
+                                                                                style="margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
+                                                                                <textarea
+                                                                                    style="font-weight: bold; padding: 10px 20px; font-size: 16px; color: #3A425A; border: 1px solid #3A425A; border-radius: 5px; width: 100%; text-align:left">Izin kak, aku belum terlalu paham tentang fungsi komposisi, aku ada beberapa soal yang mungkin bisa tolong kak mentor ajar samaku? Terimakasih sebelumnya kak
+                                          </textarea>
+                                                                            </div>
+
+                                                                            <div
+                                                                                style="margin-top: 1vw; text-align: center;">
+
+
+
+
+
+                                                                                <button
+                                                                                    style="margin-top: 20px; padding: 10px 0; background-color: #FF6F00; color: white; border: none; border-radius: 5px; font-size: 16px; width: 100%; text-align: center;">
+                                                                                    Pesan
+                                                                                </button>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
 
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                        </td>
-                    </tr>
-                </table>
-                <?php } ?>
-            </center>
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+            </div>
         </div>
+
         </td>
         </tr>
         </table>
@@ -847,7 +1028,7 @@ foreach ($mentors as $mentor) {
             console.log(mentor.nama);
 
             // Cek apakah lat dan lng mentor valid
-            if (!isNaN(mentorLat) && !isNaN(mentorLng)) {
+            if (!isNaN(mentorLat) && !isNaN(mentorLng) && mentor.jarak < 10) {
                 let mentorLocation = {
                     lat: mentorLat,
                     lng: mentorLng
