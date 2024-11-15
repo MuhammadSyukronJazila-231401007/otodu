@@ -4,8 +4,10 @@ session_start();
 
 $id = $_SESSION['user_id'];
 
-if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
- === "application/json") {
+if (
+    $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
+    === "application/json"
+) {
     // Ambil data yang diterima dari permintaan POST
     $request_body = file_get_contents('php://input');
     $data = json_decode($request_body, true);
@@ -20,13 +22,13 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
 
     $topik = ambilData("SELECT * FROM topik WHERE kode_subbab=$kode_subbab");
 
-        // Pastikan data kode_topik diterima
+    // Pastikan data kode_topik diterima
     if (isset($data['kode_topik'])) {
         $topik_terpilih = $data['kode_topik'];
 
         if ($topik_terpilih) {
             // Kembalikan HTML untuk ditampilkan pada halaman
-            ?>
+?>
             <div class="row" style="margin-left: 1.5vw; margin-right: 1.5vw;">
                 <div class="col-md-6">
                     <div class="boxleft box-4">
@@ -38,28 +40,29 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
                         <!-- Konten topik -->
                         <?php foreach ($topik as $index => $item): ?>
                             <?php if ($item['kode_topik'] == $topik_terpilih): ?>
-                            <?php $indeks_terpilih = $index + 1; $nama_terpilih = $item['nama_topik']; ?>
-                            <div class="row" style="margin-left: 0vw;">
-                                <div class="inner-box topik-box"
-                                    id="topik_<?php echo $item['kode_topik']; ?>"
-                                    onclick="selectTopik(<?php echo $item['kode_topik']; ?>)"
-                                    style="background-color: #375679; width: 30vw; margin-right: 3vw; cursor: pointer;">
-                                <img src="image/0<?php echo $index + 1; ?>.png" style="width: 1.5vw;">
-                                <b><?php echo htmlspecialchars($item['nama_topik']);?></b>
-                                </div>
-                                <div class="inner-box mulai" style="background-color: #46CC6A; color: #24384E; width: 7vw; 
+                                <?php $indeks_terpilih = $index + 1;
+                                $nama_terpilih = $item['nama_topik']; ?>
+                                <div class="row" style="margin-left: 0vw;cursor: pointer;">
+                                    <div class="inner-box topik-box"
+                                        id="topik_<?php echo $item['kode_topik']; ?>"
+                                        onclick="selectTopik(<?php echo $item['kode_topik']; ?>)"
+                                        style="background-color: #375679; width: 30vw; margin-right: 3vw; cursor: pointer;">
+                                        <img src="image/0<?php echo $index + 1; ?>.png" style="width: 1.5vw;">
+                                        <b><?php echo htmlspecialchars($item['nama_topik']); ?></b>
+                                    </div>
+                                    <div class="inner-box mulai" style="background-color: #46CC6A; color: #24384E; width: 7vw; 
                                     align-items: center; display: flex; justify-content: center; cursor: pointer" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    <b>Mulai</b>
+                                        data-bs-target="#exampleModal">
+                                        <b>Mulai</b>
+                                    </div>
                                 </div>
-                            </div>
                             <?php else: ?>
-                            <div class="inner-box topik-box"
-                                id="topik_<?php echo $item['kode_topik']; ?>"
-                                onclick="selectTopik(<?php echo $item['kode_topik']; ?>)">
-                            <img src="image/0<?php echo $index + 1; ?>.png" style="width: 1.5vw;">
-                                <?php echo htmlspecialchars($item['nama_topik']);?>
-                            </div>
+                                <div style="cursor: pointer;" class="inner-box topik-box"
+                                    id="topik_<?php echo $item['kode_topik']; ?>"
+                                    onclick="selectTopik(<?php echo $item['kode_topik']; ?>)">
+                                    <img src="image/0<?php echo $index + 1; ?>.png" style="width: 1.5vw;">
+                                    <?php echo htmlspecialchars($item['nama_topik']); ?>
+                                </div>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
@@ -67,12 +70,12 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
                 <div class="col-md-6">
                     <div class="boxleft box-4">
                         <!-- Rangkuman dan video sesuai dengan topik yang dipilih -->
-                        <?php 
-                            // Cari data topik yang dipilih
-                            $topik_aktif = array_filter($topik, fn($item) => $item['kode_topik'] == $topik_terpilih);
-                            $topik_aktif = reset($topik_aktif); // Ambil elemen pertama dari hasil filter
-                            $video_topik = $topik_aktif['video_url'];
-                            $rangkuman_topik = $topik_aktif['rangkuman'];
+                        <?php
+                        // Cari data topik yang dipilih
+                        $topik_aktif = array_filter($topik, fn($item) => $item['kode_topik'] == $topik_terpilih);
+                        $topik_aktif = reset($topik_aktif); // Ambil elemen pertama dari hasil filter
+                        $video_topik = $topik_aktif['video_url'];
+                        $rangkuman_topik = $topik_aktif['rangkuman'];
                         ?>
                         <div class="column d-flex flex-column mb-4">
                             <span style="color: #3A425A; margin-left: 0.8vw; display:flex;">
@@ -101,7 +104,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
             <!-- popup -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-xl">
-                    <div class="modal-content">
+                    <div class="modal-content bg-transparent">
                         <div style="text-align: right; margin-right: 0.8vw;">
                             <button type="button" data-bs-dismiss="modal" aria-label="Close"
                                 style="margin-top: 0.7vw; margin-right: 0.7vw; background-color: white; border-radius: 5vw; font-size: 15px; padding: 0px 0.2vw"> &nbsp;X&nbsp;</button>
@@ -113,7 +116,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
                                     0<?php echo $indeks_terpilih ?>
                                 </div>
                                 <div style="margin-top: 0.8vw; color: #F6F7FA;">
-                                    <?php echo htmlspecialchars($nama_terpilih);?>
+                                    <?php echo htmlspecialchars($nama_terpilih); ?>
                                 </div>
                             </div>
 
@@ -163,10 +166,10 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
                                                             <form method="post" class="form-beli">
                                                                 <input type="hidden" name="kode_subtopik" value="<?= $rowsub['kode_subtopik'] ?>">
                                                                 <input type="hidden" name="harga" value="<?= $rowsub['harga'] ?>">
-                                                                <?php 
-                                                                    $kode_subtopik_pilih  = $rowsub['kode_subtopik'];
-                                                                    $status_bayar = ambilData("SELECT * FROM beli_subtopik 
-                                                                    WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id"); 
+                                                                <?php
+                                                                $kode_subtopik_pilih  = $rowsub['kode_subtopik'];
+                                                                $status_bayar = ambilData("SELECT * FROM beli_subtopik 
+                                                                    WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id");
                                                                 ?>
                                                                 <?php if ($status_bayar): ?>
                                                                     <button type="submit" class="btn" style="background-color: #96AA03; color: white;">
@@ -230,10 +233,10 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
                                                             <form method="post" class="form-beli">
                                                                 <input type="hidden" name="kode_subtopik" value="<?= $rowsub['kode_subtopik'] ?>">
                                                                 <input type="hidden" name="harga" value="<?= $rowsub['harga'] ?>">
-                                                                <?php 
-                                                                    $kode_subtopik_pilih  = $rowsub['kode_subtopik'];
-                                                                    $status_bayar = ambilData("SELECT * FROM beli_subtopik 
-                                                                    WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id"); 
+                                                                <?php
+                                                                $kode_subtopik_pilih  = $rowsub['kode_subtopik'];
+                                                                $status_bayar = ambilData("SELECT * FROM beli_subtopik 
+                                                                    WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id");
                                                                 ?>
                                                                 <?php if ($status_bayar): ?>
                                                                     <button type="submit" class="btn" style="background-color: #96AA03; color: white;">
@@ -297,13 +300,13 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
                                                         <td></td>
                                                         <td colspan="2"
                                                             style="background-color: #96AA03; color: white;  border-radius: 0.5vw;">
-                                                            <form method="post" class="form-beli" >
+                                                            <form method="post" class="form-beli">
                                                                 <input type="hidden" name="kode_subtopik" value="<?= $rowsub['kode_subtopik'] ?>">
                                                                 <input type="hidden" name="harga" value="<?= $rowsub['harga'] ?>">
-                                                                <?php 
-                                                                    $kode_subtopik_pilih  = $rowsub['kode_subtopik'];
-                                                                    $status_bayar = ambilData("SELECT * FROM beli_subtopik 
-                                                                    WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id"); 
+                                                                <?php
+                                                                $kode_subtopik_pilih  = $rowsub['kode_subtopik'];
+                                                                $status_bayar = ambilData("SELECT * FROM beli_subtopik 
+                                                                    WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id");
                                                                 ?>
                                                                 <?php if ($status_bayar): ?>
                                                                     <button type="submit" class="btn" style="background-color: #96AA03; color: white;">
@@ -329,7 +332,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
                                         </table>
                                     </center>
                                 </div>
-                                <div style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw;">
+                                <div style="overflow: auto ;width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw;">
                                     <div style="margin-top: 1vw; text-align: center;">
                                         <video width="250" height="150" style="border-radius: 0.5vw;" controls>
                                             <source src="<?php echo htmlspecialchars($video_topik); ?>">
@@ -345,7 +348,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
                     </div>
                 </div>
             </div>
-            <?php
+<?php
         } else {
             echo "<p>Topik tidak ditemukan.</p>";
         }
@@ -358,10 +361,10 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
     $harga_subtopik = trim($_POST['harga']);
     $status_bayar = ambilData("SELECT * FROM beli_subtopik WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id");
 
-    if ($status_bayar)  {
-        if($kode_subtopik_pilih == 1){
-           echo "isi_subtopik.php";
-        }else{
+    if ($status_bayar) {
+        if ($kode_subtopik_pilih == 1) {
+            echo "isi_subtopik.php";
+        } else {
             echo "isi_subtopik2.php";
         }
 
@@ -378,7 +381,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER["CONTENT_TYPE"]
         } else {
             echo 'Selamat anda telah membeli subtopik ini!';
         }
-        
+
         exit();
     } else {
         echo 'Koin anda belum cukup!';
