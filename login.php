@@ -78,10 +78,11 @@ $conn->close();
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <style>
         * {
             font-family: "Rethink Sans";
@@ -286,6 +287,8 @@ $conn->close();
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-6tZaiXQNNBsq5fNrJxrqcZjC6kMiO1hldCtIwhJbfLRzex51OXLD64kR1f64zE5x" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#loginForm').on('submit', function(e) {
@@ -301,7 +304,31 @@ $conn->close();
                         } else if (response === 'new_user'){
                             window.location.href = 'pilih.php'; // Arahkan ke halaman pilih jika user baru
                         } else {
-                            alert(response); // Tampilkan pesan kesalahan
+                            const notyf = new Notyf({
+                              duration: 1000,
+                              position: {
+                                x: 'right',
+                                y: 'top',
+                              },
+                              ripple: true,
+                              types: [
+                                {
+                                  type: 'warning',
+                                  background: 'orange',
+                                  icon: {
+                                    className: 'material-icons',
+                                    tagName: 'i',
+                                    text: 'warning'
+                                  }
+                                },
+                                {
+                                  type: 'error',
+                                  background: 'indianred',
+                                  duration: 2000,
+                                }
+                              ]
+                            });
+                            notyf.error(response);
                         }
                     }
                 });

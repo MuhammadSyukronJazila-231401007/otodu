@@ -238,7 +238,7 @@ include 'navbar.php';
                         <tr>
                             <td colspan="3" style="border-bottom: 1px solid; padding: 1.5vw 3vw;"><b>Koin</b></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td><img src="image/coin2.png" width="18" height="18"> 20</td>
                             <td>Rp20.000</td>
                             <td style="width: 27vw;">29-10-2024</td>
@@ -252,7 +252,36 @@ include 'navbar.php';
                             <td><img src="image/coin2.png" width="18" height="18"> 5</td>
                             <td>Rp5.000</td>
                             <td>27-10-2024</td>
-                        </tr>
+                        </tr> -->
+                        <?php 
+                            $id = $_SESSION['user_id'];
+                            $riwayatbeli = ambilData("SELECT jumlah, biaya, waktu
+                                                      FROM transaksi
+                                                      WHERE id_user = $id
+                                                      ORDER BY waktu DESC");
+
+                            if (empty($riwayatbeli)) : // Mengecek jika riwayat pembelian kosong
+                        ?>
+                                <tr>
+                                    <td colspan="3" style="text-align: center; width:100%">Anda belum membeli koin apapun</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                        <?php
+                            else:
+                                foreach ($riwayatbeli as $riwayat) :
+                                    // Mengubah format tanggal dari yyyy-mm-dd menjadi dd-mm-yyyy
+                                    $tanggal_pembelian = date("d-m-Y", strtotime($riwayat['waktu']));
+                        ?>
+                                    <tr>
+                                        <td><img src="image/coin2.png" width="18" height="18"><?= "  ".htmlspecialchars($riwayat['jumlah']); ?></td>
+                                        <td><?= htmlspecialchars($riwayat['biaya']); ?></td>
+                                        <td style="width: 58%;"><?= $tanggal_pembelian; ?></td>
+                                    </tr>
+                        <?php 
+                                endforeach; 
+                            endif;
+                        ?>
                     </table>
 
                 </div><br><br><br>
@@ -272,7 +301,9 @@ include 'navbar.php';
                             if (empty($riwayatbeli)) : // Mengecek jika riwayat pembelian kosong
                         ?>
                                 <tr>
-                                    <td colspan="3" style="text-align: center;">Anda belum membeli subtopik apapun</td>
+                                    <td colspan="3" style="text-align: center; width:100%;">Anda belum membeli subtopik apapun</td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                         <?php
                             else:
