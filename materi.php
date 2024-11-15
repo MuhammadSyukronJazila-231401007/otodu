@@ -317,7 +317,7 @@ $topik_terpilih = $topik[0]['kode_topik'] ?? null;
 
        <?php include 'navbar.php'; ?>
         <!-- <div class="text">
-            
+            `
         </div> -->
         <div class="row full-row">
             <div class="col-md-4">
