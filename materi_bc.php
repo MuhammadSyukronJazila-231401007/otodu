@@ -111,52 +111,56 @@ if (
     </div>
 </div>
 
-<!-- popup -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="modal-content bg-transparent">
-            <div style="text-align: right; margin-right: 0.8vw;">
-                <button type="button" data-bs-dismiss="modal" aria-label="Close"
-                    style="margin-top: 0.7vw; margin-right: 0.7vw; background-color: white; border-radius: 5vw; font-size: 15px; padding: 0px 0.2vw">
-                    &nbsp;X&nbsp;</button>
-            </div>
-            <div class="modal-body">
-                <div style="display: flex; background-color: #375679; border-radius: 0.5vw; margin-bottom: 2vw;">
-                    <div
-                        style="border-radius: 4vw; font-size: 1vw; background-color: #F6F7FA; padding-left: 0.25vw; padding-right: 0.25vw; margin: 1.2vw 1vw 1.2vw 2.5vw; color: #375679">
-                        0<?php echo $indeks_terpilih ?>
-                    </div>
-                    <div style="margin-top: 0.8vw; color: #F6F7FA;">
-                        <?php echo htmlspecialchars($nama_terpilih); ?>
-                    </div>
-                </div>
+            <!-- popup -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                    <div class="modal-content" style = "background-color: #1F2844; opacity: 100%;">
+                        <div style="text-align: right; margin-right: 0.8vw;">
+                            <button type="button" data-bs-dismiss="modal" aria-label="Close"
+                                style="margin-top: 0.7vw; margin-right: 0.7vw; background-color: white; border-radius: 5vw; font-size: 15px; padding: 0px 0.2vw"> &nbsp;X&nbsp;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="display: flex; background-color: #375679; border-radius: 0.5vw; margin-bottom: 1vw;">
+                                <div
+                                    style="border-radius: 4vw; font-size: 1vw; background-color: #F6F7FA; padding-left: 0.25vw; padding-right: 0.25vw; margin: 1.2vw 1vw 1.2vw 2.5vw; color: #375679">
+                                    0<?php echo $indeks_terpilih ?>
+                                </div>
+                                <div style="margin-top: 0.8vw; color: #F6F7FA;">
+                                    <?php echo htmlspecialchars($nama_terpilih);?>
+                                </div>
+                            </div>
 
-                <div style="display: flex; justify-content: space-around">
-                    <div style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw;">
-                        <center>
-                            <table style="margin-left: 2vw; margin-right: 2vw;">
-                                <tr>
-                                    <td style="margin: 1vw;">
-                                        <font
-                                            style="border-bottom: 1px solid #3A425A; color: #3A425A;  padding-bottom: 4px;">
-                                            Sub Topik NLP</font>
-                                    </td>
-                                    <td></td>
-                                    <td style="padding: 0.8vw;"></td>
-                                    <td style="padding-left: 3.8vw;"></td>
-                                    <td
-                                        style="background-color: #96AA03; border-radius: 0.2vw; padding: 0vw 0.4vw 0.4vw 0.4vw;">
-                                        <div style="padding: 0%;">
-                                            <img src="./image/coin.png" width="20" height="20">
-                                            <font style="font-size: 1vw; color: white;"><?= $koin[0]['koin']; ?></font>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" style="padding: 0.7vw;"></td>
-                                </tr>
-                                <?php $subtopik = ambilData("SELECT * FROM subtopik WHERE kode_topik = $topik_terpilih"); ?>
-                                <?php foreach ($subtopik as $rowsub) {
+                            <div style="display: flex; justify-content: space-around">
+                                <div style="width: 40vw; height: 33vw; background-color: white; border-radius: 0.5vw;">
+                                    <center>
+                                        <table style="margin-left: 1vw; margin-right: 1vw;">
+                                            <tr>
+                                                <td colspan = "4"></td>
+                                                <td
+                                                    style="background-color: #96AA03; padding: 0vw">
+                                                    <!-- <div style="padding: 0%;">
+                                                        <img src="./image/coin.png" width="20" height="20">
+                                                        <font style="font-size: 1vw; color: white;"><?= $koin[0]['koin']; ?></font>
+                                                    </div> -->
+                                                    <?php include "koin.php"; ?>
+                                               </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="margin: 1vw;">
+                                                    <font
+                                                        style="border-bottom: 1px solid #3A425A; color: #3A425A;  padding-bottom: 4px;">
+                                                        Sub Topik NLP</font>
+                                                </td>
+                                                <td></td>
+                                                <td style="padding: 0.8vw;"></td>
+                                                <td style="padding-left: 3.8vw;"></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" style="padding: 0.7vw;"></td>
+                                            </tr>
+                                            <?php $subtopik = ambilData("SELECT * FROM subtopik WHERE kode_topik = $topik_terpilih"); ?>
+                                            <?php foreach ($subtopik as $rowsub) {
                                                 if ($rowsub['keterangan'] == 'materi') { ?>
                                 <tr>
                                     <!--Baris 1 Sub Topik 1-->
@@ -340,46 +344,42 @@ if (
                                                                 $status_bayar = ambilData("SELECT * FROM beli_subtopik 
                                                                     WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id");
                                                                 ?>
-                                            <?php if ($status_bayar): ?>
-                                            <button type="submit" class="btn"
-                                                style="background-color: #96AA03; color: white;">
-                                                Buka
-                                                <span
-                                                    style="text-decoration: line-through; text-decoration-color: black;">
-                                                    <img src="./image/coin.png" width="20" height="20"
-                                                        style="vertical-align: middle;">
-                                                    <?= $rowsub['harga']; ?>
-                                                </span>
-                                            </button>
-                                            <?php else: ?>
-                                            <button type="submit" class="btn btn-beli"
-                                                style="background-color: #96AA03; color: white;"
-                                                data-harga="<?= $rowsub['harga']; ?>"
-                                                data-nama="<?= $rowsub['nama_subtopik']; ?>">
-                                                Beli
-                                                <img src="./image/coin.png" width="20" height="20"
-                                                    style="vertical-align: middle;">
-                                                <?= $rowsub['harga']; ?>
-                                            </button>
-                                            <?php endif; ?>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <?php } ?>
-                                <?php } ?>
-                            </table>
-                        </center>
-                    </div>
-                    <div
-                        style="overflow: auto ;width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw;">
-                        <div style="margin-top: 1vw; text-align: center;">
-                            <video width="250" height="150" style="border-radius: 0.5vw;" controls>
-                                <source src="<?php echo htmlspecialchars($video_topik); ?>">
-                            </video>
-                        </div>
-                        <div
-                            style="padding-left: 4vw; padding-right: 4vw; padding-top: 1vw; font-size: 1.2vw; color: #1F2844">
-                            <?php echo nl2br(htmlspecialchars($rangkuman_topik)); ?>
+                                                                <?php if ($status_bayar): ?>
+                                                                    <button type="submit" class="btn" style="background-color: #96AA03; color: white;">
+                                                                        Buka
+                                                                        <span style="text-decoration: line-through; text-decoration-color: black;">
+                                                                            <img src="./image/coin.png" width="20" height="20" style="vertical-align: middle;">
+                                                                            <?= $rowsub['harga']; ?>
+                                                                        </span>
+                                                                    </button>
+                                                                <?php else: ?>
+                                                                    <button type="submit" class="btn btn-beli" style="background-color: #96AA03; color: white;"
+                                                                        data-harga="<?= $rowsub['harga']; ?>" data-nama="<?= $rowsub['nama_subtopik']; ?>">
+                                                                        Beli
+                                                                        <img src="./image/coin.png" width="20" height="20" style="vertical-align: middle;">
+                                                                        <?= $rowsub['harga']; ?>
+                                                                    </button>
+                                                                <?php endif; ?>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </table>
+                                    </center>
+                                </div>
+                                <div style="width: 40vw; height: 33vw; background-color: white; border-radius: 0.5vw;">
+                                    <div style="margin-top: 1vw; text-align: center;">
+                                        <video width="250" height="150" style="border-radius: 0.5vw;" controls>
+                                            <source src="<?php echo htmlspecialchars($video_topik); ?>">
+                                        </video>
+                                    </div>
+                                    <div style="padding-left: 4vw; padding-right: 4vw; padding-top: 1vw; font-size: 1.2vw; color: #1F2844">
+                                        <?php echo nl2br(htmlspecialchars($rangkuman_topik)); ?>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

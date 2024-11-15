@@ -340,11 +340,11 @@ $topik_terpilih = $topik[0]['kode_topik'] ?? null;
         
     </div>
 
-    <span style="position: relative; background-color: #96AA03; color: white; display: inline-flex; align-items: center; padding: 0.2vw 1vw; 
-          margin-left: 6.5vw; border-radius: 3px; cursor: pointer;" id="koin">
-        <img src="image/coin.png" style="width: 1.7vw; margin-right: 0.5vw;">
-        <b><?= $koin[0]['koin']; ?></b>
-    </span>
+    <span style="position: relative; display: inline-flex; align-items: center;
+          margin-left: 6.5vw; cursor: pointer;" id="koin">
+        <?php include "koin.php"; ?>
+    </span> 
+    
 
     <div class="side-bar" style="color: white;">
         <header>
