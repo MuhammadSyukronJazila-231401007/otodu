@@ -7,6 +7,8 @@ if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit;
 }
+
+include 'navbar.php';
 ?>
 
 
@@ -20,93 +22,101 @@ if (!isset($_SESSION['login'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
     <style>
-        #nlp {
-            background-color: #4D62A5;
-            color: white;
-            font-weight: 450;
-        }
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+    }
 
-        .form-select {
-            background-image: url("panah.png");
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 2vw 0.8vw;
-        }
+    #nlp {
+        background-color: #4D62A5;
+        color: white;
+        font-weight: 450;
+    }
 
-        .t1 {
-            border-collapse: collapse;
-        }
+    .form-select {
+        background-image: url("panah.png");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 2vw 0.8vw;
+    }
 
-        .t1 td {
-            padding: 1vw;
-        }
+    .t1 {
+        border-collapse: collapse;
+    }
 
-        .t2 {
-            color: #4D62A5;
-            padding: 0;
-        }
+    .t1 td {
+        padding: 1vw;
+    }
 
-        .t2 td {
-            padding: 2vw 3vw;
-        }
+    .t2 {
+        color: #4D62A5;
+        padding: 0;
+    }
 
-        .t3 {
-            color: #4D62A5;
-            padding: 0;
-        }
+    .t2 td {
+        padding: 2vw 3vw;
+    }
 
-        .t3 td {
-            padding: 2vw 3vw;
-            border-bottom: 0.1vw solid;
-        }
+    .t3 {
+        color: #4D62A5;
+        padding: 0;
+    }
 
-        .collapse {
-            transition: none !important;
-        }
+    .t3 td {
+        padding: 2vw 3vw;
+        border-bottom: 0.1vw solid;
+    }
 
-        .collapsing {
-            transition: none !important;
-            display: none;
-        }
+    .collapse {
+        transition: none !important;
+    }
 
-        footer {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            background-color: #1F2844;
-            color: white;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            /* Default position */
-            padding: 2vw;
-            margin-top: 2.8vw
-        }
+    .collapsing {
+        transition: none !important;
+        display: none;
+    }
 
-        .logout-btn {
-            display: flex;
-            align-items: center;
-            background-color: #ff4d4d;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+    footer {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: #1F2844;
+        color: white;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        /* Default position */
+        padding: 2vw;
+    }
 
-        .logout-btn i {
-            margin-right: 8px;
-            /* Jarak antara ikon dan teks */
-        }
+    .logout-btn {
+        display: flex;
+        align-items: center;
+        background-color: #ff4d4d;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
 
-        .logout-btn:hover {
-            background-color: #ff3333;
-        }
+    .logout-btn i {
+        margin-right: 8px;
+        /* Jarak antara ikon dan teks */
+    }
+
+    .logout-btn:hover {
+        background-color: #ff3333;
+    }
     </style>
 </head>
 
@@ -136,7 +146,7 @@ if (!isset($_SESSION['login'])) {
 
     <br><br>
 
-    <div style="display: flex; justify-content: space-around;" id="elemen-top">
+    <div style="display: flex; justify-content: space-around; flex: 1;" id="elemen-top">
         <div>
             <table class="t1">
                 <tr>
@@ -266,22 +276,23 @@ if (!isset($_SESSION['login'])) {
 
                         if (empty($riwayatbeli)) : // Mengecek jika riwayat pembelian kosong
                         ?>
-                            <tr>
-                                <td colspan="3" style="text-align: center; width:100%">Anda belum membeli koin apapun</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <?php
+                        <tr>
+                            <td colspan="3" style="text-align: center; width:100%">Anda belum membeli koin apapun</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <?php
                         else:
                             foreach ($riwayatbeli as $riwayat) :
                                 // Mengubah format tanggal dari yyyy-mm-dd menjadi dd-mm-yyyy
                                 $tanggal_pembelian = date("d-m-Y", strtotime($riwayat['waktu']));
                             ?>
-                                <tr>
-                                    <td><img src="image/coin2.png" width="18" height="18"><?= "  " . htmlspecialchars($riwayat['jumlah']); ?></td>
-                                    <td><?= htmlspecialchars($riwayat['biaya']); ?></td>
-                                    <td style="width: 58%;"><?= $tanggal_pembelian; ?></td>
-                                </tr>
+                        <tr>
+                            <td><img src="image/coin2.png" width="18"
+                                    height="18"><?= "  " . htmlspecialchars($riwayat['jumlah']); ?></td>
+                            <td><?= htmlspecialchars($riwayat['biaya']); ?></td>
+                            <td style="width: 58%;"><?= $tanggal_pembelian; ?></td>
+                        </tr>
                         <?php
                             endforeach;
                         endif;
@@ -304,22 +315,24 @@ if (!isset($_SESSION['login'])) {
 
                         if (empty($riwayatbeli)) : // Mengecek jika riwayat pembelian kosong
                         ?>
-                            <tr>
-                                <td colspan="3" style="text-align: center; width:100%;">Anda belum membeli subtopik apapun</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <?php
+                        <tr>
+                            <td colspan="3" style="text-align: center; width:100%;">Anda belum membeli subtopik apapun
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <?php
                         else:
                             foreach ($riwayatbeli as $riwayat) :
                                 // Mengubah format tanggal dari yyyy-mm-dd menjadi dd-mm-yyyy
                                 $tanggal_pembelian = date("d-m-Y", strtotime($riwayat['tanggal_pembelian']));
                             ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($riwayat['nama_subtopik']); ?></td>
-                                    <td><?= $tanggal_pembelian; ?></td>
-                                    <td style="width: 20vw;"><img src="image/coin2.png" width="18" height="18"> <?= htmlspecialchars($riwayat['harga']); ?></td>
-                                </tr>
+                        <tr>
+                            <td><?= htmlspecialchars($riwayat['nama_subtopik']); ?></td>
+                            <td><?= $tanggal_pembelian; ?></td>
+                            <td style="width: 20vw;"><img src="image/coin2.png" width="18" height="18">
+                                <?= htmlspecialchars($riwayat['harga']); ?></td>
+                        </tr>
                         <?php
                             endforeach;
                         endif;
@@ -416,57 +429,58 @@ if (!isset($_SESSION['login'])) {
     <br><br>
 
     <footer>
-        <img src="image/logo otodu terang.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;"> <!-- 120px -->
+        <img src="image/logo otodu terang.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;">
+        <!-- 120px -->
         <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const defaultOpenId = 'profil'; // ID yang ingin dibuka pertama kali
-            const collapseElement = document.getElementById(defaultOpenId);
+    document.addEventListener('DOMContentLoaded', function() {
+        const defaultOpenId = 'profil'; // ID yang ingin dibuka pertama kali
+        const collapseElement = document.getElementById(defaultOpenId);
 
-            if (collapseElement) {
-                const bsCollapse = new bootstrap.Collapse(collapseElement, {
-                    show: true
-                });
-            }
-
-            // Tutup collapse lainnya
-            closeOtherCollapses(defaultOpenId);
-        });
-
-        function closeOtherCollapses(openId) {
-            const collapseIds = ['profil', 'riwayat', 'terimakasih'];
-
-            collapseIds.forEach(id => {
-                if (id != openId) {
-                    const collapseElement = document.getElementById(id);
-                    if (collapseElement) {
-                        const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
-                        if (bsCollapse) {
-                            bsCollapse.hide();
-                        }
-                    }
-                }
-            })
-
-            const collapseElement = document.getElementById(openId);
-
-            if (collapseElement) {
-                const bsCollapse = new bootstrap.Collapse(collapseElement, {
-                    show: true
-                });
-            }
+        if (collapseElement) {
+            const bsCollapse = new bootstrap.Collapse(collapseElement, {
+                show: true
+            });
         }
 
-        document.getElementById("logoutButton").addEventListener("click", function() {
-            window.location.href = "logout.php";
-        });
+        // Tutup collapse lainnya
+        closeOtherCollapses(defaultOpenId);
+    });
+
+    function closeOtherCollapses(openId) {
+        const collapseIds = ['profil', 'riwayat', 'terimakasih'];
+
+        collapseIds.forEach(id => {
+            if (id != openId) {
+                const collapseElement = document.getElementById(id);
+                if (collapseElement) {
+                    const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
+                    if (bsCollapse) {
+                        bsCollapse.hide();
+                    }
+                }
+            }
+        })
+
+        const collapseElement = document.getElementById(openId);
+
+        if (collapseElement) {
+            const bsCollapse = new bootstrap.Collapse(collapseElement, {
+                show: true
+            });
+        }
+    }
+
+    document.getElementById("logoutButton").addEventListener("click", function() {
+        window.location.href = "logout.php";
+    });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

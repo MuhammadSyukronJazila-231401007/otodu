@@ -84,22 +84,22 @@ include 'navbar.php';
                         <!-- Gambar 3r  -->
                         <div style="transform: scale(0.5);">
                             <div style="position: absolute; top: 3vw; left: 30vw; display: inline-block; ">
-                                <img src="image/3r/3rputih_tengah.png" alt=""
+                                <img src="image//putih_tengah.png" alt=""
                                     style="position: relative; top: 60px; display: block; margin-left: auto; margin-right: auto;">
                                 <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                                    <img style="margin-right: 10px;" src="image/3r/3rputih_kiri.png" alt="">
-                                    <img src="image/3r/3rputih_kanan.png" alt="">
+                                    <img style="margin-right: 10px;" src="image//putih_kiri.png" alt="">
+                                    <img src="image/putih_kanan.png" alt="">
                                 </div>
                             </div>
 
                             <div
                                 style="position: absolute;  top: 3vw; left: 30vw; display: inline-block; pointer-events: none;">
-                                <img src="image/3r/3rhijau_tengah.png" alt=""
+                                <img src="image//hijau_tengah.png" alt=""
                                     style="position: relative; top: 60px; display: block; margin-left: auto; margin-right: auto; clip-path: inset(50% 0 0 0);">
                                 <div style="display: flex; justify-content: space-between; margin-top: 10px;">
                                     <img style="margin-right: 10px; clip-path: inset(40% 0 0 0);"
-                                        src="image/3r/3rhijau_kiri.png" alt="">
-                                    <img style="clip-path: inset(70% 0 0 0);" src="image/3r/3rhijau_kanan.png" alt="">
+                                        src="image//hijau_kiri.png" alt="">
+                                    <img style="clip-path: inset(70% 0 0 0);" src="image//hijau_kanan.png" alt="">
                                 </div>
                             </div>
                         </div>
