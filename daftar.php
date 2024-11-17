@@ -30,14 +30,14 @@ include 'navbar.php';
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
     <style>
-    nlp {
+    #nlp {
         background-color: #4D62A5;
         color: white;
         font-weight: 450;
     }
 
     .form-select {
-        background-image: url("image/panah.png");
+        background-image: url("panah.png");
         background-repeat: no-repeat;
         background-position: right 0.75rem center;
         background-size: 2vw 0.8vw;
@@ -59,11 +59,25 @@ include 'navbar.php';
 
 <body style="font-family: 'Rethink Sans', sans-serif;">
     <div style="display: flex; justify-content: space-between;">
-        <div style="margin-left: 7vw;">
-            <?php include "koin.php"; ?>
+        <div>
+            <font id="koin"
+                style="background-color: #96AA03; color: white; align-items: center; padding: 0.7vw; margin-left: 7vw; cursor: pointer;">
+                <img src="image/coin.png" width="18" height="18">
+                <?= $koin[0]['koin'] ?>
+            </font>
         </div>
         <div>
-            <?php include "navbarkecil.php"; ?>
+            <font style="background-color: #4D62A5; margin-right: 5vw; padding: 0.4vw;">
+                <a href="leaderboard.php">
+                    <img src="image/rank.png" width="18" height="18" style="margin-left: 0.7vw;">
+                </a>
+                <a href="">
+                    <img src="image/mail.png" width="18" height="18" style="margin-left: 1.5vw; margin-right: 1.5vw;">
+                </a>
+                <a href="profil.php">
+                    <img src="image/user.png" width="18" height="18" style="margin-right: 0.7vw;">
+                </a>
+            </font>
         </div>
     </div>
     <h4 style="padding: 4vw 10vw 2vw 10vw;">Daftar Materi</h4>
