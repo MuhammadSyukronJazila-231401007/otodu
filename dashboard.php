@@ -172,14 +172,15 @@ include 'navbar.php';
                                     <div
                                         style="width: 10vw; height: 5px; background-color: #46CC6A; border-radius: 1vw;">
                                         .</div>
-                                    <p style="margin-top: 1vw; margin-left: 1vw; font-size: 0.65rem;">Perkembangan saat
+                                    <p style="margin-top: 1vw; margin-left: 1vw; font-size: 0.65rem;">
+                                      saat
                                         ini</p>
                                 </div>
 
                                 <div style="display: flex; width: 25vw; align-items: center; justify-content: center;">
                                     <div
                                         style="width: 10vw; height: 5px; background-color: #C4CBE0; border-radius: 1vw;">
-                                        .</div>
+                                    </div>
                                     <p style="margin-top: 1vw; margin-left: 1vw; font-size: 0.65rem;">Target
                                         capaian/capaian minggu lalu</p>
                                 </div>

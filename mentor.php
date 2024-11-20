@@ -168,155 +168,6 @@ foreach ($mentors as $mentor) {
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    .side-bar {
-        background: #375679;
-        backdrop-filter: blur(15px);
-        width: 250px;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: -250px;
-        overflow-y: auto;
-        z-index: 2000;
-        /* Menambahkan overflow-y untuk scroll */
-        transition: 0.6s ease;
-        transition-property: left;
-    }
-
-    /* Menampilkan scrollbar pada .side-bar */
-    .side-bar::-webkit-scrollbar {
-        width: 8px;
-        /* Lebar scrollbar */
-    }
-
-    /* Menampilkan scrollbar pada .side-bar */
-    .side-bar::-webkit-scrollbar {
-        width: 8px;
-        /* Lebar scrollbar */
-    }
-
-    .side-bar::-webkit-scrollbar-thumb {
-        background-color: #6A6A6A;
-        /* Warna thumb scrollbar */
-        border-radius: 4px;
-    }
-
-    .side-bar::-webkit-scrollbar-track {
-        background: #434041;
-        /* Warna track scrollbar */
-    }
-
-    .side-bar::-webkit-scrollbar-track {
-        background: #434041;
-        /* Warna track scrollbar */
-    }
-
-    .side-bar.active {
-        left: 0;
-    }
-
-    .side-bar .menu {
-        width: 100%;
-        margin-top: 30px;
-    }
-
-    .side-bar .menu {
-        width: 100%;
-        margin-top: 30px;
-    }
-
-    .side-bar .menu .item {
-        position: relative;
-        cursor: pointer;
-    }
-
-    .side-bar .menu .item a {
-        color: #fff;
-        font-size: 0.9rem;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        padding: 2vh 1.5vw;
-        border-radius: 10px;
-    }
-
-    .side-bar .menu .item a {
-        color: #fff;
-        font-size: 0.9rem;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        padding: 2vh 1.5vw;
-        border-radius: 10px;
-    }
-
-    .sub-btn {
-        font-weight: 600;
-        margin: 0 0.9vw;
-    }
-
-    .side-bar .menu .item a:hover {
-        background: #455E95;
-        transition: 0.3s ease;
-    }
-
-    .side-bar .menu .item a:hover {
-        background: #455E95;
-        transition: 0.3s ease;
-    }
-
-    .side-bar .menu .item i {
-        margin-right: 15px;
-    }
-
-    .side-bar .menu .item a .dropdown {
-        position: absolute;
-        right: 0;
-        transition: 0.3s ease;
-        padding-right: 0.8vw;
-    }
-
-    .side-bar .menu .item a .dropdown {
-        position: absolute;
-        right: 0;
-        transition: 0.3s ease;
-        padding-right: 0.8vw;
-    }
-
-    .side-bar .menu .item .sub-menu {
-        background: #3E5A86;
-        display: none;
-        margin: 0 0.9vw;
-        border-radius: 10px;
-    }
-
-    .side-bar .menu .item .sub-menu a {
-        padding-left: 2.5vw;
-    }
-
-    .side-bar .menu .item .sub-menu a {
-        padding-left: 2.5vw;
-    }
-
-    .side-bar .menu .item .sub-btn.active {
-        background-color: #4D62A5;
-        color: #fff;
-    }
-
-    .side-bar .menu .item .sub-menu .sub-item.active {
-        background-color: #6B7FA7;
-        color: #fff;
-    }
-
-    .side-bar .menu .item .sub-menu .sub-item.active {
-        background-color: #6B7FA7;
-        color: #fff;
-    }
-
-    .rotate {
-        transform: rotate(-180deg);
-    }
-
     .menu-btn {
         color: rgb(255, 255, 255);
         font-size: 1.5rem;
@@ -351,15 +202,6 @@ foreach ($mentors as $mentor) {
         background: #5E88B6;
     }
 
-    .close-btn {
-        position: absolute;
-        color: #fff;
-        font-size: 1.1rem;
-        right: 0px;
-        margin: 15px;
-        cursor: pointer;
-    }
-
     #judul-materi {
         padding-top: 2vw;
         padding-left: 1vw;
@@ -389,11 +231,6 @@ foreach ($mentors as $mentor) {
         margin-top: 1vw;
         margin-bottom: 0.5vw;
     }
-
-    /* .text {
-            padding: 1.2vw; 
-            background-color: #375679;
-        } */
 
     .head {
         position: fixed;
@@ -512,6 +349,17 @@ foreach ($mentors as $mentor) {
         opacity: 100%;
         /* awalnya 90% */
     }
+
+    .materi_ajar div {
+        display: flex;
+        flex-wrap: wrap;
+        /* Membuat elemen berpindah baris setelah dua elemen */
+    }
+
+    .materi_ajar div button:nth-child(2n) {
+        margin-right: 0;
+        /* Menghapus margin kanan pada tombol di posisi kedua */
+    }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -617,7 +465,8 @@ foreach ($mentors as $mentor) {
                         <font style="border-bottom: 0.1vw solid #1F2844; padding-bottom: 2px;">Materi sekolah</font>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-outline-off" style="border-radius: 1.6vw;">
+                        <button type="button" class="btn btn-outline-off" style="border-radius: 1.6vw;"
+                            data-value="offline">
                             Luring / <i>Offline</i>
                         </button>
                     </td>
@@ -631,19 +480,21 @@ foreach ($mentors as $mentor) {
                         <div style="display: flex;">
                             <div>
                                 <button type="button" class="btn btn-outline-mtk"
-                                    style="border-radius: 1.6vw; margin-right: 1.5vw;">
+                                    style="border-radius: 1.6vw; margin-right: 1.5vw;" data-value="MM">
                                     Matematika
                                 </button>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-outline-bing" style="border-radius: 1.6vw;">
+                                <button type="button" class="btn btn-outline-bing" style="border-radius: 1.6vw;"
+                                    data-value="Bing">
                                     B. Inggris
                                 </button>
                             </div>
                         </div>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-outline-on" style="border-radius: 1.6vw;">
+                        <button type="button" class="btn btn-outline-on" style="border-radius: 1.6vw;"
+                            data-value="online">
                             Daring / <i>Online</i>
                         </button>
                     </td>
@@ -653,12 +504,13 @@ foreach ($mentors as $mentor) {
                         <div style="display: flex;">
                             <div>
                                 <button type="button" class="btn btn-outline-utbk"
-                                    style="border-radius: 1.6vw; margin-right: 1.5vw;">
+                                    style="border-radius: 1.6vw; margin-right: 1.5vw;" data-value="UTBK">
                                     UTBK
                                 </button>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-outline-dp" style="border-radius: 1.6vw;">
+                                <button type="button" class="btn btn-outline-dp" style="border-radius: 1.6vw;"
+                                    data-value="Daspro">
                                     Dasar Pemrograman
                                 </button>
                             </div>
@@ -713,288 +565,11 @@ foreach ($mentors as $mentor) {
             </table>
         </center><br>
         <h5 style="margin-left: 5vw;">List mentor</h5><br>
+
         <!--Baris pertama-->
         <div>
-            <center
+            <center id="mentor"
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1vw; padding: 0 5vw;">
-                <?php foreach ($nearbyMentors as $mentor) { ?>
-                <table style="background-color: #4D62A5; border-radius: 1vw; margin-bottom: 1vw;">
-                    <tr>
-                        <td rowspan="2">
-                            <img src="./image/user.png" width="30" height="30"
-                                style="margin-left: 2vw; margin-top: 1vw;">
-                        </td>
-                        <td colspan="2" style="color: white; padding-top: 1vw;">
-                            Mentor <?= htmlspecialchars($mentor['nama']); ?>, S.Komedi
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="color: white; font-size: 12px; border-bottom: 1px solid white;">
-                            <img src="./image/pin.png" width="17" height="17">
-                            <?= htmlspecialchars($mentor['jarak']); ?> Km
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 5px;"></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <!-- <tr>
-                        <td colspan="3">
-                            <div style="display: flex;">
-                                <?php
-                            // $subjects = explode(',', $mentor['pelajaran']); // Pelajaran disimpan sebagai string dipisahkan koma
-                            // foreach ($subjects as $subject) {
-                            //     echo "<div><button type='button' class='btn btn-secondary' 
-                            //         style='font-size: 12px; padding: 5px 12px; border-radius: 1.5vw; margin-left: 1.7vw;'>"
-                            //         . htmlspecialchars(trim($subject)) . "</button></div>";
-                            // }
-                            ?>
-                            </div>
-                        </td>
-                    </tr> -->
-
-                    <tr>
-                        <td colspan="3">
-                            <div style="display: flex;">
-                                <div><button type="button" class="btn btn-danger"
-                                        style="font-size: 12px; padding: 5px 12px 5px 12px; border-radius: 1.5vw; margin-left: 1.7vw; margin-right: 0vw;">
-                                        Matematika </button></div>
-                                <div><button type="button" class="btn btn-secondary"
-                                        style="font-size: 12px; padding: 5px 12px 5px 12px; border-radius: 1.5vw; margin-left: 1.7vw; margin-bottom: 4px; margin-right: 3vw;">Dasar
-                                        Pemrograman</button></div>
-                            </div>
-                        </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <div style="display: flex;">
-                                <div><button type="button" class="btn btn-warning"
-                                        style="font-size: 12px; padding: 5px 12px 5px 12px; border-radius: 1.5vw; margin-left: 1.7vw; margin-right: 0;">UTBK</button>
-                                </div>
-                                <div><button type="button" class="btn btn-success"
-                                        style="font-size: 12px; padding: 5px 12px 5px 12px; border-radius: 1.5vw; margin-left: 1.7vw;">Luring</button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3" style="text-align: end; padding: 0 0 4px 0; margin-top: 0;">
-                            <button type="button" class="btn" data-bs-toggle="modal"
-                                data-bs-target="#modal<?= $mentor['id']; ?>"
-                                style="color: white; font-size: 12px; margin-right: 1vw;">
-                                Pesan Jasa
-                            </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="modal<?= $mentor['id']; ?>" tabindex="-1"
-                                aria-labelledby="modalLabel<?= $mentor['id']; ?>" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-xl">
-                                    <div class="modal-content bg-transparent">
-                                        <div style="text-align: right; margin-right: 0.8vw;">
-                                            <button type="button" data-bs-dismiss="modal" aria-label="Close"
-                                                style="margin-top: 0.7vw; margin-right: 0.7vw; background-color: white; border-radius: 5vw; font-size: 15px; padding: 0px 0.2vw">
-                                                &nbsp;X&nbsp;</button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div
-                                                style="display: flex; background-color: #375679; border-radius: 0.5vw; margin-bottom: 2vw;">
-                                                <div
-                                                    style="margin-top: 0.8vw; color: #F6F7FA; border-radius: 4vw; font-size: 1.5vw; padding-left: 0.25vw; padding-right: 0.25vw; margin: 1.2vw 1vw 1.2vw 2.5vw;">
-                                                    Pesan jasa mentor OTODU
-                                                </div>
-                                            </div>
-
-                                            <div style="display: flex; justify-content: space-around">
-                                                <div
-                                                    style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw; margin:0; padding: 2vw; overflow-y: auto">
-                                                    <center>
-                                                        <div style="display: flex; align-items: center;">
-                                                            <img src="image/user.png" alt="User Image"
-                                                                style="width: 50px; margin-right: 15px; margin:0; padding:0 ">
-
-                                                            <div
-                                                                style="display: flex; flex-direction: column; border-bottom: 1px solid black; margin:0; padding: 0; margin-left: 1vw; width:30vw;">
-                                                                <p style="margin: 0; padding: 0; text-align: left">
-                                                                    <?= htmlspecialchars($mentor['nama']); ?>,
-                                                                    S.Komedi
-                                                                </p>
-                                                                <div
-                                                                    style="display: flex; align-items: center; margin: 0; padding: 0">
-                                                                    <img src="image/pinhitam.png" alt="Location Pin"
-                                                                        style="width: 20px; margin-right: 5px;">
-                                                                    <div><?= htmlspecialchars($mentor['jarak']); ?>
-                                                                        Km
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
-                                                            <font
-                                                                style="border-bottom: 1px solid #3A425A; width: 20vw; text-align: left; margin-top: 1.5vw">
-                                                                Mengajar</font>
-                                                        </div>
-
-                                                        <div
-                                                            style="display: flex; gap: 10px; align-items: center; margin-top: 1vw;">
-                                                            <b>
-                                                                <span
-                                                                    style="padding: 7px 23px; background-color: #793738; color: white; border-radius: 15px; font-size: 13px;">Matematika</span>
-                                                                <span
-                                                                    style="padding: 7px 23px; background-color: #6C3779; color: white; border-radius: 15px; font-size: 13px;">Dasar
-                                                                    Pemrograman</span>
-                                                                <span
-                                                                    style="padding: 7px 23px; background-color: #89622B; color: white; border-radius: 15px; font-size: 13px;">UTBK</span>
-                                                            </b>
-                                                        </div>
-
-                                                        <div
-                                                            style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
-                                                            <font
-                                                                style="border-bottom: 1px solid #3A425A; width: 20vw; text-align: left; margin-top: 1.5vw">
-                                                                Ketersediaan</font>
-                                                        </div>
-
-                                                        <div
-                                                            style="display: grid; gap: 10px; margin:auto; margin-top: 1vw;">
-                                                            <span
-                                                                style="padding: 7px 23px; background-color: #377939; color: white; border-radius: 13px; font-size: 13px; width: fit-content"><b>Luring
-                                                                    @ 13:00 - 16:00, 16:30 - 19:00</b></span>
-                                                            <span
-                                                                style="padding: 7px 23px; background-color: #6A7937; color: white; border-radius: 13px; font-size: 13px; width: fit-content"><b>Daring
-                                                                    @ 13:00 - 16:00, 16:30 - 19:00, 19:30 -
-                                                                    22:30</b></span>
-                                                        </div>
-
-                                                        <div
-                                                            style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
-                                                            <font
-                                                                style="border-bottom: 1px solid #3A425A; width: 20vw; text-align: left; margin-top: 1.5vw">
-                                                                Riwayat studi</font>
-                                                        </div>
-
-                                                        <div
-                                                            style="display: flex; flex-direction: column; gap: 5px; margin-top: 1vw; align-items: flex-start;">
-                                                            <p style="font-size: 16px; color: #3A425A; margin: 0;">
-                                                                Sarjana Ilmu Komedi - Universitas
-                                                                Kampus Institut</p>
-                                                            <p style="font-size: 16px; color: #3A425A; margin: 0;">
-                                                                Magister Sastra Mesin - Institut
-                                                                Teknologi Dimensi</p>
-                                                        </div>
-
-                                                    </center>
-                                                </div>
-                                                <div
-                                                    style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw; padding: 2vw; overflow-y: auto">
-                                                    <div style="margin-top: 1vw; text-align: center;">
-
-                                                        <div
-                                                            style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
-                                                            <font>Materi yang ingin dipelajari</font>
-                                                        </div>
-
-                                                        <div
-                                                            style="margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
-                                                            <select
-                                                                style="padding: 10px 20px; font-size: 16px; color: #3A425A; border: 1px solid #3A425A; border-radius: 5px; width: 100%;">
-                                                                <option value="matematika" style="font-weight: bold;">
-                                                                    Matematika</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div style="margin-top: 1vw; text-align: center;">
-
-                                                            <div
-                                                                style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
-                                                                <font>Topik</font>
-                                                            </div>
-
-                                                            <div
-                                                                style="margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
-                                                                <select
-                                                                    style="padding: 10px 20px; font-size: 16px; color: #3A425A; border: 1px solid #3A425A; border-radius: 5px; width: 100%;">
-                                                                    <option value="Fungsi" style="font-weight: bold;">
-                                                                        Matematika
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-
-                                                            <div style="margin-top: 1vw; text-align: center;">
-
-                                                                <div
-                                                                    style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
-                                                                    <font>Daring/ luring</font>
-                                                                </div>
-
-                                                                <div
-                                                                    style="margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
-                                                                    <select
-                                                                        style="padding: 10px 20px; font-size: 16px; color: #3A425A; border: 1px solid #3A425A; border-radius: 5px; width: 100%;">
-                                                                        <option value="Fungsi"
-                                                                            style="font-weight: bold;">Daring
-                                                                        </option>
-                                                                    </select>
-                                                                </div>
-
-                                                                <div style="margin-top: 1vw; text-align: center;">
-
-                                                                    <div
-                                                                        style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
-                                                                        <font>Jam belajar</font>
-                                                                    </div>
-
-                                                                    <div
-                                                                        style="margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
-                                                                        <select
-                                                                            style="padding: 10px 20px; font-size: 16px; color: #3A425A; border: 1px solid #3A425A; border-radius: 5px; width: 100%;">
-                                                                            <option value="matematika"
-                                                                                style="font-weight: bold;">13:00 -
-                                                                                14:00 WIB</option>
-                                                                        </select>
-                                                                    </div>
-
-                                                                    <div style="margin-top: 1vw; text-align: center;">
-
-                                                                        <div
-                                                                            style="color: #3A425A; padding-bottom: 4px; display: flex; align-items: center;">
-                                                                            <font>Deskripsi materi yang ingin
-                                                                                dipelajari</font>
-                                                                        </div>
-
-                                                                        <div
-                                                                            style="margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
-                                                                            <textarea
-                                                                                style="font-weight: bold; padding: 10px 20px; font-size: 16px; color: #3A425A; border: 1px solid #3A425A; border-radius: 5px; width: 100%; text-align:left">Izin kak, aku belum terlalu paham tentang fungsi komposisi, aku ada beberapa soal yang mungkin bisa tolong kak mentor ajar samaku? Terimakasih sebelumnya kak
-                                                                            </textarea>
-                                                                        </div>
-
-                                                                        <div
-                                                                            style="margin-top: 1vw; text-align: center;">
-                                                                            <button
-                                                                                style="margin-top: 20px; padding: 10px 0; background-color: #FF6F00; color: white; border: none; border-radius: 5px; font-size: 16px; width: 100%; text-align: center;">
-                                                                                Pesan
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <?php } ?>
             </center>
         </div>
 
@@ -1018,6 +593,56 @@ foreach ($mentors as $mentor) {
 
     <script async defer
         src="https://maps.gomaps.pro/maps/api/js?key=AlzaSyeT3ed8_nmf_1VGDtIOF0Z0FYT88xg945v&callback=initMap"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+    let selectedSubjects = new Set(); // Set untuk menyimpan pelajaran yang dipilih
+    let nearbyMentorses = <?php echo json_encode($nearbyMentors); ?>;
+
+    document.querySelectorAll('.btn').forEach(button => {
+        button.addEventListener('click', () => {
+            console.log("tesss");
+            const subject = button.getAttribute('data-value');
+
+            if (selectedSubjects.has(subject)) {
+                selectedSubjects.delete(subject); // Hapus jika sudah dipilih
+            } else {
+                selectedSubjects.add(subject); // Tambahkan jika belum dipilih
+            }
+
+            const allClasses = Array.from(button.classList);
+            console.log(allClasses[1] + "-s");
+
+            button.classList.add(allClasses[1] + "-s");
+
+            // button.classList.toggle(allClasses[1] + "-s");
+            kirimData();
+        });
+    });
+
+    function kirimData() {
+        // Kirim data menggunakan AJAX
+        $.ajax({
+            url: 'mentor_bc.php', // URL tujuan
+            type: 'POST', // Metode pengiriman
+            data: {
+                subjects: Array.from(selectedSubjects), // Data pelajaran yang dipilih
+                nearbyMentors: nearbyMentorses // Data mentor yang tersedia
+            },
+            success: function(response) {
+                $('#mentor').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Terjadi kesalahan:', error);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        kirimData();
+    });
+    </script>
 
     <script>
     // Data dari PHP (Mentor dan lokasi pengguna)
@@ -1107,6 +732,7 @@ foreach ($mentors as $mentor) {
         window.location.href = 'price.php';
     });
     </script>
+
 </body>
 
 </html>

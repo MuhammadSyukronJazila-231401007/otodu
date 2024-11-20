@@ -18,6 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $role = $_POST['role'];
     if ($role == 'Siswa'){
         $nama .= "_new";
+    }else if($role == 'Mentor'){
+        $nama .= "_newMentor";
     }
 
     if ($password !== $passwordKonfirmasi) {
@@ -409,7 +411,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 success: function(response) {
                     if (response === 'success') {
                         window.location.href =
-                        'login.php'; // Arahkan ke halaman login jika berhasil
+                            'login.php'; // Arahkan ke halaman login jika berhasil
                     } else {
                         alert(response); // Tampilkan pesan kesalahan
                     }
