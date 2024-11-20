@@ -84,22 +84,22 @@ include 'navbar.php';
                         <!-- Gambar 3r  -->
                         <div style="transform: scale(0.5);">
                             <div style="position: absolute; top: 3vw; left: 30vw; display: inline-block; ">
-                                <img src="image//putih_tengah.png" alt=""
+                                <img src="image/3r/3rputih_tengah.png" alt=""
                                     style="position: relative; top: 60px; display: block; margin-left: auto; margin-right: auto;">
                                 <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                                    <img style="margin-right: 10px;" src="image//putih_kiri.png" alt="">
-                                    <img src="image/putih_kanan.png" alt="">
+                                    <img style="margin-right: 10px;" src="image/3r/3rputih_kiri.png" alt="">
+                                    <img src="image/3r/3rputih_kanan.png" alt="">
                                 </div>
                             </div>
 
                             <div
                                 style="position: absolute;  top: 3vw; left: 30vw; display: inline-block; pointer-events: none;">
-                                <img src="image//hijau_tengah.png" alt=""
+                                <img src="image/3r/3rhijau_tengah.png" alt=""
                                     style="position: relative; top: 60px; display: block; margin-left: auto; margin-right: auto; clip-path: inset(50% 0 0 0);">
                                 <div style="display: flex; justify-content: space-between; margin-top: 10px;">
                                     <img style="margin-right: 10px; clip-path: inset(40% 0 0 0);"
-                                        src="image//hijau_kiri.png" alt="">
-                                    <img style="clip-path: inset(70% 0 0 0);" src="image//hijau_kanan.png" alt="">
+                                        src="image/3r/3rhijau_kiri.png" alt="">
+                                    <img style="clip-path: inset(70% 0 0 0);" src="image/3r/3rhijau_kanan.png" alt="">
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,7 @@ include 'navbar.php';
                                 <div style="display: flex; width: 25vw; align-items: center; justify-content: center;">
                                     <div
                                         style="width: 10vw; height: 5px; background-color: #C4CBE0; border-radius: 1vw;">
-                                        .</div>
+                                    </div>
                                     <p style="margin-top: 1vw; margin-left: 1vw; font-size: 0.65rem;">Target
                                         capaian/capaian minggu lalu</p>
                                 </div>
