@@ -2,10 +2,10 @@
 session_start();
 
 $_SESSION['new_user'] = false;
-if( !isset($_SESSION['login']) ){
-    header("Location: login.php");
-    exit;
-}
+// if( !isset($_SESSION['login']) ){
+//     header("Location: login.php");
+//     exit;
+// }
 ?>
 
 <!doctype html>
