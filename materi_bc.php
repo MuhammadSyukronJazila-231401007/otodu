@@ -29,7 +29,7 @@ if (
             // Kembalikan HTML untuk ditampilkan pada halaman
 ?>
             <div class="row" style="margin-left: 1.5vw; margin-right: 1.5vw; font-family: Rethink Sans">
-                <div class="col-md-6">
+                <div id="kolomKiri" class="col-md-6">
                     <div class="boxleft box-4">
                         <div class="column d-flex flex-column mb-4 mt-2">
                             <span style="color: #3A425A; margin-left: 0.8vw; font-size: 1.3vw;">Materi NLP</span>
@@ -38,8 +38,13 @@ if (
 
                         <!-- Konten topik -->
                         <?php if (empty($topik)): ?>
-                            <div style="text-align: center; font-size: 1.5vw; color: #ff0000; margin-top: 2vw;">
-                                <b>Data belum tersedia</b>
+                            <div style="text-align: center; color: #000; margin-top: 2vw;">
+                                <div style="position: absolute; top: 70%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <img src="image/folder.png" width="200" alt="Example Image" class="mb-3">
+                                        <p>Maaf, Subtopik belum tersedia</p>
+                                    </div>
+                                </div>
                             </div>
                         <?php else: ?>
                             <?php foreach ($topik as $index => $item): ?>
@@ -79,40 +84,44 @@ if (
 
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="boxleft box-4">
-                        <!-- Rangkuman dan video sesuai dengan topik yang dipilih -->
-                        <?php
-                        // Cari data topik yang dipilih
-                        $topik_aktif = array_filter($topik, fn($item) => $item['kode_topik'] == $topik_terpilih);
-                        $topik_aktif = reset($topik_aktif); // Ambil elemen pertama dari hasil filter
+                <div id="kolomKanan" class="col-md-6">
+                    <?php
+                    $topik_aktif = array_filter($topik, fn($item) => $item['kode_topik'] == $topik_terpilih);
+                    $topik_aktif = reset($topik_aktif); // Ambil elemen pertama dari hasil filter
+                    if ($topik_aktif !== false && !empty($topik_aktif)) {
                         $video_topik = $topik_aktif['video_url'];
                         $rangkuman_topik = $topik_aktif['rangkuman'];
-                        ?>
-                        <div class="column d-flex flex-column mb-4">
-                            <span style="color: #3A425A; margin-left: 0.8vw; display:flex; align-items:center; margin-bottom: 1vw;">
-                                <span style="font-size: 1.3vw;">
-                                    Rangkuman Topik
+                    }
+                    if (isset($rangkuman_topik)) { ?>
+                        <div class="boxleft box-4">
+                            <!-- Rangkuman dan video sesuai dengan topik yang dipilih -->
+
+                            <div class="column d-flex flex-column mb-4">
+                                <span style="color: #3A425A; margin-left: 0.8vw; display:flex; align-items:center; margin-bottom: 1vw;">
+                                    <span style="font-size: 1.3vw;">
+                                        Rangkuman Topik
+                                    </span>
+                                    <div
+                                        style="border-radius: 4vw; font-size: 1vw; background-color: #A2A6B2; padding: 0.2vw 0.4vw; margin-left:0.5vw; color: #ffffff">
+                                        0<?php echo $indeks_terpilih ?>
+                                    </div>
                                 </span>
-                                <div
-                                    style="border-radius: 4vw; font-size: 1vw; background-color: #A2A6B2; padding: 0.2vw 0.4vw; margin-left:0.5vw; color: #ffffff">
-                                    0<?php echo $indeks_terpilih ?>
-                                </div>
-                            </span>
-                            <div style="height: 0.1vw; width: 20vw; background-color: #3A425A; margin-left: 0.8vw;"></div>
+                                <div style="height: 0.1vw; width: 20vw; background-color: #3A425A; margin-left: 0.8vw;"></div>
+                            </div>
+                            <div class="inner-box column d-flex flex-column mb-3"
+                                style="background-color: #ffffff; border: 0.1vw solid #B2B5BF; align-items: center;">
+                                <!-- <img width="420vw"> -->
+                                <video width="400vw" style="border-radius: 0.5vw;" controls>
+                                    <source src="<?php echo htmlspecialchars($topik_aktif['video_url']); ?>">
+                                </video>
+                                <p
+                                    style="color: #1F2844; font-size: 1vw; margin-left: 4.5vw; margin-right: 4.5vw; margin-top: 1vw; text-align:justify; ">
+                                    <?php echo nl2br(htmlspecialchars($topik_aktif['rangkuman'])); ?>
+                                </p>
+                            </div>
                         </div>
-                        <div class="inner-box column d-flex flex-column mb-3"
-                            style="background-color: #ffffff; border: 0.1vw solid #B2B5BF; align-items: center;">
-                            <!-- <img width="420vw"> -->
-                            <video width="400vw" style="border-radius: 0.5vw;" controls>
-                                <source src="<?php echo htmlspecialchars($topik_aktif['video_url']); ?>">
-                            </video>
-                            <p
-                                style="color: #1F2844; font-size: 1vw; margin-left: 4.5vw; margin-right: 4.5vw; margin-top: 1vw; text-align:justify; ">
-                                <?php echo nl2br(htmlspecialchars($topik_aktif['rangkuman'])); ?>
-                            </p>
-                        </div>
-                    </div>
+                    <?php } ?>
+
                 </div>
             </div>
 

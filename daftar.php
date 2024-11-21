@@ -121,7 +121,7 @@ include 'navbar.php';
                 </select>
             </div>
 
-            <div id="subbabContainer" class="d-flex gap-4">
+            <div id="subbabContainer" style="width: 60%;">
 
             </div>
 
@@ -151,24 +151,28 @@ include 'navbar.php';
                 .then(response => response.json())
                 .then(data => {
                     let temp;
-                    if (data.length === 0 || (data.length === 1 && data[0].id_bab === 0)) {
+                    data.forEach((bab, index) => {
                         const option = document.createElement("option");
-                        option.textContent = "Tidak ada bab";
-                        option.disabled = true; // Buat opsi tidak bisa dipilih
-                        option.selected = true; // Tampilkan sebagai opsi default
-                        babSelect.appendChild(option);
-                    } else {
-                        data.forEach((bab, index) => {
-                            const option = document.createElement("option");
+                        if (bab.nama_bab == "Tidak ada bab") {
+                            option.textContent = "Tidak ada bab";
+                            option.disabled = true; // Buat opsi tidak bisa dipilih
+                            option.selected = true; // Tampilkan sebagai opsi default
+                            babSelect.appendChild(option);
+                            console.log("bab kosong")
+                            topikKosong();
+                            return;
+                        } else {
                             option.value = bab.kode_bab;
                             option.textContent = bab.nama_bab;
                             babSelect.appendChild(option);
+                        }
 
-                            if (index === 0) {
-                                temp = bab.kode_bab; // Simpan data pertama
-                            }
-                        });
-                    }
+
+                        if (index === 0) {
+                            temp = bab.kode_bab; // Simpan data pertama
+                        }
+                    });
+
                     // Panggil isiSubBab setelah data pertama dipastikan
                     if (temp) {
                         isiSubBab(temp);
@@ -183,6 +187,18 @@ include 'navbar.php';
             isiSubBab(this.value);
         });
 
+        function topikKosong() {
+            const subbabContainer = document.getElementById("subbabContainer");
+            subbabContainer.classList.remove("gap-4");
+            subbabContainer.classList.remove("d-flex");
+            subbabContainer.innerHTML = ` 
+                        <div class="d-flex flex-column align-items-center">
+                            <img src="image/folder.png" width="200" alt="Example Image" class="mb-3">
+                            <p>Maaf, Topik belum tersedia</p>
+                        </div>
+                        `;
+        }
+
         function isiSubBab(temp) {
             const idBab = temp
             const materi = document.getElementById("pilihMateri");
@@ -196,10 +212,12 @@ include 'navbar.php';
                 .then(response => response.json())
                 .then(data => {
                     if (data.length === 0 || (data.length === 1 && data[0].id_subbab === 0)) {
-                        subbabContainer.innerHTML = "<p>Tidak ada subbab tersedia</p>";
+                        topikKosong()
                     } else {
 
                         data.forEach(subbab => {
+                            subbabContainer.classList.add("gap-4");
+                            subbabContainer.classList.add("d-flex");
                             const aTag = document.createElement("a");
                             aTag.className = "btn";
                             // aTag.href = `materi.php?id_subbab=${subbab.id_subbab}`;
