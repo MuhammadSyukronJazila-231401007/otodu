@@ -123,7 +123,7 @@ include 'navbar.php';
                 </select>
             </div>
 
-            <div id="subbabContainer" class="d-flex gap-4">
+            <div id="subbabContainer" style="width: 60%;">
 
             </div>
 
@@ -142,75 +142,91 @@ include 'navbar.php';
     });
     </script>
     <script>
-    isiSubBab(1);
+        isiSubBab(1);
 
-    document.getElementById("pilihMateri").addEventListener("change", function() {
-        const idMateri = this.value;
-        const babSelect = document.getElementById("pilihBab");
-        babSelect.innerHTML = "";
+        document.getElementById("pilihMateri").addEventListener("change", function() {
+            const idMateri = this.value;
+            const babSelect = document.getElementById("pilihBab");
+            babSelect.innerHTML = "";
 
-        fetch(`daftar_bc.php?id_materi=${idMateri}`)
-            .then(response => response.json())
-            .then(data => {
-                let temp;
-                if (data.length === 0 || (data.length === 1 && data[0].id_bab === 0)) {
-                    const option = document.createElement("option");
-                    option.textContent = "Tidak ada bab";
-                    option.disabled = true; // Buat opsi tidak bisa dipilih
-                    option.selected = true; // Tampilkan sebagai opsi default
-                    babSelect.appendChild(option);
-                } else {
+            fetch(`daftar_bc.php?id_materi=${idMateri}`)
+                .then(response => response.json())
+                .then(data => {
+                    let temp;
                     data.forEach((bab, index) => {
                         const option = document.createElement("option");
-                        option.value = bab.kode_bab;
-                        option.textContent = bab.nama_bab;
-                        babSelect.appendChild(option);
+                        if (bab.nama_bab == "Tidak ada bab") {
+                            option.textContent = "Tidak ada bab";
+                            option.disabled = true; // Buat opsi tidak bisa dipilih
+                            option.selected = true; // Tampilkan sebagai opsi default
+                            babSelect.appendChild(option);
+                            console.log("bab kosong")
+                            topikKosong();
+                            return;
+                        } else {
+                            option.value = bab.kode_bab;
+                            option.textContent = bab.nama_bab;
+                            babSelect.appendChild(option);
+                        }
 
                         if (index === 0) {
                             temp = bab.kode_bab; // Simpan data pertama
                         }
                     });
-                }
-                // Panggil isiSubBab setelah data pertama dipastikan
-                if (temp) {
-                    isiSubBab(temp);
-                }
-            })
-            .catch(error => console.error("Error fetching bab data:", error));
-    });
+
+                    // Panggil isiSubBab setelah data pertama dipastikan
+                    if (temp) {
+                        isiSubBab(temp);
+                    }
+                })
+                .catch(error => console.error("Error fetching bab data:", error));
+        });
 
 
-    document.getElementById("pilihBab").addEventListener("change", function() {
-        console.log()
-        isiSubBab(this.value);
-    });
+        document.getElementById("pilihBab").addEventListener("change", function() {
+            console.log()
+            isiSubBab(this.value);
+        });
 
-    function isiSubBab(temp) {
-        const idBab = temp
-        const materi = document.getElementById("pilihMateri");
-        const bab = document.getElementById("pilihBab");
-        const selectedMateri = materi.options[materi.selectedIndex].text;
-        const selectedBab = bab.options[bab.selectedIndex].text;
-        const subbabContainer = document.getElementById("subbabContainer");
-        console.log("ID Bab:", idBab, "Materi yang dipilih:", selectedMateri);
-        subbabContainer.innerHTML = "";
-        fetch(`daftar_bc.php?id_bab=${idBab}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.length === 0 || (data.length === 1 && data[0].id_subbab === 0)) {
-                    subbabContainer.innerHTML = "<p>Tidak ada subbab tersedia</p>";
-                } else {
+        function topikKosong() {
+            const subbabContainer = document.getElementById("subbabContainer");
+            subbabContainer.classList.remove("gap-4");
+            subbabContainer.classList.remove("d-flex");
+            subbabContainer.innerHTML = ` 
+                        <div class="d-flex flex-column align-items-center">
+                            <img src="image/folder.png" width="200" alt="Example Image" class="mb-3">
+                            <p>Maaf, Topik belum tersedia</p>
+                        </div>
+                        `;
+        }
 
-                    data.forEach(subbab => {
-                        const aTag = document.createElement("a");
-                        aTag.className = "btn";
-                        // aTag.href = `materi.php?id_subbab=${subbab.id_subbab}`;
-                        aTag.href =
-                            `daftar.php?kode_materi=${materi.options[materi.selectedIndex].value}&kode_bab=${bab.options[bab.selectedIndex].value}&kode_subbab=${subbab.kode_subbab}`;
-                        aTag.role = "button";
-                        aTag.style =
-                            "background-color: white; outline-color: white; height: 10vw; text-align: left; box-shadow: 0vw 0.02vw 0.05vw;";
-                        aTag.innerHTML = `
+        function isiSubBab(temp) {
+            const idBab = temp
+            const materi = document.getElementById("pilihMateri");
+            const bab = document.getElementById("pilihBab");
+            const selectedMateri = materi.options[materi.selectedIndex].text;
+            const selectedBab = bab.options[bab.selectedIndex].text;
+            const subbabContainer = document.getElementById("subbabContainer");
+            console.log("ID Bab:", idBab, "Materi yang dipilih:", selectedMateri);
+            subbabContainer.innerHTML = "";
+            fetch(`daftar_bc.php?id_bab=${idBab}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length === 0 || (data.length === 1 && data[0].id_subbab === 0)) {
+                        topikKosong()
+                    } else {
+
+                        data.forEach(subbab => {
+                            subbabContainer.classList.add("gap-4");
+                            subbabContainer.classList.add("d-flex");
+                            const aTag = document.createElement("a");
+                            aTag.className = "btn";
+                            // aTag.href = `materi.php?id_subbab=${subbab.id_subbab}`;
+                            aTag.href = `daftar.php?kode_materi=${materi.options[materi.selectedIndex].value}&kode_bab=${bab.options[bab.selectedIndex].value}&kode_subbab=${subbab.kode_subbab}`;
+                            aTag.role = "button";
+                            aTag.style =
+                                "background-color: white; outline-color: white; height: 10vw; text-align: left; box-shadow: 0vw 0.02vw 0.05vw;";
+                            aTag.innerHTML = `
                     <div
                     style="background-color: white; border-radius: 1vw; width: 27vw;  padding: 1vw; height: 8vw; ">
                     <table style="border-collapse: collapse;">
