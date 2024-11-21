@@ -279,7 +279,7 @@ foreach ($mentors as $mentor) {
         <div style="display: flex; justify-content: space-between; margin-left: 5vw;">
             <div style="display: flex;">
                 <div style="background-color: #96AA03; color: white; font-size: 12px; text-align: center;">
-                    <a href="" class="btn btn-primary"
+                    <a href="price.php" class="btn btn-primary"
                         style="background-color: #96AA03;  font-size: 12px; text-align: center; border: 0cm;"
                         tabindex="-1" role="button" aria-disabled="true">
                         <div style="display: flex;" id="koin">
