@@ -77,274 +77,274 @@ $topik_terpilih = $topik[0]['kode_topik'] ?? null;
         href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
     <style media="screen">
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Rethink Sans";
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Rethink Sans";
+    }
 
-        body {
-            /* min-height: 100vh; */
-            background: white;
-            color: white;
-            background-size: cover;
-            background-position: center;
-            margin: 0;
-            overflow-x: hidden;
-        }
+    body {
+        /* min-height: 100vh; */
+        background: white;
+        color: white;
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+        overflow-x: hidden;
+    }
 
-        .top-element {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            /* Supaya elemen ini berada di atas elemen lainnya */
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+    .top-element {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        /* Supaya elemen ini berada di atas elemen lainnya */
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
-        .side-bar {
-            background: #375679;
-            backdrop-filter: blur(15px);
-            width: 250px;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: -250px;
-            overflow-y: auto;
-            z-index: 2000;
-            /* Menambahkan overflow-y untuk scroll */
-            transition: 0.6s ease;
-            transition-property: left;
-        }
+    .side-bar {
+        background: #375679;
+        backdrop-filter: blur(15px);
+        width: 250px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: -250px;
+        overflow-y: auto;
+        z-index: 2000;
+        /* Menambahkan overflow-y untuk scroll */
+        transition: 0.6s ease;
+        transition-property: left;
+    }
 
-        /* Menampilkan scrollbar pada .side-bar */
-        .side-bar::-webkit-scrollbar {
-            width: 8px;
-            /* Lebar scrollbar */
-        }
+    /* Menampilkan scrollbar pada .side-bar */
+    .side-bar::-webkit-scrollbar {
+        width: 8px;
+        /* Lebar scrollbar */
+    }
 
-        .side-bar::-webkit-scrollbar-thumb {
-            background-color: #6A6A6A;
-            /* Warna thumb scrollbar */
-            border-radius: 4px;
-        }
+    .side-bar::-webkit-scrollbar-thumb {
+        background-color: #6A6A6A;
+        /* Warna thumb scrollbar */
+        border-radius: 4px;
+    }
 
-        .side-bar::-webkit-scrollbar-track {
-            background: #434041;
-            /* Warna track scrollbar */
-        }
+    .side-bar::-webkit-scrollbar-track {
+        background: #434041;
+        /* Warna track scrollbar */
+    }
 
-        .side-bar.active {
-            left: 0;
-        }
+    .side-bar.active {
+        left: 0;
+    }
 
-        .side-bar .menu {
-            width: 100%;
-            margin-top: 30px;
-        }
+    .side-bar .menu {
+        width: 100%;
+        margin-top: 30px;
+    }
 
-        .side-bar .menu .item {
-            position: relative;
-            cursor: pointer;
-        }
+    .side-bar .menu .item {
+        position: relative;
+        cursor: pointer;
+    }
 
-        .side-bar .menu .item a {
-            color: #fff;
-            font-size: 0.9rem;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            padding: 2vh 1.5vw;
-            border-radius: 10px;
-        }
+    .side-bar .menu .item a {
+        color: #fff;
+        font-size: 0.9rem;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        padding: 2vh 1.5vw;
+        border-radius: 10px;
+    }
 
-        .sub-btn {
-            font-weight: 600;
-            margin: 0 0.9vw;
-        }
+    .sub-btn {
+        font-weight: 600;
+        margin: 0 0.9vw;
+    }
 
-        .side-bar .menu .item a:hover {
-            background: #455E95;
-            transition: 0.3s ease;
-        }
+    .side-bar .menu .item a:hover {
+        background: #455E95;
+        transition: 0.3s ease;
+    }
 
-        .side-bar .menu .item i {
-            margin-right: 15px;
-        }
+    .side-bar .menu .item i {
+        margin-right: 15px;
+    }
 
-        .side-bar .menu .item a .dropdown {
-            position: absolute;
-            right: 0;
-            transition: 0.3s ease;
-            padding-right: 0.8vw;
-        }
+    .side-bar .menu .item a .dropdown {
+        position: absolute;
+        right: 0;
+        transition: 0.3s ease;
+        padding-right: 0.8vw;
+    }
 
-        .side-bar .menu .item .sub-menu {
-            background: #3E5A86;
-            display: none;
-            margin: 0 0.9vw;
-            border-radius: 10px;
-        }
+    .side-bar .menu .item .sub-menu {
+        background: #3E5A86;
+        display: none;
+        margin: 0 0.9vw;
+        border-radius: 10px;
+    }
 
-        .side-bar .menu .item .sub-menu a {
-            padding-left: 2.5vw;
-        }
+    .side-bar .menu .item .sub-menu a {
+        padding-left: 2.5vw;
+    }
 
-        .side-bar .menu .item .sub-btn.active {
-            background-color: #4D62A5;
-            color: #fff;
-        }
+    .side-bar .menu .item .sub-btn.active {
+        background-color: #4D62A5;
+        color: #fff;
+    }
 
-        .side-bar .menu .item .sub-menu .sub-item.active {
-            background-color: #6B7FA7;
-            color: #fff;
-        }
+    .side-bar .menu .item .sub-menu .sub-item.active {
+        background-color: #6B7FA7;
+        color: #fff;
+    }
 
-        .rotate {
-            transform: rotate(-180deg);
-        }
+    .rotate {
+        transform: rotate(-180deg);
+    }
 
-        .menu-btn {
-            color: rgb(255, 255, 255);
-            font-size: 1.5rem;
-            margin: 1.2px;
-            margin-left: 3vw;
-            margin-right: 3vw;
-            cursor: pointer;
-        }
+    .menu-btn {
+        color: rgb(255, 255, 255);
+        font-size: 1.5rem;
+        margin: 1.2px;
+        margin-left: 3vw;
+        margin-right: 3vw;
+        cursor: pointer;
+    }
 
-        .main {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 50px;
-        }
+    .main {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 50px;
+    }
 
-        header {
-            background: #5E88B6;
-        }
+    header {
+        background: #5E88B6;
+    }
 
-        .close-btn {
-            position: absolute;
-            color: #fff;
-            font-size: 1.1rem;
-            right: 0px;
-            margin: 15px;
-            cursor: pointer;
-        }
+    .close-btn {
+        position: absolute;
+        color: #fff;
+        font-size: 1.1rem;
+        right: 0px;
+        margin: 15px;
+        cursor: pointer;
+    }
 
-        #judul-materi {
-            padding-top: 2vw;
-            padding-left: 1vw;
-        }
+    #judul-materi {
+        padding-top: 2vw;
+        padding-left: 1vw;
+    }
 
-        #nama-materi {
-            padding-top: 0.5vw;
-            padding-left: 1vw;
-            padding-bottom: 1vw;
-            font-weight: 700;
-            font-size: 1em;
-        }
+    #nama-materi {
+        padding-top: 0.5vw;
+        padding-left: 1vw;
+        padding-bottom: 1vw;
+        font-weight: 700;
+        font-size: 1em;
+    }
 
-        .menu p {
-            margin-left: 1vw;
-            margin-top: 1vw;
-            margin-bottom: 0.5vw;
-        }
+    .menu p {
+        margin-left: 1vw;
+        margin-top: 1vw;
+        margin-bottom: 0.5vw;
+    }
 
-        .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-        }
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
 
-        .head {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            z-index: 1000;
-        }
+    .head {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        z-index: 1000;
+    }
 
-        table td {
-            border: 1px;
-        }
+    table td {
+        border: 1px;
+    }
 
-        /* css konten halaman (kode anugrah) */
-        .box {
-            height: 4.5vw;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.4vw;
-        }
+    /* css konten halaman (kode anugrah) */
+    .box {
+        height: 4.5vw;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.4vw;
+    }
 
-        .boxleft {
-            color: white;
-            display: flex;
-            font-size: 1.4vw;
-            flex-direction: column;
-        }
+    .boxleft {
+        color: white;
+        display: flex;
+        font-size: 1.4vw;
+        flex-direction: column;
+    }
 
-        .full-row {
-            background-color: #375679;
-            padding: 0;
-            /* Remove horizontal padding */
-        }
+    .full-row {
+        background-color: #375679;
+        padding: 0;
+        /* Remove horizontal padding */
+    }
 
-        .box-4 {
-            padding: 3vw;
-            display: flex;
-            flex-direction: column;
-            gap: 1vw;
-            /* Jarak antar elemen */
-        }
+    .box-4 {
+        padding: 3vw;
+        display: flex;
+        flex-direction: column;
+        gap: 1vw;
+        /* Jarak antar elemen */
+    }
 
-        .box-4 .inner-box {
-            background-color: #C2C5CD;
-            color: #F6F7FA;
-            padding: 0.8vw;
-            font-family: 'Nunito Sans', sans-serif;
-            margin-bottom: 0;
-            /* Hilangkan margin bawah */
-        }
+    .box-4 .inner-box {
+        background-color: #C2C5CD;
+        color: #F6F7FA;
+        padding: 0.8vw;
+        font-family: 'Nunito Sans', sans-serif;
+        margin-bottom: 0;
+        /* Hilangkan margin bawah */
+    }
 
-        .box-5 {
-            background-color: #d36bff;
-        }
+    .box-5 {
+        background-color: #d36bff;
+    }
 
-        .inner-box {
-            border-radius: 1vw;
-        }
+    .inner-box {
+        border-radius: 1vw;
+    }
 
-        .modal-backdrop {
-            background-color: #1F2844;
-            opacity: 100%;
-            /* awalnya 90% */
-        }
+    .modal-backdrop {
+        background-color: #1F2844;
+        opacity: 100%;
+        /* awalnya 90% */
+    }
 
-        .modal {
-            background-color: #1F2844;
-            opacity: 100%;
-            /* awalnya 90% */
-        }
+    .modal {
+        background-color: #1F2844;
+        opacity: 100%;
+        /* awalnya 90% */
+    }
 
-        .modal-content {
-            background-color: #1F2844;
-            opacity: 100%;
-            /* awalnya 90% */
-        }
+    .modal-content {
+        background-color: #1F2844;
+        opacity: 100%;
+        /* awalnya 90% */
+    }
 
-        #nlp {
-            background-color: #4D62A5;
-            color: white;
-            font-weight: 450;
-        }
+    #nlp {
+        background-color: #4D62A5;
+        color: white;
+        font-weight: 450;
+    }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
@@ -363,7 +363,8 @@ $topik_terpilih = $topik[0]['kode_topik'] ?? null;
                 <div class="menu-btn">
                     <i class="fas fa-bars"></i>
                 </div>
-                <u><a href="daftar.php" style="color:white"><?= $materi[0]['nama_materi'] . " " .  $materi[0]['jenjang'] . " Kelas " . $materi[0]['kelas'] ?></a></u>
+                <u><a href="daftar.php"
+                        style="color:white"><?= $materi[0]['nama_materi'] . " " .  $materi[0]['jenjang'] . " Kelas " . $materi[0]['kelas'] ?></a></u>
             </div>
         </div>
         <div class="col-md-4">
@@ -399,23 +400,25 @@ $topik_terpilih = $topik[0]['kode_topik'] ?? null;
                 <i class="fas fa-times"></i>
             </div>
             <p id="judul-materi">Materi</p>
-            <p id="nama-materi"><?= $materi[0]['nama_materi'] . " " .  $materi[0]['jenjang'] . " Kelas " . $materi[0]['kelas'] ?></p>
+            <p id="nama-materi">
+                <?= $materi[0]['nama_materi'] . " " .  $materi[0]['jenjang'] . " Kelas " . $materi[0]['kelas'] ?></p>
         </header>
         <div class="menu">
             <p>Bab</p>
             <?php
             $babBar = ambilData("SELECT * FROM bab WHERE kode_materi = $kode_materi");
             foreach ($babBar as $row): ?>
-                <div class="item">
-                    <a class="sub-btn"><?= $row['nama_bab']; ?><i class="fas fa-angle-down dropdown"></i></a>
-                    <div class="sub-menu">
-                        <?php $kode = $row['kode_bab'];
+            <div class="item">
+                <a class="sub-btn"><?= $row['nama_bab']; ?><i class="fas fa-angle-down dropdown"></i></a>
+                <div class="sub-menu">
+                    <?php $kode = $row['kode_bab'];
                         $subbabBar = ambilData("SELECT * FROM subbab WHERE kode_bab = $kode ");
                         foreach ($subbabBar as $row2) { ?>
-                            <a href="materi.php?kode_bab=<?= $row['kode_bab']; ?>&kode_subbab=<?= $row2['kode_subbab'] ?>" class="sub-item"><?= $row2['nama_subbab']; ?></a>
-                        <?php } ?>
-                    </div>
+                    <a href="materi.php?kode_bab=<?= $row['kode_bab']; ?>&kode_subbab=<?= $row2['kode_subbab'] ?>"
+                        class="sub-item"><?= $row2['nama_subbab']; ?></a>
+                    <?php } ?>
                 </div>
+            </div>
             <?php endforeach ?>
 
         </div>
@@ -480,190 +483,190 @@ $topik_terpilih = $topik[0]['kode_topik'] ?? null;
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
     <script>
-        $(document).ready(function() {
-            // jquery for toggle sub menus
-            $('.sub-btn').click(function() {
-                $(this).next('.sub-menu').slideToggle();
-                $(this).find('.dropdown').toggleClass('fa-angle-down fa-angle-up');
-            });
+    $(document).ready(function() {
+        // jquery for toggle sub menus
+        $('.sub-btn').click(function() {
+            $(this).next('.sub-menu').slideToggle();
+            $(this).find('.dropdown').toggleClass('fa-angle-down fa-angle-up');
+        });
 
-            // jquery for expand and collapse the sidebar
-            $('.menu-btn').click(function() {
-                $('.side-bar').addClass('active');
-                $('.menu-btn').css("visibility", "hidden");
-            });
+        // jquery for expand and collapse the sidebar
+        $('.menu-btn').click(function() {
+            $('.side-bar').addClass('active');
+            $('.menu-btn').css("visibility", "hidden");
+        });
 
-            $('.close-btn').click(function() {
-                $('.side-bar').removeClass('active');
-                $('.menu-btn').css("visibility", "visible");
-            });
+        $('.close-btn').click(function() {
+            $('.side-bar').removeClass('active');
+            $('.menu-btn').css("visibility", "visible");
+        });
 
-            // Mengatur padding Body
-            const head = document.querySelector('.head');
+        // Mengatur padding Body
+        const head = document.querySelector('.head');
 
-            function adjustBodyPadding() {
-                const headHeight = head.offsetHeight;
-                document.body.style.paddingTop = `${headHeight}px`;
+        function adjustBodyPadding() {
+            const headHeight = head.offsetHeight;
+            document.body.style.paddingTop = `${headHeight}px`;
+        }
+
+        // Panggil fungsi saat halaman dimuat
+        adjustBodyPadding();
+
+        // Panggil lagi jika ukuran jendela berubah
+        window.addEventListener('resize', adjustBodyPadding);
+    });
+
+    // Mengatur tinggi Sidebar
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuBtn = document.querySelector('.menu-btn');
+        const sidebar = document.querySelector('.side-bar');
+        const closeBtn = document.querySelector('.close-btn');
+        const navbar = document.querySelector('.navbar');
+
+        // Fungsi untuk mengatur tinggi sidebar sesuai dengan perubahan posisi navbar saat scroll
+        function updateSidebarHeight() {
+            const navbarBottom = navbar.getBoundingClientRect().bottom; // Posisi bawah navbar
+            const sidebarHeight = window.innerHeight - navbarBottom; // Tinggi sidebar yang dibutuhkan
+
+            // Batasi tinggi sidebar hingga maksimal 100vh
+            if (sidebarHeight < window.innerHeight) {
+                sidebar.style.top = `${navbarBottom}px`;
+                sidebar.style.height = `${sidebarHeight}px`;
+            } else {
+                sidebar.style.top = '0';
+                sidebar.style.height = '100vh';
             }
+        }
 
-            // Panggil fungsi saat halaman dimuat
-            adjustBodyPadding();
+        // Panggil fungsi saat halaman dimuat, di-scroll, atau diubah ukurannya
+        updateSidebarHeight();
+        window.addEventListener('scroll', updateSidebarHeight);
+        window.addEventListener('resize', updateSidebarHeight);
 
-            // Panggil lagi jika ukuran jendela berubah
-            window.addEventListener('resize', adjustBodyPadding);
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
         });
 
-        // Mengatur tinggi Sidebar
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuBtn = document.querySelector('.menu-btn');
-            const sidebar = document.querySelector('.side-bar');
-            const closeBtn = document.querySelector('.close-btn');
-            const navbar = document.querySelector('.navbar');
-
-            // Fungsi untuk mengatur tinggi sidebar sesuai dengan perubahan posisi navbar saat scroll
-            function updateSidebarHeight() {
-                const navbarBottom = navbar.getBoundingClientRect().bottom; // Posisi bawah navbar
-                const sidebarHeight = window.innerHeight - navbarBottom; // Tinggi sidebar yang dibutuhkan
-
-                // Batasi tinggi sidebar hingga maksimal 100vh
-                if (sidebarHeight < window.innerHeight) {
-                    sidebar.style.top = `${navbarBottom}px`;
-                    sidebar.style.height = `${sidebarHeight}px`;
-                } else {
-                    sidebar.style.top = '0';
-                    sidebar.style.height = '100vh';
-                }
-            }
-
-            // Panggil fungsi saat halaman dimuat, di-scroll, atau diubah ukurannya
-            updateSidebarHeight();
-            window.addEventListener('scroll', updateSidebarHeight);
-            window.addEventListener('resize', updateSidebarHeight);
-
-            menuBtn.addEventListener('click', () => {
-                sidebar.classList.toggle('active');
-            });
-
-            closeBtn.addEventListener('click', () => {
-                sidebar.classList.remove('active');
-            });
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('active');
         });
+    });
 
-        // Mengatur warna list dan isi dropdown di Navbar
-        const subItems = document.querySelectorAll('.sub-item');
+    // Mengatur warna list dan isi dropdown di Navbar
+    const subItems = document.querySelectorAll('.sub-item');
 
-        subItems.forEach(item => {
-            item.addEventListener('click', function() {
-                subItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
+    subItems.forEach(item => {
+        item.addEventListener('click', function() {
+            subItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
 
-                // Seleksi elemen sub-btn terdekat
-                const parentSubBtn = item.closest('.sub-menu').previousElementSibling;
+            // Seleksi elemen sub-btn terdekat
+            const parentSubBtn = item.closest('.sub-menu').previousElementSibling;
 
-                // Menghapus kelas 'active' dari semua sub-btn
-                document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+            // Menghapus kelas 'active' dari semua sub-btn
+            document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
 
-                // Menambahkan kelas 'active' pada sub-btn yang sesuai
-                parentSubBtn.classList.add('active');
-            });
+            // Menambahkan kelas 'active' pada sub-btn yang sesuai
+            parentSubBtn.classList.add('active');
         });
+    });
 
-        document.getElementById('koin').addEventListener('click', function(event) {
-            event.preventDefault();
-            window.location.href = 'price.php';
-        });
+    document.getElementById('koin').addEventListener('click', function(event) {
+        event.preventDefault();
+        window.location.href = 'price.php';
+    });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function postRequest(form) {
-            $.ajax({
-                url: 'materi_bc.php', // Arahkan ke file PHP untuk proses
-                type: 'POST',
-                data: $(form).serialize(), // Mengirim data form
-                success: function(response) {
-                    const notyf = new Notyf({
-                        duration: 2000,
-                        position: {
-                            x: 'right',
-                            y: 'top',
-                        },
-                        ripple: true,
-                        dismissible: false,
-                    });
-                    console.log(response)
-                    if (response == 'Koin anda belum cukup!') {
-                        notyf.error(response);
-                    } else if (response == 'Selamat anda telah membeli subtopik ini!') {
-                        notyf.success(response);
-                        setTimeout(function() {
-                            location.reload(); // Merefresh halaman
-                        }, 1600); // Durasi waktu (2 detik)
-                    } else {
-                        window.location.href = response;
-                    }
-                }
-            });
-        }
-
-        function formLogic() {
-            $('.form-beli').on('submit', function(e) {
-                e.preventDefault();
-                let form = this;
-                let harga = $(this).find('.btn-beli').data('harga');
-                let nama = $(this).find('.btn-beli').data('nama');
-
-                if (harga && nama) {
-                    Swal.fire({
-                        title: `Beli ${nama}?`,
-                        text: `Anda yakin beli ${nama} seharga ${harga}  koin`,
-                        icon: "question",
-                        showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                        cancelButtonText: "Tidak",
-                        confirmButtonText: "Beli"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            harga = null
-                            postRequest(form);
-                        }
-                    });
-                } else {
-                    postRequest(form);
-                }
-            });
-
-        };
-
-        const kodeSubbab = "<?php echo $kode_subbab; ?>";
-
-        function selectTopik(topikId) {
-            // Mengirim request AJAX untuk mendapatkan HTML dari server
-            fetch('materi_bc.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
+    function postRequest(form) {
+        $.ajax({
+            url: 'materi_bc.php', // Arahkan ke file PHP untuk proses
+            type: 'POST',
+            data: $(form).serialize(), // Mengirim data form
+            success: function(response) {
+                const notyf = new Notyf({
+                    duration: 2000,
+                    position: {
+                        x: 'right',
+                        y: 'top',
                     },
-                    body: JSON.stringify({
-                        kode_topik: topikId,
-                        kode_subabb: kodeSubbab
-                    })
-                })
-                .then(response => response.text())
-                .then(html => {
-                    // Update bagian konten di halaman dengan HTML yang diterima
-                    // console.log(html);
-                    document.getElementById('konten-dinamis').innerHTML = html;
-                    formLogic();
-                })
-                .catch(error => console.error('Error:', error));
-        }
+                    ripple: true,
+                    dismissible: false,
+                });
+                console.log(response)
+                if (response == 'Koin anda belum cukup!') {
+                    notyf.error(response);
+                } else if (response == 'Selamat anda telah membeli subtopik ini!') {
+                    notyf.success(response);
+                    setTimeout(function() {
+                        location.reload(); // Merefresh halaman
+                    }, 1600); // Durasi waktu (2 detik)
+                } else {
+                    window.location.href = response;
+                }
+            }
+        });
+    }
 
-        window.onload = function() {
-            selectTopik(1);
-        };
+    function formLogic() {
+        $('.form-beli').on('submit', function(e) {
+            e.preventDefault();
+            let form = this;
+            let harga = $(this).find('.btn-beli').data('harga');
+            let nama = $(this).find('.btn-beli').data('nama');
+
+            if (harga && nama) {
+                Swal.fire({
+                    title: `Beli ${nama}?`,
+                    text: `Anda yakin beli ${nama} seharga ${harga}  koin`,
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    cancelButtonText: "Tidak",
+                    confirmButtonText: "Beli"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        harga = null
+                        postRequest(form);
+                    }
+                });
+            } else {
+                postRequest(form);
+            }
+        });
+
+    };
+
+    const kodeSubbab = "<?php echo $kode_subbab; ?>";
+
+    function selectTopik(topikId) {
+        // Mengirim request AJAX untuk mendapatkan HTML dari server
+        fetch('materi_bc.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    kode_topik: topikId,
+                    kode_subabb: kodeSubbab
+                })
+            })
+            .then(response => response.text())
+            .then(html => {
+                // Update bagian konten di halaman dengan HTML yang diterima
+                // console.log(html);
+                document.getElementById('konten-dinamis').innerHTML = html;
+                formLogic();
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    window.onload = function() {
+        selectTopik(1);
+    };
     </script>
 
     <!-- <script>

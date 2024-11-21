@@ -406,6 +406,10 @@ if (
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
 <?php
         } else {
             echo "<p>Topik tidak ditemukan.</p>";

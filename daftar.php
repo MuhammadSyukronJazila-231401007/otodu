@@ -39,34 +39,34 @@ include 'navbar.php';
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
     <style>
-        #nlp {
-            background-color: #4D62A5;
-            color: white;
-            font-weight: 450;
-        }
+    #nlp {
+        background-color: #4D62A5;
+        color: white;
+        font-weight: 450;
+    }
 
-        .form-select {
-            background-image: url("panah.png");
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 2vw 0.8vw;
-        }
+    .form-select {
+        background-image: url("panah.png");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 2vw 0.8vw;
+    }
 
-        footer {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            background-color: #1F2844;
-            color: white;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-            padding: 2.3vw;
-        }
+    footer {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: #1F2844;
+        color: white;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        padding: 2.3vw;
+    }
 
-        option {
-            font-family: 'Rethink Sans', sans-serif;
-        }
+    option {
+        font-family: 'Rethink Sans', sans-serif;
+    }
     </style>
 </head>
 
@@ -103,9 +103,11 @@ include 'navbar.php';
                     style="background-color: white; padding: 1vw 4vw 1vw 2vw; border-radius: 1vw;">
                     <?php $no = 0;
                     foreach ($materi as $row) : if ($no == 0) { ?>
-                            <option selected value="<?= $row['kode_materi'] ?>"><?= $row['nama_materi'] . ' Kelas ' . $row['kelas']; ?></option>
-                        <?php } else { ?>
-                            <option value="<?= $row['kode_materi'] ?>"><?= $row['nama_materi'] . ' Kelas ' . $row['kelas']; ?></option>
+                    <option selected value="<?= $row['kode_materi'] ?>">
+                        <?= $row['nama_materi'] . ' Kelas ' . $row['kelas']; ?></option>
+                    <?php } else { ?>
+                    <option value="<?= $row['kode_materi'] ?>"><?= $row['nama_materi'] . ' Kelas ' . $row['kelas']; ?>
+                    </option>
                     <?php }
                         $no++;
                     endforeach ?>
@@ -116,7 +118,7 @@ include 'navbar.php';
                     style="background-color: white; padding: 1vw 4vw 1vw 2vw; border-radius: 1vw;">
                     <?php $bab1 = ambilData("SELECT * FROM bab WHERE kode_materi = 1");
                     foreach ($bab1 as $row): ?>
-                        <option value="<?= $row['kode_bab'] ?>"><?= $row['nama_bab']; ?></option>
+                    <option value="<?= $row['kode_bab'] ?>"><?= $row['nama_bab']; ?></option>
                     <?php endforeach ?>
                 </select>
             </div>
@@ -134,10 +136,10 @@ include 'navbar.php';
         <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
     </footer>
     <script>
-        document.getElementById('koin').addEventListener('click', function(event) {
-            event.preventDefault();
-            window.location.href = 'price.php';
-        });
+    document.getElementById('koin').addEventListener('click', function(event) {
+        event.preventDefault();
+        window.location.href = 'price.php';
+    });
     </script>
     <script>
         isiSubBab(1);
@@ -166,7 +168,6 @@ include 'navbar.php';
                             option.textContent = bab.nama_bab;
                             babSelect.appendChild(option);
                         }
-
 
                         if (index === 0) {
                             temp = bab.kode_bab; // Simpan data pertama
@@ -247,12 +248,12 @@ include 'navbar.php';
                     </table>
                     </div>      
                 `;
-                            subbabContainer.appendChild(aTag);
-                        });
-                    }
-                })
-                .catch(error => console.error("Error fetching subbab data:", error));
-        }
+                        subbabContainer.appendChild(aTag);
+                    });
+                }
+            })
+            .catch(error => console.error("Error fetching subbab data:", error));
+    }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
