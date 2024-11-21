@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($email) || empty($password)) {
         echo "Email dan password harus diisi.";
-        exit();
+        exit;
     }
     $sql = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $updateStmt->close();
 
                 echo "new_user";
-                exit();
+                exit;
             } else if(str_ends_with($row['nama'], "_newMentor")) {
                 // Hapus "_new" dari username setelah preferensi diatur
                 $newUsername = str_replace("_newMentor", "", $row['nama']);
@@ -59,23 +59,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $updateStmt->close();
                 
                 echo "new_mentor";
-                exit();
+                exit;
             } else {
-                echo "success";
                 $id = $_SESSION['user_id'];
                 $sql = "SELECT nama_target FROM user_materi INNER JOIN target ON user_materi.kode_target = target.kode_target WHERE id_user = $id";
                 $result = mysqli_query($conn, $sql);
                 $row2 = mysqli_fetch_assoc($result);
                 $_SESSION['nama_target'] = $row2['nama_target'];
-                exit();
+                
+                echo "success";
+                exit;
             }
         } else {
             echo "Password salah.";
-            exit();
+            exit;
         }
     } else {
         echo "User tidak ditemukan.";
-        exit();
+        exit;
     }
 
     $stmt->close();
@@ -325,13 +326,13 @@ $conn->close();
                 type: 'POST',
                 data: $(this).serialize(), // Mengirim data form
                 success: function(response) {
-                    if (response === 'success') {
+                    if (response == 'success') {
                         window.location.href =
                             'dashboard.php'; // Arahkan ke halaman dashboard jika berhasil
-                    } else if (response === 'new_user') {
+                    } else if (response == 'new_user') {
                         window.location.href =
                             'pilih.php'; // Arahkan ke halaman pilih jika user baru
-                    } else if (response === 'new_mentor') {
+                    } else if (response == 'new_mentor') {
                         window.location.href =
                             'info_mentor.php'; // Arahkan ke halaman pilih jika user baru
                     } else {

@@ -45,12 +45,12 @@ foreach ($nearbyMentors as $mentor) {
     // Cek apakah pelajaran yang dipilih ada di array subjects
     if (($foundMatch || empty($selectedSubjects)) && $foundJadwal) {
 ?>
-<table style="background-color: #4D62A5; border-radius: 1vw; margin-bottom: 1vw;">
+<table style="background-color: #4D62A5; border-radius: 1vw; margin-bottom: 1vw; min-height: 180px;">
     <tr>
         <td rowspan="2">
             <img src="./image/user.png" width="30" height="30" style="margin-left: 2vw; margin-top: 1vw;">
         </td>
-        <td colspan="2" style="color: white; padding-top: 1vw;">
+        <td colspan="2" style="color: white; padding-top: 1vw; ">
             Mentor <?= htmlspecialchars($mentor['nama']); ?>, S.Komedi
         </td>
     </tr>

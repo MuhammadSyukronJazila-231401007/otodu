@@ -38,7 +38,7 @@ if( !isset($_SESSION['login']) ){
     }
 
     body {
-        background-color: #E3ECF5;
+        background-color: #F6F7FA;
         display: flex;
         flex-direction: column;
         min-height: 100vh;
@@ -189,7 +189,7 @@ if( !isset($_SESSION['login']) ){
 
 </head>
 
-<body>
+<body style="background-color: #F6F7FA">
 
     <?php include 'navbar.php';?>
 

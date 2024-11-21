@@ -24,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($password !== $passwordKonfirmasi) {
         echo "Password dan Konfirmasi Password tidak sama.";
-        exit();
+        exit;
     } elseif (empty($latitude) || empty($longitude)) {
         echo "Lokasi belum dipilih. Silakan pilih lokasi pada peta.";
-        exit();
+        exit;
     } else {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         
@@ -37,16 +37,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         if ($result->num_rows > 0) {
             echo "Email sudah terdaftar. Silakan gunakan email lain.";
-            exit();
+            exit;
         } else {
             $sql = "INSERT INTO users (email, nama, nomor, latitude, longitude, password, role) VALUES ('$email', '$nama', '$nomor', '$latitude', '$longitude', '$hashedPassword', '$role')";
             if ($conn->query($sql) === TRUE) {
                 $_SESSION['new_user'] = true;
                 echo "success"; 
-                exit();
+                exit;
             } else {
                 echo "Gagal melakukan registrasi. Silakan coba lagi.";
-                exit();
+                exit;
             }
         }
     }
