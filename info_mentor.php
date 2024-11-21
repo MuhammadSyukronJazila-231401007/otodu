@@ -24,10 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $online = [];
     if ($onlineAvailability === 'available') {
         foreach ($_POST['online-start'] as $index => $start) {
-            $online[] = $start . '-' . $_POST['online-end'][$index];
+            $online[] = $start . ' - ' . $_POST['online-end'][$index];
         }
+        $onlineStr = implode(';', $online);
+    }else {
+        $onlineStr = 'N/A';
     }
-    $onlineStr = implode(';', $online);
     
     $offlineAvailability = isset($_POST['offline-availability']) ? $_POST['offline-availability'] : 'unavailable';
     $offline = [];
@@ -35,14 +37,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         foreach ($_POST['offline-start'] as $index => $start) {
             $offline[] = $start . '-' . $_POST['offline-end'][$index];
         }
+        $offlineStr = implode(';', $offline);
+    }else {
+        $offlineStr = 'N/A';
     }
-    $offlineStr = implode(';', $offline);
     
     $majors = isset($_POST['majors']) ? $_POST['majors'] : [];
     $universities = isset($_POST['universities']) ? $_POST['universities'] : [];
     $studyHistory = [];
     foreach ($majors as $index => $major) {
-        $studyHistory[] = $major . '-' . $universities[$index];
+        $studyHistory[] = $major . ' - ' . $universities[$index];
     }
     $studyHistoryStr = implode(';', $studyHistory);
     
@@ -335,9 +339,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div id="online-time-slots">
                     <div class="time-slot">
                         <label for="online-start-1">Mulai:</label>
-                        <input type="time" id="online-start-1" class="time-select" name="online-start[]">
+                        <input type="time" id="online-start-1" class="time-select" name="online-start[]" required>
                         <label for="online-end-1">Sampai:</label>
-                        <input type="time" id="online-end-1" class="time-select" name="online-end[]">
+                        <input type="time" id="online-end-1" class="time-select" name="online-end[]" required>
                         <i class="fas fa-trash-alt remove-icon" onclick="removeOfflineSlot(this)"></i>
                     </div>
                 </div>
@@ -357,9 +361,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div id="offline-time-slots">
                     <div class="time-slot">
                         <label for="offline-start-1">Mulai:</label>
-                        <input type="time" id="offline-start-1" class="time-select" name="offline-start[]">
+                        <input type="time" id="offline-start-1" class="time-select" name="offline-start[]" required>
                         <label for="offline-end-1">Sampai:</label>
-                        <input type="time" id="offline-end-1" class="time-select" name="offline-end[]">
+                        <input type="time" id="offline-end-1" class="time-select" name="offline-end[]" required>
                         <i class="fas fa-trash-alt remove-icon" onclick="removeOfflineSlot(this)"></i>
                     </div>
                 </div>
@@ -376,12 +380,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div id="study-entries">
                 <div class="study-entry">
                     <label for="major-1">Jurusan:</label>
-                    <input type="text" id="major-1" name="majors[]" placeholder="Contoh: Teknik Informatika">
+                    <input type="text" id="major-1" name="majors[]" placeholder="Contoh: Teknik Informatika" required>
                     <i class="fas fa-trash-alt remove-icon" onclick="removeStudyEntry(this)"></i>
                     <br>
                     <label for="university-1">Kampus:</label>
                     <input type="text" id="university-1" name="universities[]"
-                        placeholder="Contoh: Universitas Indonesia">
+                        placeholder="Contoh: Universitas Indonesia" required>
                 </div>
             </div>
 

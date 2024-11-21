@@ -107,29 +107,6 @@ foreach ($mentors as $mentor) {
         width: 350px;
     }
 
-    .modal-backdrop {
-        background-color: #1F2844;
-        opacity: 100%;
-        /* awalnya 90% */
-    }
-
-    .modal {
-        background-color: #1F2844;
-        opacity: 100%;
-        /* awalnya 90% */
-    }
-
-    .modal {
-        background-color: #1F2844;
-        opacity: 100%;
-        /* awalnya 90% */
-    }
-
-    .modal-content {
-        background-color: #1F2844;
-        opacity: 100%;
-        /* awalnya 90% */
-    }
 
     * {
         margin: 0;
@@ -146,56 +123,12 @@ foreach ($mentors as $mentor) {
         background-position: center;
     }
 
-    .top-element {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1000;
-        /* Supaya elemen ini berada di atas elemen lainnya */
-        background-color: white;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .top-element {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1000;
-        /* Supaya elemen ini berada di atas elemen lainnya */
-        background-color: white;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .menu-btn {
-        color: rgb(255, 255, 255);
-        font-size: 1.5rem;
-        margin: 1.2px;
-        margin-left: 3vw;
-        margin-right: 3vw;
-        cursor: pointer;
-    }
-
-    .menu-btn {
-        color: rgb(255, 255, 255);
-        font-size: 1.5rem;
-        margin: 1.2px;
-        margin-left: 3vw;
-        margin-right: 3vw;
-        cursor: pointer;
-    }
-
     .main {
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 50px;
-    }
-
-    header {
-        background: #5E88B6;
     }
 
     header {
@@ -218,18 +151,6 @@ foreach ($mentors as $mentor) {
         padding-bottom: 1vw;
         font-weight: 700;
         font-size: 1em;
-    }
-
-    .menu p {
-        margin-left: 1vw;
-        margin-top: 1vw;
-        margin-bottom: 0.5vw;
-    }
-
-    .menu p {
-        margin-left: 1vw;
-        margin-top: 1vw;
-        margin-bottom: 0.5vw;
     }
 
     .head {
@@ -278,87 +199,53 @@ foreach ($mentors as $mentor) {
         /* Remove horizontal padding */
     }
 
-    .box-4 {
-        padding: 3vw;
-        display: flex;
-        flex-direction: column;
-        gap: 1vw;
-        /* Jarak antar elemen */
-    }
-
-    .box-4 {
-        padding: 3vw;
-        display: flex;
-        flex-direction: column;
-        gap: 1vw;
-        /* Jarak antar elemen */
-    }
-
-    .box-4 .inner-box {
-        background-color: #C2C5CD;
-        color: #F6F7FA;
-        padding: 0.8vw;
-        font-family: 'Nunito Sans', sans-serif;
-        margin-bottom: 0;
-        /* Hilangkan margin bawah */
-    }
-
-    .box-4 .inner-box {
-        background-color: #C2C5CD;
-        color: #F6F7FA;
-        padding: 0.8vw;
-        font-family: 'Nunito Sans', sans-serif;
-        margin-bottom: 0;
-        /* Hilangkan margin bawah */
-    }
-
-    .box-5 {
-        background-color: #d36bff;
-    }
-
     .inner-box {
         border-radius: 1vw;
-    }
-
-    .modal-backdrop {
-        background-color: #1F2844;
-        opacity: 100%;
-        /* awalnya 90% */
-    }
-
-    .modal-backdrop {
-        background-color: #1F2844;
-        opacity: 100%;
-        /* awalnya 90% */
-    }
-
-    .modal {
-        background-color: #1F2844;
-        opacity: 100%;
-        /* awalnya 90% */
-    }
-
-    .modal {
-        background-color: #1F2844;
-        opacity: 100%;
-        /* awalnya 90% */
-    }
-
-    .modal-content {
-        background-color: #1F2844;
-        opacity: 100%;
-        /* awalnya 90% */
     }
 
     .materi_ajar div {
         display: flex;
         flex-wrap: wrap;
-        /* Membuat elemen berpindah baris setelah dua elemen */
     }
 
     .materi_ajar div button:nth-child(2n) {
         margin-right: 0;
-        /* Menghapus margin kanan pada tombol di posisi kedua */
+    }
+
+    #btn-outline-utbk-s {
+        color: #fff;
+        background-color: #89622B;
+        border-color: #89622B;
+    }
+
+    #btn-outline-mtk-s {
+        color: #fff;
+        background-color: #793738;
+        border-color: #793738;
+    }
+
+    #btn-outline-bing-s {
+        color: #fff;
+        background-color: #375679;
+        border-color: #375679;
+    }
+
+    #btn-outline-dp-s {
+        color: #fff;
+        background-color: #6C3779;
+        border-color: #6C3779;
+    }
+
+    #btn-outline-on-s {
+        color: #fff;
+        background-color: #6A7937;
+        border-color: #6A7937;
+    }
+
+    #btn-outline-off-s {
+        color: #fff;
+        background-color: #377939;
+        border-color: #377939;
     }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -535,13 +422,14 @@ foreach ($mentors as $mentor) {
                         <div style="display: flex;">
                             <div>
                                 <button type="button" class="btn btn-outline-bing"
-                                    style="border-radius: 1.6vw; margin-right: 1.5vw; margin-top: 5px;">
+                                    style="border-radius: 1.6vw; margin-right: 1.5vw; margin-top: 5px;"
+                                    data-value="desain fa">
                                     <i>Front-end App</i>
                                 </button>
                             </div>
                             <div>
                                 <button type="button" class="btn btn-outline-bing"
-                                    style="border-radius: 1.6vw; margin-top: 5px;">
+                                    style="border-radius: 1.6vw; margin-top: 5px;" data-value="desain fw">
                                     <i>Front-end Web</i>
                                 </button>
                             </div>
@@ -554,7 +442,7 @@ foreach ($mentors as $mentor) {
                         <div style="display: flex;">
                             <div>
                                 <button type="button" class="btn btn-outline-bing"
-                                    style="border-radius: 1.6vw; margin-right: 1.5vw;">
+                                    style="border-radius: 1.6vw; margin-right: 1.5vw;" data-value="desain be">
                                     <i>Back-end</i>
                                 </button>
                             </div>
@@ -569,7 +457,7 @@ foreach ($mentors as $mentor) {
         <!--Baris pertama-->
         <div>
             <center id="mentor"
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1vw; padding: 0 5vw;">
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 300px)); gap: 1vw; padding: 0 5vw;">
             </center>
         </div>
 
@@ -598,6 +486,8 @@ foreach ($mentors as $mentor) {
 
     <script>
     let selectedSubjects = new Set(); // Set untuk menyimpan pelajaran yang dipilih
+    let selectedJadwal = new Set(); // Set untuk menyimpan pelajaran yang dipilih
+    let selectedProgramLanjut = new Set(); // Set untuk menyimpan pelajaran yang dipilih
     let nearbyMentorses = <?php echo json_encode($nearbyMentors); ?>;
 
     document.querySelectorAll('.btn').forEach(button => {
@@ -605,16 +495,41 @@ foreach ($mentors as $mentor) {
             console.log("tesss");
             const subject = button.getAttribute('data-value');
 
-            if (selectedSubjects.has(subject)) {
-                selectedSubjects.delete(subject); // Hapus jika sudah dipilih
+
+            if (subject.includes("desain")) {
+                if (selectedProgramLanjut.has(subject)) {
+                    selectedProgramLanjut.delete(subject); // Hapus jika sudah dipilih
+                } else {
+                    selectedProgramLanjut.add(subject); // Tambahkan jika belum dipilih
+                }
+            } else if (subject == 'online' || subject == 'offline') {
+                if (selectedJadwal.has(subject)) {
+                    selectedJadwal.delete(subject); // Hapus jika sudah dipilih
+                } else {
+                    selectedJadwal.add(subject); // Tambahkan jika belum dipilih
+                }
             } else {
-                selectedSubjects.add(subject); // Tambahkan jika belum dipilih
+                if (selectedSubjects.has(subject)) {
+                    selectedSubjects.delete(subject); // Hapus jika sudah dipilih
+                } else {
+                    selectedSubjects.add(subject); // Tambahkan jika belum dipilih
+                }
+
             }
 
             const allClasses = Array.from(button.classList);
             console.log(allClasses[1] + "-s");
 
-            button.classList.add(allClasses[1] + "-s");
+            // button.classList.toggle(allClasses[1] + "-s");
+
+            const newId = allClasses[1] + "-s";
+
+            if (button.id === newId) {
+                button.removeAttribute('id');
+            } else {
+                button.id = newId;
+            }
+
 
             // button.classList.toggle(allClasses[1] + "-s");
             kirimData();
@@ -627,7 +542,9 @@ foreach ($mentors as $mentor) {
             url: 'mentor_bc.php', // URL tujuan
             type: 'POST', // Metode pengiriman
             data: {
-                subjects: Array.from(selectedSubjects), // Data pelajaran yang dipilih
+                subjects: Array.from(selectedSubjects),
+                jadwal: Array.from(selectedJadwal),
+                programLanjut: Array.from(selectedProgramLanjut),
                 nearbyMentors: nearbyMentorses // Data mentor yang tersedia
             },
             success: function(response) {
