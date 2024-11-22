@@ -1,10 +1,12 @@
 <?php
+/*
 session_start();
 
 if( !isset($_SESSION['login']) ){
     header("Location: login.php");
     exit;
 }
+*/
 ?>
 
 <!DOCTYPE html>
@@ -19,83 +21,83 @@ if( !isset($_SESSION['login']) ){
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
-<body>
+<body class="">
 
-  <header>
-    <nav class="navbar bg-body-tertiary">
-      <div class="container" style="max-width: 100%; display:grid; grid-template-columns: 1fr 3fr; gap:5vw;">
-        <a class="navbar-brand" href="#" style="margin: 1vw; padding-left: 5vw;">
-          <img src="./image/otodu.png" alt="Bootstrap" width="130" height="22">
+  <header class="mt-0 mb-0" style="height:6vw">
+      <div class="container mt-0" style="height:6vw; max-width: 100%; display:grid; grid-template-columns: 1fr 3fr; gap:5vw; align-items:center;">
+        <a class="navbar-brand" href="#" style="margin-left: 8vw;">
+          <img src="./image/otodu.png" alt="Bootstrap" width="150vw">
         </a>
-        <p style="color:#4D62A5; font-size:2vw; margin-top:2vw;">Fungsi | 1. Pengantar -> <b><span>Apa Itu Fungsi ?</span></b> -> Subbab 1</p>
-      </div>
-    </nav>    
+        <p style="color:#4D62A5; font-size:1.5vw;">Fungsi | 1. Pengantar -> <b><span>Apa Itu Fungsi ?</span></b> -> Subbab 1</p>
+      </div>   
   </header>
 
-  <section style="background-color:#375679">
-    <div style="padding: 1vw 4vw 1vw 4vw; display:flex; justify-content:space-around;  align-items:center;">
-
+  <section class="" style="background-color:#375679; height:6vw;">
+    <div class="container" style="display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; gap: 3vw;">
+        
+        <!-- Button Close -->
         <div data-bs-theme="dark">
-            <button type="button" class="btn-close" aria-label="Close"></button>
+            <button type="button" class="btn-close" aria-label="Close" style="font-size:1vw;"></button>
         </div>
 
-        <div class="pagination" style="display:flex; align-items:center;">
-                <button class="nav-button" onclick="prevContent()" style="color: #5D81AB; background-color:transparent; font-size:4vw;">&#60;</button>
-                <button class="btn-pagination" id="btn-materi1" onclick="showContent('materi1')"></button>
-                <button class="btn-pagination" id="btn-materi2" onclick="showContent('materi2')"></button>
-                <button class="btn-pagination" id="btn-materi3" onclick="showContent('materi3')"></button>
-                <button class="btn-pagination" id="btn-materi4" onclick="showContent('materi4')"></button>
-                <button class="btn-pagination" id="btn-materi5" onclick="showContent('materi5')"></button>
-                <button class="btn-pagination" id="btn-materi6" onclick="showContent('materi6')"></button>
-                <button class="btn-pagination" id="btn-materi7" onclick="showContent('materi7')"></button>
-                <button class="btn-pagination" id="btn-materi8" onclick="showContent('materi8')"></button>
-                <button class="nav-button" onclick="nextContent()" style="color: #5D81AB; background-color:transparent; font-size:4vw;">&#62;</button>
+        <!-- Pagination Buttons -->
+        <div class="pagination" style="display:grid; justify-items:center; grid-template-columns: repeat(10, 1fr); gap: 1vw;">
+            <button class="nav-button" onclick="prevContent()" style="color: #5D81AB; background-color:transparent; font-size:3vw;">&#60;</button>
+            <button class="btn-pagination" id="btn-materi1" onclick="showContent('materi1')"></button>
+            <button class="btn-pagination" id="btn-materi2" onclick="showContent('materi2')"></button>
+            <button class="btn-pagination" id="btn-materi3" onclick="showContent('materi3')"></button>
+            <button class="btn-pagination" id="btn-materi4" onclick="showContent('materi4')"></button>
+            <button class="btn-pagination" id="btn-materi5" onclick="showContent('materi5')"></button>
+            <button class="btn-pagination" id="btn-materi6" onclick="showContent('materi6')"></button>
+            <button class="btn-pagination" id="btn-materi7" onclick="showContent('materi7')"></button>
+            <button class="btn-pagination" id="btn-materi8" onclick="showContent('materi8')"></button>
+            <button class="nav-button" onclick="nextContent()" style="color: #5D81AB; background-color:transparent; font-size:3vw;">&#62;</button>
         </div>
 
-        <i class="bi bi-flag text-white" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 2vw; cursor: pointer;"></i>
+        <!-- Flag Icon Trigger for Modal -->
+        <i class="bi bi-flag text-white" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 1vw; cursor: pointer;"></i>
+
+    </div>
 
     <!-- Modal Bootstrap -->
     <div class="modal fade mt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-top modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Petunjuk!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>Tidak Ada Yang Namanya Jalan Pintas</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-          </div>
+        <div class="modal-dialog modal-dialog-top modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Petunjuk!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tidak Ada Yang Namanya Jalan Pintas</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-
-
-    </div>
-  </section>
+</section>
 
   <section id="materi">
       <div class="container">
 
           <div id="materi1" class="content">
               <div class="pembungkus-content">
-                  <img src="image/svg/materi1.svg" alt="" class="svg" style="width:30vw;">
-                  <p>Dalam fungsi, terdapat dua himpunan utama yang saling berhubungan. Agar bisa disebut fungsi, tidak cukup hanya dengan adanya hubungan antara elemen Himpunan A dan Himpunan B; ada aturan-aturan tertentu yang harus dipenuhi. Aturan-aturan ini akan dibahas dalam sub-topik berikutnya.</p>
+                  <img src="image/svg/materi1.svg" alt="" class="svg" style="width:20vw;">
+                  <p style="font-size:20px;">Dalam fungsi, terdapat dua himpunan utama yang saling berhubungan. Agar bisa disebut fungsi, tidak cukup hanya dengan adanya hubungan antara elemen Himpunan A dan Himpunan B; ada aturan-aturan tertentu yang harus dipenuhi. Aturan-aturan ini akan dibahas dalam sub-topik berikutnya.</p>
               </div>
           </div>
           
           <div id="materi2" class="content">
               <div class="pembungkus-content">
-              <img src="image/svg/materi2.svg" alt="" class="svg" style="width:26vw;">
+              <img src="image/svg/materi2.svg" alt="" class="svg" style="width:15vw;">
        
-              <p>Gambar disamping adalah bentuk dari fungsi karena elemen-elemen didalam himpunan A berhubungan dengan himpunan B, atau bahasa matematikanya adalah Himpunan A memetakan Himpunan B</p>
+              <p style="font-size:20px;">Gambar disamping adalah bentuk dari fungsi karena elemen-elemen didalam himpunan A berhubungan dengan himpunan B, atau bahasa matematikanya adalah Himpunan A memetakan Himpunan B</p>
               </div>
           </div>
           
-          <div id="materi3" class="content">
-              <img src="image/svg/materi3.svg" alt="" class="svg" style="width:26vw;">
+          <div id="materi3" class="content" style="height:30vw;">
+              <img src="image/svg/materi3.svg" alt="" class="svg" style="width:15vw;">
   
           <div class="question mt-4">Identifikasi Gambar Diatas!</div>
         
@@ -121,21 +123,27 @@ if( !isset($_SESSION['login']) ){
           </div>  
           
           <div id="materi4" class="content">
-              <img src="image/svg/materi4.svg" alt="" class="svg" style="width:50vw; position:relative; left:15vw;">
-              <p>Pada latihan sebelumnya, kita memahami permasalahan fungsi dengan bahasa awam. Sekarang, mari ubah sudut pandang agar lebih sesuai dengan matematika. Perhatikan gambar: (1) Himpunan diubah menjadi Himpunan A dan B beserta elemennya, (2) Himpunan A disebut Domain (himpunan asal), (3) Himpunan B disebut Kodomain (himpunan kawan), dan (4) Himpunan A memetakan Himpunan B.</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr;">
+              <img src="image/svg/materi4.svg" alt="" class="svg" style="width:30vw;">
+              <p style="font-size:20px;">Pada latihan sebelumnya, kita memahami permasalahan fungsi dengan bahasa awam. Sekarang, mari ubah sudut pandang agar lebih sesuai dengan matematika. Perhatikan gambar: (1) Himpunan diubah menjadi Himpunan A dan B beserta elemennya, (2) Himpunan A disebut Domain (himpunan asal), (3) Himpunan B disebut Kodomain (himpunan kawan), dan (4) Himpunan A memetakan Himpunan B.</p>
+            </div>
+              
           </div>  
           
           <div id="materi5" class="content">
-              <img src="image/svg/materi5.svg" alt="" class="svg" style="width:50vw;">
+              <div style="display:grid; grid-template-columns:1fr 1fr;">
+                <img src="image/svg/materi5.svg" alt="" class="svg" style="width:30vw;">
+                
+                <p style="font-size:20px;">Untuk memahami materi ini, diperlukan langkah-langkah sebagai berikut:<br>
+                1. Buat Himpunan A (Domain) dan Himpunan B (Kodomain) beserta elemennya.<br>
+                2. Buat rumus fungsi untuk menentukan elemen Himpunan B, dengan tampilan rumus umumnya di sebelah kanan.<br>
+                3. Gunakan rumus tersebut dan gantikan variabel x dengan elemen Himpunan A untuk mendapatkan elemen Himpunan B.</p>
+              </div>
               
-              <p>Untuk memahami materi ini, diperlukan langkah-langkah sebagai berikut:<br>
-              1. Buat Himpunan A (Domain) dan Himpunan B (Kodomain) beserta elemennya.<br>
-              2. Buat rumus fungsi untuk menentukan elemen Himpunan B, dengan tampilan rumus umumnya di sebelah kanan.<br>
-              3. Gunakan rumus tersebut dan gantikan variabel x dengan elemen Himpunan A untuk mendapatkan elemen Himpunan B.</p>
           </div>  
           
           <div id="materi6" class="content">
-              <h5>Pernyataan mana yang benar?</h5>
+              <h5 style="margin-top:4vw;">Pernyataan mana yang benar?</h5>
                   <div>
                       <ul>
                           <li><button class="pernyataan" id="pernyataan-1" onclick="tentukan(1)">Lorem ipsum dolor sit amet</button></li>
