@@ -1,26 +1,11 @@
 <?php
-include 'function.php';
 session_start();
 
-if (isset($_GET['kode_materi'])) {
-    $_SESSION['kode_materi'] = $_GET['kode_materi'];
-    $_SESSION['kode_subbab'] = $_GET['kode_subbab'];
-    $_SESSION['kode_bab'] = $_GET['kode_bab'];
-    header("Location: materi.php");
-}
-
 if (!isset($_SESSION['login'])) {
-    header("Location: login.php");
-    exit;
+  header("Location: login.php");
+  exit;
 }
-
-$id = $_SESSION['user_id'];
-$koin = ambilData("SELECT koin FROM users WHERE id = $id");
-
-$materi = ambilData("SELECT * FROM materi");
-
 include 'navbar.php';
-
 ?>
 
 
@@ -29,292 +14,395 @@ include 'navbar.php';
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Daftar Materi</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-        }
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        #nlp {
-            background-color: #4D62A5;
-            color: white;
-            font-weight: 450;
-        }
-
-        .form-select {
-            background-image: url("panah.png");
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 2vw 0.8vw;
-        }
-
-        footer {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            background-color: #1F2844;
-            padding: 20px;
-            color: white;
-        }
-
-        option {
-            font-family: 'Rethink Sans', sans-serif;
-        }
-
-        #subbabContainer .btn {
-            display: block;
-            margin-bottom: 1rem;
-            /* Jarak antar elemen */
-            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-            /* Efek bayangan */
-            text-align: left;
-        }
-
-        #subbabContainer .btn div {
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-
-        @media (max-width: 600px) {
-            footer {
-                display: flex;
-            }
-
-            #subbabContainer .btn {
-                width: 100%;
-                /* Satu elemen per baris */
-            }
-
-            #subbabContainer {
-                margin-top: 2rem;
-            }
-
-            #subbabContainer .col-12 {
-                margin: 0;
-            }
-
-            .form-select {
-                height: 3rem;
-            }
-        }
-    </style>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/jasa.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
+  <title>Desain Web & App</title>
+  <style>
+    footer {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: #1F2844;
+      color: white;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 2vw;
+    }
+  </style>
 </head>
 
-<body style="font-family: 'Rethink Sans', sans-serif;">
-    <div style="display: flex; justify-content: space-between;">
-        <div>
-            <font id="koin"
-                style="background-color: #96AA03; color: white; align-items: center; padding: 0.7vw; margin-left: 7vw; cursor: pointer;">
-                <img src="image/coin.png" width="18" height="18">
-                <?= $koin[0]['koin'] ?>
-            </font>
+<body>
+  <section class="header">
+    <p class="header-p">Kami memiliki professional Developer & Designer <br>
+      Wujudkan ide Anda sekarang! di <img style="margin-left: 0.5vw;" src="image/otodu-logo.png" width="30vw">
+    </p>
+    <div class="card-jasa shadow">
+      <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+        aria-controls="collapseExample">
+        <div class="jasa text-center">
+          <img src="image/design.png" width="60vw" alt=""> <br>
+          <p>Desain Grafis</p>
         </div>
-        <div>
-            <font style="background-color: #4D62A5; margin-right: 5vw; padding: 0.4vw;">
-                <a href="leaderboard.php">
-                    <img src="image/rank.png" width="18" height="18" style="margin-left: 0.7vw;">
-                </a>
-                <a href="">
-                    <img src="image/mail.png" width="18" height="18" style="margin-left: 1.5vw; margin-right: 1.5vw;">
-                </a>
-                <a href="profil.php">
-                    <img src="image/user.png" width="18" height="18" style="margin-right: 0.7vw;">
-                </a>
-            </font>
+      </button>
+      <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false"
+        aria-controls="collapseExample2">
+        <div class="jasa text-center">
+          <img src="image/website.png" width="60vw" alt=""> <br>
+          <p>Jasa Website</p>
         </div>
+      </button>
+      <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="false"
+        aria-controls="collapseExample3">
+        <div class="jasa text-center">
+          <img src="image/mobile-app.png" width="60vw" alt=""> <br>
+          <p>Jasa Aplikasi</p>
+        </div>
+      </button>
+
     </div>
-    <h4 style="padding: 4vw 10vw 2vw 10vw;">Daftar Materi</h4>
-    <br>
-    <div style="background-color: #F6F7FA; border-radius: 0.5vw; padding: 2vw 3vw;">
-        <div class="row">
-            <div class="col-md-4">
-                <div style="margin: 4vw ;">
-                    <h6 style="margin-bottom: 1.5vw;">Pilih Materi</h6>
-                    <select id="pilihMateri" class="form-select" aria-label="Default select example"
-                        style="background-color: white; padding: 1vw 4vw 1vw 2vw; border-radius: 1vw;">
-                        <?php $no = 0;
-                        foreach ($materi as $row) : if ($no == 0) { ?>
-                                <option selected value="<?= $row['kode_materi'] ?>"><?= $row['nama_materi'] . ' Kelas ' . $row['kelas']; ?></option>
-                            <?php } else { ?>
-                                <option value="<?= $row['kode_materi'] ?>"><?= $row['nama_materi'] . ' Kelas ' . $row['kelas']; ?></option>
-                        <?php }
-                            $no++;
-                        endforeach ?>
-                    </select>
-                    <br>
-                    <h6 style="margin-bottom: 1.5vw;">Pilih Bab</h6>
-                    <select id="pilihBab" class="form-select" aria-label="Default select example"
-                        style="background-color: white; padding: 1vw 4vw 1vw 2vw; border-radius: 1vw;">
-                        <?php $bab1 = ambilData("SELECT * FROM bab WHERE kode_materi = 1");
-                        foreach ($bab1 as $row): ?>
-                            <option value="<?= $row['kode_bab'] ?>"><?= $row['nama_bab']; ?></option>
-                        <?php endforeach ?>
-                    </select>
+  </section>
+
+  <section class="container">
+    <div class="collapse" id="collapseExample">
+      <div class="isi-jasa" class="collapse" id="collapseExample">
+        <div class="d-flex justify-content-around">
+          <div class="row">
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/design1.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Logo</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
                 </div>
+              </button>
             </div>
-
-            <div class="col-md-8" id="subbabContainer">
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/design2.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Desain Website</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
             </div>
-
-            <!-- <div id="subbabContainer" style="width: 60%;">
-                </div> -->
-
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/desain3.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Banner</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+    <div div class="collapse" id="collapseExample2">
+      <div class="isi-jasa">
+        <div class="d-flex justify-content-around">
+          <div class="row">
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/website1.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Profile</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/website2.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Promosi</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/website3.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">S.Informasi</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     </div>
-    <!-- <footer>
-        <img src="image/logo otodu terang.png" alt="logo" style="width: 120px; margin-right: 2vw; margin-left: 2.3vw;">
-        <p style="font-family: 'Martian Mono'; font-size: 10px; margin-top: 17px;">@2024 OTODU Limited</p>
-    </footer> -->
-    <script>
-        document.getElementById('koin').addEventListener('click', function(event) {
-            event.preventDefault();
-            window.location.href = 'price.php';
-        });
-    </script>
-    <script>
-        isiSubBab(1);
 
-        document.getElementById("pilihMateri").addEventListener("change", function() {
-            const idMateri = this.value;
-            const babSelect = document.getElementById("pilihBab");
-            babSelect.innerHTML = "";
-
-            fetch(`daftar_bc.php?id_materi=${idMateri}`)
-                .then(response => response.json())
-                .then(data => {
-                    let temp;
-                    data.forEach((bab, index) => {
-                        const option = document.createElement("option");
-                        if (bab.nama_bab == "Tidak ada bab") {
-                            option.textContent = "Tidak ada bab";
-                            option.disabled = true; // Buat opsi tidak bisa dipilih
-                            option.selected = true; // Tampilkan sebagai opsi default
-                            babSelect.appendChild(option);
-                            console.log("bab kosong")
-                            topikKosong();
-                            return;
-                        } else {
-                            option.value = bab.kode_bab;
-                            option.textContent = bab.nama_bab;
-                            babSelect.appendChild(option);
-                        }
-
-
-                        if (index === 0) {
-                            temp = bab.kode_bab; // Simpan data pertama
-                        }
-                    });
-
-                    // Panggil isiSubBab setelah data pertama dipastikan
-                    if (temp) {
-                        isiSubBab(temp);
-                    }
-                })
-                .catch(error => console.error("Error fetching bab data:", error));
-        });
-
-
-        document.getElementById("pilihBab").addEventListener("change", function() {
-            console.log()
-            isiSubBab(this.value);
-        });
-
-        function topikKosong() {
-            const subbabContainer = document.getElementById("subbabContainer");
-            subbabContainer.classList.remove("gap-4");
-            subbabContainer.classList.remove("d-flex");
-            subbabContainer.innerHTML = ` 
-                        <div class="d-flex flex-column align-items-center">
-                            <img src="image/folder.png" width="200" alt="Example Image" class="mb-3">
-                            <p>Maaf, Topik belum tersedia</p>
-                        </div>
-                        `;
-        }
-
-        function isiSubBab(temp) {
-            let row
-            const idBab = temp
-            const materi = document.getElementById("pilihMateri");
-            const bab = document.getElementById("pilihBab");
-            const selectedMateri = materi.options[materi.selectedIndex].text;
-            const selectedBab = bab.options[bab.selectedIndex].text;
-            const subbabContainer = document.getElementById("subbabContainer");
-            console.log("ID Bab:", idBab, "Materi yang dipilih:", selectedMateri);
-            subbabContainer.innerHTML = "";
-            fetch(`daftar_bc.php?id_bab=${idBab}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length === 0 || (data.length === 1 && data[0].id_subbab === 0)) {
-                        topikKosong()
-                    } else {
-
-                        data.forEach((subbab, index) => {
-                            if (index % 2 === 0) {
-                                // Buat baris baru setiap 2 elemen
-                                row = document.createElement('div');
-                                row.classList.add('row');
-                                row.classList.add('d-flex', 'justify-content-start'); // Flexbox untuk tata letak
-                                subbabContainer.appendChild(row);
-                            }
-
-                            // Buat div pembungkus dengan kelas col-md-6 dan col-12
-                            const colDiv = document.createElement('div');
-                            colDiv.className = "col-md-6 col-12 "; // Responsif + margin bawah
-
-                            // Buat elemen <a>
-                            const aTag = document.createElement("a");
-                            aTag.className = "btn";
-                            aTag.href = `daftar.php?kode_materi=${materi.options[materi.selectedIndex].value}&kode_bab=${bab.options[bab.selectedIndex].value}&kode_subbab=${subbab.kode_subbab}`;
-                            aTag.role = "button";
-                            aTag.style =
-                                "background-color: white; outline-color: white; text-align: left; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); display: block; height: auto; padding: 1vw; border-radius: 1vw;";
-                            aTag.innerHTML = `
-        <div style="background-color: white; border-radius: 1vw; padding: 1vw; height: auto;">
-            <table style="border-collapse: collapse; width: 100%;">
-                <tr>
-                    <td rowspan="4" style="padding-right: 1.5vw;"><img src="image/Bab.png" width="60" height="60"></td>
-                    <td style="font-size: 16px; padding-bottom: 0;"><b>${subbab.nama_subbab}</b></td>
-                </tr>
-                <tr>
-                    <td style="font-size: 16px; padding-top: 0;">${selectedBab} - ${selectedMateri}</td>
-                </tr>
-                <tr>
-                    <td style="padding: 0.3vw;"></td>
-                </tr>
-                <tr>
-                    <td style="font-size: 12px;">1/2 subtopik selesai</td>
-                </tr>
-            </table>
+    <div class="collapse" id="collapseExample3">
+      <div class="isi-jasa">
+        <div class="d-flex justify-content-around">
+          <div class="row">
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/aplikasi1.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Bisnis</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/aplikasi2.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Edukasi</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/aplikasi3.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Kustom</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
-    `;
-
-                            // Masukkan <a> ke dalam <div>
-                            colDiv.appendChild(aTag);
-
-                            // Masukkan <div> ke dalam row
-                            row.appendChild(colDiv);
-                        });
+      </div>
+    </div>
 
 
-                    }
-                })
-                .catch(error => console.error("Error fetching subbab data:", error));
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+    <div class="teks1">
+      <p class="teks1-p1">Kenapa Otodu?</p>
+      <p class="teks1-p2">Karena kami akan mewujudkan ide Anda dengan para developer
+        terbaik!</p>
+      <div class="teks1-fitur row">
+        <div class="col-md-6">
+          <div class="d-flex align-items-start">
+            <img class="penggunaan-img1" src="image/developer_best.png" alt="">
+            <div class="isi-fitur">
+              <p class="judul-fitur">Developer terbaik</p>
+              <p class="deskripsi-fitur">Kami bekerja dengan developer profesional <br>
+                yang memiliki pengalaman luas, menjamin <br>
+                kualitas proyek Anda.</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex align-items-start">
+            <img class="penggunaan-img1" src="image/layanan.png" alt="">
+            <div class="isi-fitur">
+              <p class="judul-fitur">Tersedia Berbagai Layanan</p>
+              <p class="deskripsi-fitur">Kami menawarkan 4 layanan utama dan layanan <br>
+                tambahan yang mendukung kebutuhan spesifik <br>
+                Anda.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="teks1 mb-5">
+      <p class="teks1-p2">Langkah mudah dalam menggunakan jasa OTODU !</p>
+      <div class="teks1-fitur row">
+        <div class="col-md-6">
+          <div class="d-flex align-items-start">
+            <img class="penggunaan-img2" src="image/login.png" alt="">
+            <div class="isi-fitur">
+              <p class="judul-fitur">1. Cari layanan</p>
+              <p class="deskripsi-fitur">Cari dan pilih layanan sesuai dengan <br>
+                kebutuhan proyek Anda.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex align-items-start">
+            <img class="penggunaan-img2" src="image/resume.png" alt="">
+            <div class="isi-fitur">
+              <p class="judul-fitur">2. Isi formulir</p>
+              <p class="deskripsi-fitur">Silahkan isi data diri anda dan <br>
+                detail proyek anda.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="teks1-fitur row">
+        <div class="col-md-6">
+          <div class="d-flex align-items-start">
+            <img class="penggunaan-img2" src="image/talk.png" alt="">
+            <div class="isi-fitur">
+              <p class="judul-fitur">3. Diskusi</p>
+              <p class="deskripsi-fitur">Diskusikan detail proyek anda serta <br>
+                penawaran harga kepada developer</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex align-items-start">
+            <img class="penggunaan-img2" src="image/invoice.png" alt="">
+            <div class="isi-fitur">
+              <p class="judul-fitur"> 4. Pembayaran dan Ulasan
+              </p>
+              <p class="deskripsi-fitur">Setujui proyek Anda dan lakukan Pembayaran. <br>
+                Berikan ulasan sebagai evaluasi kami.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="teks1-fitur">
+        <div class="d-flex align-items-start">
+          <img class="penggunaan-img2" src="image/login.png" alt="">
+          <div class="isi-fitur">
+            <p class="judul-fitur">1. Cari layanan</p>
+            <p class="deskripsi-fitur">Cari dan pilih layanan sesuai dengan <br>
+              kebutuhan proyek Anda.</p>
+          </div>
+          <img class="penggunaan-img2" src="image/resume.png" alt="">
+          <div class="isi-fitur">
+            <p class="judul-fitur">2. Isi formulir</p>
+            <p class="deskripsi-fitur">Silahkan isi data diri anda dan <br>
+              detail proyek anda.</p>
+          </div>
+        </div>
+        <div style="margin-top: 2vw;" class="d-flex align-items-start">
+          <img class="penggunaan-img2" src="image/talk.png" alt="">
+          <div class="isi-fitur">
+            <p class="judul-fitur">3. Diskusi</p>
+            <p class="deskripsi-fitur">Diskusikan detail proyek anda serta <br>
+              penawaran harga kepada developer</p>
+          </div>
+          <img class="penggunaan-img2" src="image/invoice.png" alt="">
+          <div class="isi-fitur">
+            <p class="judul-fitur"> 4. Pembayaran dan Ulasan
+            </p>
+            <p class="deskripsi-fitur">Setujui proyek Anda dan lakukan Pembayaran. <br>
+              Berikan ulasan sebagai evaluasi kami.</p>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </section>
+  <form>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content p-3">
+          <div class="modal-header border-0">
+            <h4 style="font-weight: bold;" class="modal-title text-center w-100" id="exampleModalLabel">Pesan Jasa <i
+                class="bi bi-envelope-fill"></i></h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="nama" class="form-label">Nama</label>
+              <input type="text" class="form-control" id="nama" aria-describedby="emailHelp" required>
+              <div id="emailHelp" class="form-text"></div>
+            </div>
+            <div class="mb-3">
+              <label for="dropdown" class="form-label">Pilih Opsi</label>
+              <select class="form-select" id="dropdown" aria-label="Dropdown" required>
+                <option value="" selected>Pilih opsi...</option>
+                <option value="Desain Grafis - Logo">Desain Grafis - Logo</option>
+                <option value="Desain Grafis - Desain Website">Desain Grafis - Desain Website</option>
+                <option value="Desain Grafis - Banner 3">Desain Grafis - Banner 3</option>
+                <option value="Website - Promosi">Website - Promosi</option>
+                <option value="Website - Company Profile">Website - Company Profile</option>
+                <option value="Website - Sistem Informasi">Website - Sistem Informasi</option>
+                <option value="Aplikasi - Bisnis">Aplikasi - Bisnis</option>
+                <option value="Aplikasi - Edukasi">Aplikasi - Edukasi</option>
+                <option value="Aplikasi - Kustom">Aplikasi - Kustom</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="whatsapp" class="form-label">No. Whatsapp</label>
+              <input type="text" class="form-control" id="whatsapp" required>
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Deskripsi</label>
+              <textarea class="form-control" id="description" rows="6" placeholder="Masukkan deskripsi..."
+                required></textarea>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button onclick="sendToWhatsApp()" style="background-color: #25D366; font-size: 1.5vw;" type="submit"
+              class="btn w-100 text-center text-white border-0" data-bs-dismiss="modal">
+              Kirim <i class="bi bi-whatsapp ms-1"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <footer>
+    <img src="image/logo otodu terang.png" alt="logo" style="width: 120px; margin-right: 2vw; margin-left: 2.3vw;">
+    <p style="font-family: 'Martian Mono'; font-size: 10px; margin-top: 17px;">@2024 OTODU Limited</p>
+  </footer>
+
+  <script>
+    function sendToWhatsApp() {
+      // Ambil nilai input
+      const nama = document.getElementById("nama").value.trim();
+      const dropdown = document.getElementById("dropdown").value;
+      const whatsapp = document.getElementById("whatsapp").value.trim();
+      const description = document.getElementById("description").value.trim();
+
+      // Validasi form
+      if (!nama || !dropdown || !whatsapp || !description) {
+        alert("Semua kolom harus diisi!");
+        return;
+      }
+
+      // Ganti dengan nomor tujuan WhatsApp
+      const nomorWhatsApp = "628123456789"; // contoh nomor (62 adalah kode negara Indonesia)
+
+      // Buat pesan untuk dikirim
+      const message = `Halo, saya ${nama}. Saya ingin memesan:\n\n- Layanan: ${dropdown}\n- Deskripsi: ${description}\n- Nomor Whatsapp: ${whatsapp}`;
+
+      // Encode pesan untuk URL
+      const encodedMessage = encodeURIComponent(message);
+
+      // Buka WhatsApp dengan pesan yang sudah dibuat
+      window.open(`https://wa.me/${nomorWhatsApp}?text=${encodedMessage}`, "_blank");
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+
 </body>
 
 </html>
