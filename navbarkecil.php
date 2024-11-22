@@ -9,7 +9,7 @@
 
 <body>
     <div>
-        <font style="background-color: #4D62A5; margin-right: 5vw; padding: 0.15vw 0.4vw 0.4vw 0.4vw;">
+        <font style="background-color: #4D62A5; margin-right: 5vw; padding: 1.5px 4px 4px 4px;">
             <a href="leaderboard.php">
                 <img src="image/rank.png" width="18" height="18" style="margin-left: 0.7vw;">
             </a>

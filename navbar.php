@@ -27,7 +27,7 @@
         padding: 0.5vw 2.5vw;
         position: relative;
         align-self: center;
-        font-size: 1.4vw;
+        font-size: 14px !important;
         cursor: pointer;
         font-family: 'Rethink Sans';
         color: #4D62A5;
@@ -56,7 +56,7 @@
         <nav class="navbar">
             <div class="container" style="display: flex; align-items: center;">
                 <div class="logo">
-                    <img src="image/logo otodu2.png" alt="logo" style="width: 10vw; margin-right: 1vw;"> <!-- 130px -->
+                    <img src="image/logo otodu2.png" alt="logo" style="width: 100px; margin-right: 10px;"> <!-- 130px -->
                 </div>
                 <div style="display: flex; align-items: center; justify-content: end;">
                     <a style="margin: 0.7rem 2vw;" id="nlp" class="nav-menu" href="dashboard.php">NLP OTODU</a>
