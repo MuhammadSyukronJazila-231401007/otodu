@@ -23,7 +23,9 @@ include 'navbar.php';
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="css/jasa.css">
-  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
   <title>Desain Web & App</title>
   <style>
@@ -76,65 +78,81 @@ include 'navbar.php';
     <div class="collapse" id="collapseExample">
       <div class="isi-jasa" class="collapse" id="collapseExample">
         <div class="d-flex justify-content-around">
-          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <div class="img-jasa d-flex flex-column justify-content-end"
-              style="background-image: url(image/design1.png); ">
-              <div class="d-flex justify-content-between">
-                <p class="mb-0">Logo</p>
-                <p class="mb-0">Rp100k - Rp1000k</p>
-              </div>
+          <div class="row">
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/design1.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Logo</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
             </div>
-          </button>
-          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <div class="img-jasa d-flex flex-column justify-content-end"
-              style="background-image: url(image/design2.png); ">
-              <div class="d-flex justify-content-between">
-                <p class="mb-0">Desain Website</p>
-                <p class="mb-0">Rp100k - Rp1000k</p>
-              </div>
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/design2.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Desain Website</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
             </div>
-          </button>
-          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <div class="img-jasa d-flex flex-column justify-content-end"
-              style="background-image: url(image/desain3.png); ">
-              <div class="d-flex justify-content-between">
-                <p class="mb-0">Banner</p>
-                <p class="mb-0">Rp100k - Rp1000k</p>
-              </div>
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/desain3.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Banner</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
             </div>
-          </button>
+          </div>
         </div>
       </div>
     </div>
     <div div class="collapse" id="collapseExample2">
       <div class="isi-jasa">
         <div class="d-flex justify-content-around">
-          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <div class="img-jasa d-flex flex-column justify-content-end"
-              style="background-image: url(image/website1.png); ">
-              <div class="d-flex justify-content-between">
-                <p class="mb-0">Profile</p>
-                <p class="mb-0">Rp100k - Rp1000k</p>
-              </div>
+          <div class="row">
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/website1.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Profile</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
             </div>
-          </button>
-          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <div class="img-jasa d-flex flex-column justify-content-end"
-              style="background-image: url(image/website2.png); ">
-              <div class="d-flex justify-content-between">
-                <p class="mb-0">Promosi</p>
-                <p class="mb-0">Rp100k - Rp1000k</p>
-              </div>
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/website2.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Promosi</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
             </div>
-          </button>
-          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <div class="img-jasa d-flex flex-column justify-content-end"
-              style="background-image: url(image/website3.png); ">
-              <div class="d-flex justify-content-between">
-                <p class="mb-0">S.Informasi</p>
-                <p class="mb-0">Rp100k - Rp1000k</p>
-              </div>
-          </button>
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/website3.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">S.Informasi</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -143,33 +161,41 @@ include 'navbar.php';
     <div class="collapse" id="collapseExample3">
       <div class="isi-jasa">
         <div class="d-flex justify-content-around">
-          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <div class="img-jasa d-flex flex-column justify-content-end"
-              style="background-image: url(image/aplikasi1.png); ">
-              <div class="d-flex justify-content-between">
-                <p class="mb-0">Bisnis</p>
-                <p class="mb-0">Rp100k - Rp1000k</p>
-              </div>
+          <div class="row">
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/aplikasi1.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Bisnis</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
             </div>
-          </button>
-          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <div class="img-jasa d-flex flex-column justify-content-end"
-              style="background-image: url(image/aplikasi2.png); ">
-              <div class="d-flex justify-content-between">
-                <p class="mb-0">Edukasi</p>
-                <p class="mb-0">Rp100k - Rp1000k</p>
-              </div>
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/aplikasi2.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Edukasi</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
             </div>
-          </button>
-          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <div class="img-jasa d-flex flex-column justify-content-end"
-              style="background-image: url(image/aplikasi3.png); ">
-              <div class="d-flex justify-content-between">
-                <p class="mb-0">Kustom</p>
-                <p class="mb-0">Rp100k - Rp1000k</p>
-              </div>
+            <div class="col-md-4 d-flex justify-content-center">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="img-jasa d-flex flex-column justify-content-end"
+                  style="background-image: url(image/aplikasi3.png); ">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0">Kustom</p>
+                    <p class="mb-0">Rp100k - Rp1000k</p>
+                  </div>
+                </div>
+              </button>
             </div>
-          </button>
+          </div>
         </div>
       </div>
     </div>
@@ -179,21 +205,28 @@ include 'navbar.php';
       <p class="teks1-p1">Kenapa Otodu?</p>
       <p class="teks1-p2">Karena kami akan mewujudkan ide Anda dengan para developer
         terbaik!</p>
-      <div class="teks1-fitur">
-        <div class="d-flex align-items-start">
-          <img class="penggunaan-img1" src="image/developer_best.png" alt="">
-          <div class="isi-fitur">
-            <p class="judul-fitur">Developer terbaik</p>
-            <p class="deskripsi-fitur">Kami bekerja dengan developer profesional <br>
-              yang memiliki pengalaman luas, menjamin <br>
-              kualitas proyek Anda.</p>
+      <div class="teks1-fitur row">
+        <div class="col-md-6">
+          <div class="d-flex align-items-start">
+            <img class="penggunaan-img1" src="image/developer_best.png" alt="">
+            <div class="isi-fitur">
+              <p class="judul-fitur">Developer terbaik</p>
+              <p class="deskripsi-fitur">Kami bekerja dengan developer profesional <br>
+                yang memiliki pengalaman luas, menjamin <br>
+                kualitas proyek Anda.</p>
+            </div>
           </div>
-          <img class="penggunaan-img1" src="image/layanan.png" alt="">
-          <div class="isi-fitur">
-            <p class="judul-fitur">Tersedia Berbagai Layanan</p>
-            <p class="deskripsi-fitur">Kami menawarkan 4 layanan utama dan layanan <br>
-              tambahan yang mendukung kebutuhan spesifik <br>
-              Anda.</p>
+
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex align-items-start">
+            <img class="penggunaan-img1" src="image/layanan.png" alt="">
+            <div class="isi-fitur">
+              <p class="judul-fitur">Tersedia Berbagai Layanan</p>
+              <p class="deskripsi-fitur">Kami menawarkan 4 layanan utama dan layanan <br>
+                tambahan yang mendukung kebutuhan spesifik <br>
+                Anda.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -201,7 +234,53 @@ include 'navbar.php';
 
     <div class="teks1 mb-5">
       <p class="teks1-p2">Langkah mudah dalam menggunakan jasa OTODU !</p>
-      <div class="teks1-fitur">
+      <div class="teks1-fitur row">
+        <div class="col-md-6">
+          <div class="d-flex align-items-start">
+            <img class="penggunaan-img2" src="image/login.png" alt="">
+            <div class="isi-fitur">
+              <p class="judul-fitur">1. Cari layanan</p>
+              <p class="deskripsi-fitur">Cari dan pilih layanan sesuai dengan <br>
+                kebutuhan proyek Anda.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex align-items-start">
+            <img class="penggunaan-img2" src="image/resume.png" alt="">
+            <div class="isi-fitur">
+              <p class="judul-fitur">2. Isi formulir</p>
+              <p class="deskripsi-fitur">Silahkan isi data diri anda dan <br>
+                detail proyek anda.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="teks1-fitur row">
+        <div class="col-md-6">
+          <div class="d-flex align-items-start">
+            <img class="penggunaan-img2" src="image/talk.png" alt="">
+            <div class="isi-fitur">
+              <p class="judul-fitur">3. Diskusi</p>
+              <p class="deskripsi-fitur">Diskusikan detail proyek anda serta <br>
+                penawaran harga kepada developer</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex align-items-start">
+            <img class="penggunaan-img2" src="image/invoice.png" alt="">
+            <div class="isi-fitur">
+              <p class="judul-fitur"> 4. Pembayaran dan Ulasan
+              </p>
+              <p class="deskripsi-fitur">Setujui proyek Anda dan lakukan Pembayaran. <br>
+                Berikan ulasan sebagai evaluasi kami.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="teks1-fitur">
         <div class="d-flex align-items-start">
           <img class="penggunaan-img2" src="image/login.png" alt="">
           <div class="isi-fitur">
@@ -230,9 +309,8 @@ include 'navbar.php';
             <p class="deskripsi-fitur">Setujui proyek Anda dan lakukan Pembayaran. <br>
               Berikan ulasan sebagai evaluasi kami.</p>
           </div>
-
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
   <form>
@@ -271,11 +349,13 @@ include 'navbar.php';
             </div>
             <div class="mb-3">
               <label for="description" class="form-label">Deskripsi</label>
-              <textarea class="form-control" id="description" rows="6" placeholder="Masukkan deskripsi..." required></textarea>
+              <textarea class="form-control" id="description" rows="6" placeholder="Masukkan deskripsi..."
+                required></textarea>
             </div>
           </div>
           <div class="modal-footer border-0">
-            <button onclick="sendToWhatsApp()" style="background-color: #25D366; font-size: 1.5vw;" type="submit" class="btn w-100 text-center text-white border-0" data-bs-dismiss="modal">
+            <button onclick="sendToWhatsApp()" style="background-color: #25D366; font-size: 1.5vw;" type="submit"
+              class="btn w-100 text-center text-white border-0" data-bs-dismiss="modal">
               Kirim <i class="bi bi-whatsapp ms-1"></i>
             </button>
           </div>
@@ -286,8 +366,8 @@ include 'navbar.php';
   </form>
 
   <footer>
-    <img src="image/logo otodu terang.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;"> <!-- 120px -->
-    <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
+    <img src="image/logo otodu terang.png" alt="logo" style="width: 120px; margin-right: 2vw; margin-left: 2.3vw;">
+    <p style="font-family: 'Martian Mono'; font-size: 10px; margin-top: 17px;">@2024 OTODU Limited</p>
   </footer>
 
   <script>

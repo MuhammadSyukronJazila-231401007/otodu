@@ -6,7 +6,6 @@
 
 .header {
   background: -webkit-linear-gradient(360deg, #1E4BBE, #1EA3F6);
-
   height: 20.458vw;
   display: flex;
   flex-direction: column;
@@ -132,4 +131,105 @@
 
 .isi-jasa button:hover {
   transform: translateY(-10px);
+}
+
+@media (max-width: 600px) {
+  .header {
+    height: 200px;
+    margin-bottom: 4rem;
+  }
+
+  .header-p {
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 3rem;
+    font-weight: 700;
+    position: relative;
+    top: 2vw;
+  }
+
+  .card {
+    margin: 0;
+    border-radius: 0px;
+    padding: 25px 7vw;
+  }
+
+  .card-jasa {
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    gap: 30px;
+    top: 50px
+  }
+
+  .jasa img {
+    width: 40px;
+  }
+
+  .jasa p {
+    font-size: 12px;
+  }
+
+  .img-jasa {
+    width: 280px;
+    height: 80px;
+    margin-top: 1rem;
+  }
+
+  .teks1-p1 {
+    font-size: 17px;
+    margin-top: 3rem;
+  }
+
+  .teks1-p2 {
+    font-size: 20px;
+    margin-bottom: 1rem;
+  }
+
+  .form-control {
+    height: 45px;
+    font-size: 1.2rem;
+  }
+
+  .penggunaan-img1 {
+    width: 80px;
+  }
+
+  .isi-fitur {
+    margin-left: 1.5rem;
+  }
+
+  .judul-fitur {
+    font-size: 20px;
+    margin-bottom: 0.5rem;
+  }
+
+  .deskripsi-fitur {
+    font-size: 14px;
+  }
+
+  #nomor {
+    margin-top: 20px;
+    margin-bottom: 7px;
+  }
+
+  .form-label {
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+
+  select {
+    height: 42px;
+    font-size: 1.1rem;
+  }
+
+  #register-btn {
+    height: 5.5vh;
+    font-size: 1.1rem;
+  }
+
+  footer {
+    display: flex;
+  }
 }
