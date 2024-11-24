@@ -37,6 +37,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             if (str_ends_with($row['nama'], "_new")) {
 
+                // Inputkan poin dengan default 0
+                $poinSql = "INSERT INTO poin (id_user) VALUES (?)";
+                $stmt = $conn->prepare($poinSql);
+                $stmt->bind_param("i", $row['id']);
+                $stmt->execute();
+                $stmt->close();
+
                 // Hapus "_new" dari username setelah preferensi diatur
                 $newUsername = str_replace("_new", "", $row['nama']);
                 $_SESSION['user_name'] = $newUsername;
@@ -113,7 +120,9 @@ $conn->close();
 
     body,
     html {
-        height: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
     }
 
     .container-fluid {
@@ -196,6 +205,10 @@ $conn->close();
 
     .daftar {
         color: #4D62A5;
+    }
+
+    .container-fluid {
+        flex: 1;
     }
 
     footer {

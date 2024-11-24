@@ -54,8 +54,6 @@ foreach ($mentors as $mentor) {
 
 ?>
 
-
-
 <!doctype html>
 <html lang="en">
 
