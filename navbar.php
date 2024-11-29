@@ -59,11 +59,11 @@
                     <img src="image/logo otodu2.png" alt="logo" style="width: 100px; margin-right: 10px;"> <!-- 130px -->
                 </div>
                 <div style="display: flex; align-items: center; justify-content: end;">
-                    <a style="margin: 0.7rem 2vw;" id="nlp" class="nav-menu" href="dashboard.php">NLP OTODU</a>
-                    <div style="font-size: 3vw; color: #4D62A5;">|</div>
-                    <a style="margin: 0.7rem 2vw;" class="nav-menu mentor" href="mentor.php">Mentor OTODU</a>
-                    <div style="font-size: 3vw; color: #4D62A5;">|</div>
-                    <a style="margin: 0.7rem 2vw;" class="nav-menu jasa" href="jasa.php">Desain Web & App</a>
+                    <a style="margin: 0.3vw 2vw;" id="nlp" class="nav-menu" href="dashboard.php">NLP OTODU</a>
+                    <div style="font-size: 2vw; color: #4D62A5;">|</div>
+                    <a style="margin: 0.3vw 2vw;" class="nav-menu mentor" href="mentor.php">Mentor OTODU</a>
+                    <div style="font-size: 2vw; color: #4D62A5;">|</div>
+                    <a style="margin: 0.3vw 2vw;" class="nav-menu jasa" href="jasa.php">Desain Web & App</a>
                 </div>
             </div>
             </div>
