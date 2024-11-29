@@ -309,7 +309,7 @@ foreach ($mentors as $mentor) {
                 
                 <div style="background-color: #4D62A5; color: white; padding: 0;">
                     <a href="riwayatmentor.php" class="btn btn-primary"
-                        style="background-color: #4D62A5;  font-size: 12px; text-align: center; border: 0cm;"
+                        style="background-color: #4D62A5;  font-size: 14px; text-align: center; border: 0cm;"
                         tabindex="-1" role="button" aria-disabled="true">
                         <div style="display: flex;" id="riwayat-mentor">
                             <div style="margin-right: 0.4vw;">
