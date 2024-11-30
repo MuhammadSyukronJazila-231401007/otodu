@@ -10,6 +10,7 @@ if( !isset($_SESSION['login']) ){
 $kode_subtopik_pilih = $_SESSION['kode_subtopik'];
 
 $isi_subtopik = ambilData("SELECT * FROM isi_subtopik WHERE kode_subtopik = $kode_subtopik_pilih ORDER BY nomor ASC");
+$nama_subtopik = ambilData("SELECT nama_subtopik FROM subtopik WHERE kode_subtopik = $kode_subtopik_pilih");
 
 ?>
 
@@ -35,7 +36,8 @@ $isi_subtopik = ambilData("SELECT * FROM isi_subtopik WHERE kode_subtopik = $kod
                     <a class="navbar-brand" href="#">
                         <img src="./image/otodu.png" alt="Bootstrap" class="responsive-img">
                     </a>
-                    <p class="responsive-text">Fungsi | 1. Pengantar -> <b><span>Apa Itu Fungsi ?</span></b> -> Subbab 1
+                    <p class="responsive-text">Fungsi | 1. Pengantar -> <b><span>Apa Itu Fungsi ?</span></b> ->
+                        <?php echo $nama_subtopik[0]['nama_subtopik']; ?>
                     </p>
                 </div>
             </header>
