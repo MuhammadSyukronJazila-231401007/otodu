@@ -57,8 +57,27 @@ function nextContent(tombol_lanjut = 0) {
     const adaSelesaiFalse = Object.values(akhir).some(item => item.selesai === false);
     if(adaSelesaiFalse){
         alert("Kerjakan semua quiz dengan benar!"); 
+      Swal.fire({
+      title: "Warning!!!",
+      text: "Kerjakan semua quiz dengan benar!",
+      icon: "error",
+      confirmButtonText: 'Kembali'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = 'materi.php'
+      }
+    });
     }else{
-        alert("Selamat Anda Telah Menyelesaikan Sub-Topik Ini"); 
+        Swal.fire({
+      title: "Subtopik Selesai",
+      text: "Selamat, Anda telah menyelesaikan subtopik ini",
+      icon: "success",
+      confirmButtonText: 'Kembali'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = 'materi.php'
+      }
+    });
     }
   }
 }
@@ -148,8 +167,6 @@ function checkAnswer() {
   const jawabanCocok = isi_subtopik
     .filter(item => item.keterangan === "cocok") // Filter objek dengan keterangan = "cocok"
     .map(item => item.jawaban); // Ambil hanya nilai dari properti 'jawaban'
-
-//   console.log(jawabanCocok);
 
   if (jawabanCocok.includes(answer)) { 
     hasil.innerText = "Benar!";

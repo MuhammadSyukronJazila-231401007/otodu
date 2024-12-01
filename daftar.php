@@ -6,6 +6,7 @@ if (isset($_GET['kode_materi'])) {
     $_SESSION['kode_materi'] = $_GET['kode_materi'];
     $_SESSION['kode_subbab'] = $_GET['kode_subbab'];
     $_SESSION['kode_bab'] = $_GET['kode_bab'];
+
     $_SESSION['nama_subbab'] = $_GET['nama_subbab'];
     $_SESSION['nama_bab'] = $_GET['nama_bab'];
 
@@ -16,12 +17,13 @@ if (isset($_GET['kode_materi'])) {
     $sql = "UPDATE users SET materi_terakhir = '$bab - $subbab' WHERE id = '$id'";
     if ($conn->query($sql) === TRUE) {
         $_SESSION['materi_terakhir'] = $bab.' - '.$subbab;
+        $_SESSION['daftar_materi'] = true;
         header("Location: materi.php");
     } else {
         echo "Gagal melakukan registrasi. Silakan coba lagi.";
         exit;
     }
-    
+   
 }
 
 if (!isset($_SESSION['login'])) {

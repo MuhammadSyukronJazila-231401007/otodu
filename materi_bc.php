@@ -5,7 +5,6 @@
 <?php
 include 'function.php';
 session_start();
-
 $id = $_SESSION['user_id'];
 
 if (
@@ -30,6 +29,7 @@ if (
         $topik_terpilih = $data['kode_topik'];
 
         if ($topik_terpilih) {
+            echo '<link rel="stylesheet" type="text/css" href="css/materi_bc.css">';
             // Kembalikan HTML untuk ditampilkan pada halaman
 ?>
 <div class="row" style="margin-left: 1.5vw; margin-right: 1.5vw; font-family: Rethink Sans">
@@ -102,11 +102,29 @@ if (
                                     $indeks_terpilih = $index + 1;
                                     $nama_terpilih = $item['nama_topik'];
                                     ?>
-            <div class="row topik-row">
-                <div class="inner-box topik-box selected-topik" id="topik_<?php echo $item['kode_topik']; ?>"
-                    onclick="selectTopik(<?php echo $item['kode_topik']; ?>)">
-                    <div class="nomor">
-                        0<?php echo $indeks_terpilih ?>
+
+                                    <div class="row topik-row d-flex justify-content-between">
+
+                                        <div class="inner-box topik-box selected-topik" id="topik_<?php echo $item['kode_topik']; ?>" onclick="selectTopik(<?php echo $item['kode_topik']; ?>)">
+                                            <div class="nomor">
+                                                0<?php echo $indeks_terpilih ?>
+                                            </div>
+                                            <b><?php echo htmlspecialchars($item['nama_topik']); ?></b>
+                                        </div>
+                                        <div class="inner-box mulai" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <b>Mulai</b>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="inner-box topik-box" id="topik_<?php echo $item['kode_topik']; ?>" onclick="selectTopik(<?php echo $item['kode_topik']; ?>)">
+                                        <div class="nomor-alt">
+                                            0<?php echo $index + 1 ?>
+                                        </div>
+                                        <p><?php echo htmlspecialchars($item['nama_topik']); ?></p>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                     <b><?php echo htmlspecialchars($item['nama_topik']); ?></b>
                 </div>
@@ -198,32 +216,34 @@ if (
                     </div>
                 </div>
 
-                <div style="display: flex; justify-content: space-around">
-                    <div style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw;">
-                        <center>
-                            <table style="margin-left: 2vw; margin-right: 2vw;">
-                                <tr>
-                                    <td style="margin: 1vw;">
-                                        <font
-                                            style="border-bottom: 1px solid #3A425A; color: #3A425A;  padding-bottom: 4px;">
-                                            Sub Topik NLP</font>
-                                    </td>
-                                    <td></td>
-                                    <td style="padding: 0.8vw;"></td>
-                                    <td style="padding-left: 3.8vw;"></td>
-                                    <td
-                                        style="background-color: #96AA03; border-radius: 0.2vw; padding: 0vw 0.4vw 0.4vw 0.4vw;">
-                                        <div style="padding: 0%;">
-                                            <img src="./image/coin.png" width="20" height="20">
-                                            <font style="font-size: 1vw; color: white;"><?= $koin[0]['koin']; ?></font>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" style="padding: 0.7vw;"></td>
-                                </tr>
-                                <?php $subtopik = ambilData("SELECT * FROM subtopik WHERE kode_topik = $topik_terpilih"); ?>
-                                <?php foreach ($subtopik as $rowsub) {
+
+                            <div style="display: flex; justify-content: space-around">
+                              
+                                <div style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw; overflow-y: auto">
+                                    <center>
+                                        <table style="margin-left: 2vw; margin-right: 2vw;">
+                                            <tr>
+                                                <td style="margin: 1vw;">
+                                                    <font
+                                                        style="border-bottom: 1px solid #3A425A; color: #3A425A;  padding-bottom: 4px;">
+                                                        Sub Topik NLP</font>
+                                                </td>
+                                                <td></td>
+                                                <td style="padding: 0.8vw;"></td>
+                                                <td style="padding-left: 3.8vw;"></td>
+                                                <td
+                                                    style="background-color: #96AA03; border-radius: 0.2vw; padding: 0vw 0.4vw 0.4vw 0.4vw;">
+                                                    <div style="padding: 0%;">
+                                                        <img src="./image/coin.png" width="20" height="20">
+                                                        <font style="font-size: 1vw; color: white;"><?= $koin[0]['koin']; ?></font>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" style="padding: 0.7vw;"></td>
+                                            </tr>
+                                            <?php $subtopik = ambilData("SELECT * FROM subtopik WHERE kode_topik = $topik_terpilih"); ?>
+                                            <?php foreach ($subtopik as $rowsub) {
                                                 if ($rowsub['keterangan'] == 'materi') { ?>
                                 <tr>
                                     <!--Tombol utama-->
@@ -232,75 +252,77 @@ if (
                                                         $status_bayar = ambilData("SELECT * FROM beli_subtopik 
                                         WHERE kode_subtopik = $kode_subtopik_pilih AND id_user = $id");
                                                         ?>
-                                    <td colspan="2"
-                                        style="background-color: <?= ($status_bayar) ? '#375679' : '#B4BFCC'; ?>; 
+                                                        <td colspan="2"
+                                                            style="background-color: <?= ($status_bayar) ? '#375679' : '#B4BFCC'; ?>; 
+                                                                   
                                         color: white; width: 20vw; max-width: 30vw; padding: 0.5vw 1vw 0.5vw 1.5vw; border-radius: 0.5vw;">
-                                        <div style="display: flex;">
-                                            <div>
-                                                <img src="./image/coin.png" width="18" height="18"
-                                                    style="margin-right: 5vw;">
-                                            </div>
-                                            <div style="color: white;">
-                                                <?= $rowsub['nama_subtopik']; ?>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td></td>
-                                    <!--Tombol Beli/Buka-->
-                                    <td colspan="2"
-                                        style="background-color: #96AA03; color: white;  border-radius: 0.5vw;">
-                                        <form method="POST" class="form-beli">
-                                            <input type="hidden" name="kode_subtopik"
-                                                value="<?= $rowsub['kode_subtopik'] ?>">
-                                            <input type="hidden" name="harga" value="<?= $rowsub['harga'] ?>">
-                                            <?php if ($status_bayar): ?>
-                                            <button type="submit" class="btn btn-beli"
-                                                style="background-color: #96AA03; color: white;"
-                                                data-harga="<?= $rowsub['harga'] ?>">
-                                                Buka
-                                                <span style=" text-decoration-color: black;">
-                                                    <img src="./image/coin.png" width="20" height="20"
-                                                        style="vertical-align: middle;">
-                                                    <?= $rowsub['harga']; ?>
-                                                </span>
-                                            </button>
-                                            <?php else: ?>
-                                            <button type="submit" class="btn btn-beli"
-                                                style="background-color: #96AA03; color: white;"
-                                                data-harga="<?= $rowsub['harga'] ?>"
-                                                data-nama="<?= $rowsub['nama_subtopik']; ?>">
-                                                Beli
-                                                <img src="./image/coin.png" width="20" height="20"
-                                                    style="vertical-align: middle;">
-                                                <?= $rowsub['harga']; ?>
-                                            </button>
-                                            <?php endif; ?>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" style="padding: 0.7vw;"></td>
-                                </tr>
-                                <?php } ?>
-                                <?php } ?>
-                                <tr>
-                                    <td colspan="5" style="padding: 0.7vw;"></td>
-                                </tr>
-                                <tr>
-                                    <td style="margin: 1vw;">
-                                        <font
-                                            style="border-bottom: 1px solid #3A425A; color: #3A425A;  padding-bottom: 4px;">
-                                            Sub Topik Tambahan</font>
-                                    </td>
-                                    <td></td>
-                                    <td style="padding: 0.8vw;"></td>
-                                    <td style="padding-left: 3.8vw;"></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" style="padding: 0.7vw;"></td>
-                                </tr>
-                                <?php foreach ($subtopik as $rowsub) {
+
+                                                            <div style="display: flex;">
+                                                                <div>
+                                                                    <img src="./image/coin.png" width="18" height="18"
+                                                                        style="margin-right: 5vw;">
+                                                                </div>
+                                                                <div style="color: white;">
+                                                                    <?= $rowsub['nama_subtopik']; ?>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td></td>
+                                                        <!--Tombol Beli/Buka-->
+                                                        <td colspan="2"
+                                                            style="background-color: #96AA03; color: white;  border-radius: 0.5vw;">
+                                                            <form method="POST" class="form-beli">
+                                                                <input type="hidden" name="kode_subtopik"
+                                                                    value="<?= $rowsub['kode_subtopik'] ?>">
+                                                                <input type="hidden" name="harga" value="<?= $rowsub['harga'] ?>">
+                                                                <?php if ($status_bayar): ?>
+                                                                    <button type="submit" class="btn btn-beli"
+                                                                        style="background-color: #96AA03; color: white;"
+                                                                        data-harga="<?= $rowsub['harga'] ?>">
+                                                                        Buka
+                                                                        <span style=" text-decoration-color: black;">
+                                                                            <img src="./image/coin.png" width="20" height="20"
+                                                                                style="vertical-align: middle;">
+                                                                            <?= $rowsub['harga']; ?>
+                                                                        </span>
+                                                                    </button>
+                                                                <?php else: ?>
+                                                                    <button type="submit" class="btn btn-beli"
+                                                                        style="background-color: #96AA03; color: white;"
+                                                                        data-harga="<?= $rowsub['harga'] ?>"
+                                                                        data-nama="<?= $rowsub['nama_subtopik']; ?>">
+                                                                        Beli
+                                                                        <img src="./image/coin.png" width="20" height="20"
+                                                                            style="vertical-align: middle;">
+                                                                        <?= $rowsub['harga']; ?>
+                                                                    </button>
+                                                                <?php endif; ?>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="5" style="padding: 0.7vw;"></td>
+                                                    </tr>
+                                                <?php } ?>
+                                            <?php } ?>
+                                            <tr>
+                                                <td colspan="5" style="padding: 0.7vw;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="margin: 1vw;">
+                                                    <font
+                                                        style="border-bottom: 1px solid #3A425A; color: #3A425A;  padding-bottom: 4px;">
+                                                        Sub Topik Tambahan</font>
+                                                </td>
+                                                <td></td>
+                                                <td style="padding: 0.8vw;"></td>
+                                                <td style="padding-left: 3.8vw;"></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" style="padding: 0.7vw;"></td>
+                                            </tr>
+                                            <?php foreach ($subtopik as $rowsub) {
                                                 if ($rowsub['keterangan'] == 'tambahan') { ?>
                                 <?php
                                                     $kode_subtopik_pilih  = $rowsub['kode_subtopik'];

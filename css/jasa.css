@@ -133,7 +133,15 @@
   transform: translateY(-10px);
 }
 
+.kirim {
+  font-size: 20px;
+}
+
 @media (max-width: 600px) {
+  .kirim {
+    font-size: 15px;
+  }
+
   .header {
     height: 200px;
     margin-bottom: 4rem;
@@ -195,6 +203,11 @@
   .penggunaan-img1 {
     width: 80px;
   }
+
+  .penggunaan-img2 {
+    width: 60px;
+  }
+
 
   .isi-fitur {
     margin-left: 1.5rem;

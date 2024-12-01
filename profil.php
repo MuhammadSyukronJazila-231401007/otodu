@@ -117,32 +117,29 @@ include 'navbar.php';
     .logout-btn:hover {
         background-color: #ff3333;
     }
+    .logo {
+            max-width: 150px;
+            height: 30px;
+        }
+    .premium-text {
+        color: black;
+        font-size: 10px;
+        padding-right : 12px;
+    }
+    @media screen and (max-width: 768px) {
+            .container2 {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .logo {
+                max-width: 100px;
+            }
+        }
     </style>
 </head>
 
 <body style="font-family: 'Rethink Sans', sans-serif;">
-    <!--
-        <div style="display: flex; justify-content: space-between;">
-        <div>
-        <font style="background-color: #96AA03; color: white; align-items: center; padding: 0.7vw; margin-left: 7vw;">
-            <img src="coin.png" width="18" height="18">
-            69
-        </font>
-        </div>
-        <div>
-            <font style="background-color: #4D62A5; margin-right: 5vw; padding: 0.4vw;">   
-                <a href="">
-                    <img src="rank.png" width="18" height="18" style="margin-left: 0.7vw;">
-                </a>
-                <a href="">
-                    <img src="mail.png" width="18" height="18" style="margin-left: 1.5vw; margin-right: 1.5vw;">
-                </a>
-                <a href="">
-                    <img src="user.png" width="18" height="18" style="margin-right: 0.7vw;">
-                </a>
-                </font>
-        </div>
-    </div>-->
 
     <br><br>
 
@@ -160,11 +157,10 @@ include 'navbar.php';
                 </tr>
                 <tr>
                     <td style="border-top: 0.1vw solid; border-bottom: 0.1vw solid; width: 20vw;">
-                        <a class="btn btn-primary" style="background-color: white; border: 0; color: #4D62A5;"
+                        <a class="btn btn-primary" style="background-color: white; border: 0; color: #4D62A5; text-align : left;"
                             data-bs-toggle="collapse" href="#riwayat" role="button" aria-expanded="false"
                             aria-controls="riwayat" onclick="closeOtherCollapses('riwayat')">
                             <b>Riwayat Pembelian</b>
-
                         </a>
                     </td>
                 </tr>
@@ -208,8 +204,7 @@ include 'navbar.php';
                     <table class="t2">
                         <tr>
                             <td colspan="2" style="border-bottom: 1px solid; padding: 1.5vw 3vw; width: 50vw;">
-                                <b>Informasi
-                                    Pengguna</b>
+                                <b>Informasi Pengguna</b>
                             </td>
                         </tr>
                         <tr>
@@ -276,20 +271,22 @@ include 'navbar.php';
 
                         if (empty($riwayatbeli)) : // Mengecek jika riwayat pembelian kosong
                         ?>
-                        <tr>
-                            <td colspan="3" style="text-align: center; width:100%">Anda belum membeli koin apapun</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <?php
+                            <tr>
+                                <td colspan="3" style="text-align: center; width:100%">Anda belum membeli koin apapun</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <?php
                         else:
                             foreach ($riwayatbeli as $riwayat) :
                                 // Mengubah format tanggal dari yyyy-mm-dd menjadi dd-mm-yyyy
                                 $tanggal_pembelian = date("d-m-Y", strtotime($riwayat['waktu']));
                             ?>
                         <tr>
-                            <td><img src="image/coin2.png" width="18"
-                                    height="18"><?= "  " . htmlspecialchars($riwayat['jumlah']); ?></td>
+                            <td>
+                                <img src="image/coin2.png" width="18"
+                                    height="18"><?= "  " . htmlspecialchars($riwayat['jumlah']); ?> 
+                                </td>
                             <td><?= htmlspecialchars($riwayat['biaya']); ?></td>
                             <td style="width: 58%;"><?= $tanggal_pembelian; ?></td>
                         </tr>
@@ -315,24 +312,24 @@ include 'navbar.php';
 
                         if (empty($riwayatbeli)) : // Mengecek jika riwayat pembelian kosong
                         ?>
-                        <tr>
-                            <td colspan="3" style="text-align: center; width:100%;">Anda belum membeli subtopik apapun
-                            </td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <?php
+                            <tr>
+                                <td colspan="3" style="text-align: center; width:100%;">Anda belum membeli subtopik apapun
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <?php
                         else:
                             foreach ($riwayatbeli as $riwayat) :
                                 // Mengubah format tanggal dari yyyy-mm-dd menjadi dd-mm-yyyy
                                 $tanggal_pembelian = date("d-m-Y", strtotime($riwayat['tanggal_pembelian']));
                             ?>
-                        <tr>
-                            <td><?= htmlspecialchars($riwayat['nama_subtopik']); ?></td>
-                            <td><?= $tanggal_pembelian; ?></td>
-                            <td style="width: 20vw;"><img src="image/coin2.png" width="18" height="18">
-                                <?= htmlspecialchars($riwayat['harga']); ?></td>
-                        </tr>
+                                <tr>
+                                    <td><?= htmlspecialchars($riwayat['nama_subtopik']); ?></td>
+                                    <td><?= $tanggal_pembelian; ?></td>
+                                    <td style="width: 20vw;"><img src="image/coin2.png" width="18" height="18">
+                                        <?= htmlspecialchars($riwayat['harga']); ?></td>
+                                </tr>
                         <?php
                             endforeach;
                         endif;
@@ -345,76 +342,64 @@ include 'navbar.php';
         </div>
         <div class="collapse" id="terimakasih">
             <div class="card card-body" style="border: 0; padding-left: 3vw;">
-                <div style="box-shadow: 0 0.1vw 0.2vw; color: #4D62A5;">
+                <div style="box-shadow: 0 0.1vw 0.2vw; color: #4D62A5; padding-bottom : 1vw;">
                     <div style="border-bottom: 0.1vw solid; padding: 2.5vw 3vw 1vw 3vw;"><b>Terimakasih kepada.....</b>
                     </div>
                     <div style="padding: 2.5vw 3vw 1vw 3vw;">Sumber asset</div>
-                    <div style="width: 50vw; padding-left: 3vw;">
-                        <div style="display: flex; ">
-                            <img src="image/1.png" width="150" height="30">
-                            <img src="image/2.png" width="150" height="30">
-                            <div style="display: flex; width: 8vw;">
+                    <div style="width: 50vw; padding-left: 3vw;" class = "container2">
+                        <div style="display: flex; flex-wrap : wrap;">
+                            <img src="image/1.png" class = "logo">
+                            <img src="image/2.png" class = "logo">
+                            <div style="display: flex; align-items : center;">
                                 <img src="image/3.png" width="30" height="30">
                                 <b>
-                                    <font style="color: black; font-size: 0.8vw;"> Prosymbols
-                                        Premium</font>
+                                <div class="premium-text" > Prosymbols Premium</div>
                                 </b>
                             </div>
-                            <img src="image/4.png" width="150" height="30">
-                        </div>
-                        <div style="display: flex; ">
-                            <div style="display: flex; width: 8vw;">
+                            <img src="image/4.png" class = "logo">
+                            <div style="display: flex; align-items : center;">
                                 <img src="image/5.png" width="30" height="30">
                                 <b>
-                                    <font style="color: black; font-size: 0.8vw;">Ilham Fitrotul
-                                        Hayat</font>
+                                    <div class="premium-text"> Ilham Fitrotul
+                                        Hayat </div>
                                 </b>
                             </div>
 
-                            <div style="display: flex; width: 8vw;">
+                            <div style="display: flex; align-items : center;">
                                 <img src="image/6.png" width="30" height="30">
                                 <b>
-                                    <font style="color: black; font-size: 0.8vw;">Mayor Icons</font>
+                                    <div class="premium-text"> Mayor Icons </div>
                                 </b>
                             </div>
 
 
-                            <div style="display: flex;">
+                            <div style="display: flex; align-items : center;">
                                 <img src="image/7.png" width="30" height="30">
                                 <b>
-                                    <font style="color: black; font-size: 0.8vw;">Andrean Prabowo</font>
+                                    <div class="premium-text"> Andrean Prabowo </div>
                                 </b>
                             </div>
 
-                            <div style="display: flex; width: 10vw;">
+                            <div style="display: flex; align-items : center;">
                                 <img src="image/8.png" width="30" height="30">
                                 <b>
-                                    <font style="color: black; font-size: 0.8vw;">Md Tanvirul
-                                        Haque</font>
+                                        <div class="premium-text"> Md Tanvirul Haque </div>
                                 </b>
                             </div>
-                        </div>
-
-
-
-                        <div style="display: flex; ">
-                            <div style="display: flex; ">
-                                <div style="display: flex; width: 8vw;">
+                                <div style="display: flex; align-items : center;">
                                     <img src="image/9.png" width="30" height="30">
                                     <b>
-                                        <font style="color: black; font-size: 0.8vw;">mk933</font>
+                                    <div class="premium-text"> mk933 </div>
                                     </b>
                                 </div>
-                            </div>
-                            <div style="display: flex; ">
-                                <div style="display: flex; width: 8vw;">
+
+                                <div style="display: flex; align-items : center;">
                                     <img src="image/10.png" width="30" height="30">
                                     <b>
-                                        <font style="color: black; font-size: 0.8vw;">Maxim Basinski
-                                        </font>
+                                        <div class="premium-text"> Maxim Basinski </div>
                                     </b>
                                 </div>
-                            </div>
+
 
                         </div>
 
@@ -435,47 +420,47 @@ include 'navbar.php';
     </footer>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const defaultOpenId = 'profil'; // ID yang ingin dibuka pertama kali
-        const collapseElement = document.getElementById(defaultOpenId);
+        document.addEventListener('DOMContentLoaded', function() {
+            const defaultOpenId = 'profil'; // ID yang ingin dibuka pertama kali
+            const collapseElement = document.getElementById(defaultOpenId);
 
-        if (collapseElement) {
-            const bsCollapse = new bootstrap.Collapse(collapseElement, {
-                show: true
-            });
-        }
+            if (collapseElement) {
+                const bsCollapse = new bootstrap.Collapse(collapseElement, {
+                    show: true
+                });
+            }
 
-        // Tutup collapse lainnya
-        closeOtherCollapses(defaultOpenId);
-    });
+            // Tutup collapse lainnya
+            closeOtherCollapses(defaultOpenId);
+        });
 
-    function closeOtherCollapses(openId) {
-        const collapseIds = ['profil', 'riwayat', 'terimakasih'];
+        function closeOtherCollapses(openId) {
+            const collapseIds = ['profil', 'riwayat', 'terimakasih'];
 
-        collapseIds.forEach(id => {
-            if (id != openId) {
-                const collapseElement = document.getElementById(id);
-                if (collapseElement) {
-                    const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
-                    if (bsCollapse) {
-                        bsCollapse.hide();
+            collapseIds.forEach(id => {
+                if (id != openId) {
+                    const collapseElement = document.getElementById(id);
+                    if (collapseElement) {
+                        const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
+                        if (bsCollapse) {
+                            bsCollapse.hide();
+                        }
                     }
                 }
+            })
+
+            const collapseElement = document.getElementById(openId);
+
+            if (collapseElement) {
+                const bsCollapse = new bootstrap.Collapse(collapseElement, {
+                    show: true
+                });
             }
-        })
-
-        const collapseElement = document.getElementById(openId);
-
-        if (collapseElement) {
-            const bsCollapse = new bootstrap.Collapse(collapseElement, {
-                show: true
-            });
         }
-    }
 
-    document.getElementById("logoutButton").addEventListener("click", function() {
-        window.location.href = "logout.php";
-    });
+        document.getElementById("logoutButton").addEventListener("click", function() {
+            window.location.href = "logout.php";
+        });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

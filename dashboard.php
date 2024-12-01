@@ -62,6 +62,12 @@ include 'navbar.php';
     #bab {
         cursor: pointer;
     }
+
+        @media (max-width: 768px) {
+            #tulisan-bawah-gambar {
+                font-size: 3vw;
+            }
+        }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -69,8 +75,6 @@ include 'navbar.php';
 </head>
 
 <body>
-    <header>
-
 
         <section id="nlp">
             <div style="padding: 4vw 4vw 4vw 3vw; background-color:#375679;">
@@ -120,20 +124,54 @@ include 'navbar.php';
                                 style="position: absolute; top: 7vw; left: 30vw; display: inline-block; text-align: center;">
                                 <!-- Gambar tengah putih -->
 
+    <section id="nlp">
+        <div style="padding: 4vw; background-color:#375679;">
+            <h3 class="text-white">Statistik NLP</h3>
+            <p class="text-white">Statistik capaian belajar mingguan Kamu ditampilkan di sini!</p>
+            <div class="row" style="display: flex; flex-wrap: wrap; gap: 3vw;">
+                <div class="col-md-6 bg-white" style="height:30vw; min-height:300px; padding:0vw 4vw 1vw 4vw; border-radius:1vw;">
+                    <!-- Gmbar Bulat -->
+                    <p style="font-size:1.8vw;font-weight:600;position: absolute; top: 18vw; left: 8vw;">Persentase NLP minggu ini</p>
+                    <div style="position: relative; width: 15vw;">
+                        <img src="image/Subtract.png" alt=""
+                            style="width: 100%; position: absolute; top: 6vw; left: 4vw; z-index: 1;">
+                        <img src="image/Subtract_hijau.png" alt=""
+                            style="width: 100%; position: absolute; top: 6vw; left: 4vw; z-index: 2; clip-path: inset(50% 0 0 0);">
+                        <div style="position: absolute; top: 13vw; left: 4vw; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 3; font-size: 2.5vw; text-align: center; font-weight:500">
+                            50%
+                        </div>
+                    </div>
+                    <!-- Gmbar Bulat Akhir -->
+                    <!-- Gambar 3r  -->
+                    <p style="font-size:1.8vw;font-weight:600;position: absolute; top: 18vw; left: 37vw;">Capaian NLP</p>
+                    <p style="font-size:1.3vw;font-weight:600;position: absolute; top: 21vw; left: 31vw;">Quiz NLP <br>
+                        selesai</p>
+                    <p style="font-size:1.3vw;font-weight:600;position: absolute; top: 26vw; left: 28vw;">Subbab <br>
+                        dikuasai</p>
+                    <p style="font-size:1.3vw;font-weight:600;position: absolute; top: 26vw; left: 52vw;">Subbab baru <br>
+                        dipelajari</p>
+                    <i style="transform: rotate(-20deg);position: absolute; top: 23vw; left: 37vw; font-size: 1.5vw" class="bi bi-arrow-up-left"></i>
+                    <i style="transform: rotate(-20deg);position: absolute; top: 28vw; left: 34vw; font-size: 1.5vw" class="bi bi-arrow-up-left"></i>
+                    <i style="transform: rotate(90deg);position: absolute; top: 28vw; left: 49vw; font-size: 1.5vw" class="bi bi-arrow-up-left"></i>
+
+                    <div style="transform:scale(0.45)">
+                        <!-- Container untuk gambar pertama -->
+                        <div id="container-3r-1" style="position: absolute; top: 7vw; left: 30vw; display: inline-block; text-align: center;">
+                            <!-- Gambar tengah putih -->
+                            <div style="position: relative; display: inline-block;">
+                                <img src="image/3r/3rputih_tengah.png" alt=""
+                                    style="position: relative; top: 35px; display: block; margin-left: auto; margin-right: auto; width:15vw; min-width:100px;">
+                            </div>
+                            <!-- Gambar kiri dan kanan putih -->
+                            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
                                 <div style="position: relative; display: inline-block;">
-                                    <img src="image/3r/3rputih_tengah.png" alt=""
-                                        style="position: relative; top: 60px; display: block; margin-left: auto; margin-right: auto;">
+                                    <img style="margin-right: 10px; width:15vw; min-width:100px;" src="image/3r/3rputih_kiri.png" alt="">
                                 </div>
-                                <!-- Gambar kiri dan kanan putih -->
-                                <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                                    <div style="position: relative; display: inline-block;">
-                                        <img style="margin-right: 10px;" src="image/3r/3rputih_kiri.png" alt="">
-                                    </div>
-                                    <div style="position: relative; display: inline-block;">
-                                        <img src="image/3r/3rputih_kanan.png" alt="">
-                                    </div>
+                                <div style="position: relative; display: inline-block;">
+                                    <img src="image/3r/3rputih_kanan.png" alt="" style="width:15vw; min-width:100px;">
                                 </div>
                             </div>
+                        </div>
 
                             <!-- Container untuk gambar kedua -->
                             <div
@@ -168,49 +206,50 @@ include 'navbar.php';
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-
-                        <!-- Gambar 3r Akhir  -->
-                        <div class=""
-                            style=" display: flex; flex-direction: column; justify-content: flex-end; height: 100%; width: 100%;">
-                            <div style="display: flex; gap: 5vw;">
-                                <div style="display: flex; width: 20vw; align-items: center; justify-content: center;">
-                                    <div class="text-center">
-                                        Persentase NLP minggu lalu: <br>
-                                        0%
-                                    </div>
-                                </div>
-
-                                <div style="display: flex; width: 20vw; align-items: center; justify-content: center;">
-                                    <div class="text-center">
-                                        Target NLP mingguan: <br>
-                                        <spans style="font-weight: 600; color:#650505"> Belum terpenuhi</spans>
-                                    </div>
+                    <!-- Gambar 3r Akhir  -->
+                    <div class=""
+                        style=" display: flex; flex-direction: column; justify-content: flex-end; height: 100%; width: 100%;">
+                        <div style="display: flex; gap: 5vw;">
+                            <div style="display: flex; width: 40vw; align-items: center; justify-content: center;">
+                                <div class="text-center" id="tulisan-bawah-gambar" style="">
+                                    Persentase NLP minggu lalu: <br>
+                                    0%
                                 </div>
                             </div>
+
+                            <div style="display: flex; width: 40vw; align-items: center; justify-content: center;">
+                                <div class="text-center" id="tulisan-bawah-gambar" style="">
+                                    Target NLP mingguan: <br>
+                                    <span style="font-weight: 600; color:#650505"> Belum terpenuhi</span>
+                                </div>
+                            </div>
+                        </div>
+
 
                             <div class="mt-2" style="display: flex; gap: 5vw;">
                                 <div style="display: flex; width: 20vw; align-items: center; justify-content: center;">
                                     <div
                                         style="width: 10vw; height: 5px; background-color: #46CC6A; border-radius: 1vw;">
-                                        .</div>
+                                    </div>
                                     <p style="margin-top: 1vw; margin-left: 1vw; font-size: 0.65rem;">
                                         saat
                                         ini</p>
-                                </div>
-
-                                <div style="display: flex; width: 25vw; align-items: center; justify-content: center;">
-                                    <div
-                                        style="width: 10vw; height: 5px; background-color: #C4CBE0; border-radius: 1vw;">
-                                    </div>
-                                    <p style="margin-top: 1vw; margin-left: 1vw; font-size: 0.65rem;">Target
-                                        capaian/capaian minggu lalu</p>
-                                </div>
                             </div>
+
+                            <div style="display: flex; width: 25vw; align-items: center; justify-content: center;">
+                                <div
+                                    style="width: 10vw; min-width:100px; height: 5px; background-color: #C4CBE0; border-radius: 1vw;">
+                                </div>
+                                <p style="margin-top: 1vw; margin-left: 1vw; font-size: 0.65rem;">Target
+                                    capaian/capaian minggu lalu</p>
+                            </div>
+
                         </div>
+
                     </div>
-
-
+                </div>
 
                     <div class="bg-white" style="height:30vw; width:40vw; border-radius: 1vw; padding:5vw;">
                         <div style="color: #1F2844;">
@@ -237,47 +276,57 @@ include 'navbar.php';
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="konten">
-            <div style="padding: 4vw 4vw 4vw 7vw;">
-                <h4>Bab Saya</h4>
-                <br>
-                <div style="background-color: #E3ECF5; border-radius: 0.5vw; padding: 2vw 3vw;">
-                    <div style="background-color: white; border-radius: 0.5vw; width: 40vw; padding: 2vw 1vw 2vw 3vw;"
-                        id="bab">
-                        <table style="border-collapse: collapse;">
-                            <tr>
-                                <td rowspan="4" style="padding-right: 1.5vw;"><img src="image/Bab.png" width="60"
-                                        height="60"></td>
-                                <td style="font-size: 16px; padding-bottom: 0;"><b>Fungsi</b></td>
-                            </tr>
-                            <tr>
-                                <td style="font-size: 16px; padding-top: 0;">Matematika Kelas XI</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 0.3vw;"></td>
-                            </tr>
-                            <tr>
-                                <td style="font-size: 12px;">1/2 subtopik selesai</td>
-                            </tr>
+
+    <section id="konten" class="py-4 px-3">
+        <h4 class="mb-3">Bab Saya</h4>
+        <div class="bg-light rounded p-4">
+            <div class="bg-white rounded px-3 py-4 mb-3" id="bab">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <img src="image/Bab.png" class="img-fluid" alt="Bab" style="width: 60px; height: 60px;">
+                    </div>
+                    <div class="col">
+                        <table class="table table-borderless mb-0">
+                            <tbody>
+                                <tr>
+                                    <td class="pb-0">
+                                        <strong>Fungsi</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="pt-0">Matematika Kelas XI</td>
+                                </tr>
+                                <tr>
+                                    <td style="height: 0.3rem;"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted" style="font-size: 12px;">1/2 subtopik selesai</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <footer>
-            <img src="image/logo otodu terang.png" alt="logo"
-                style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;"> <!-- 120px -->
-            <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
-        </footer>
+        </div>
+    </section>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-        </script>
+    <footer class="d-flex align-items-center  text-white py-3" style="width: 100%; background-color:#1F2844;">
+        <div class="container d-flex justify-content-start align-items-center">
+            <img src="image/logo otodu terang.png" alt="logo" class="img-fluid me-3" style="width: 20vw; max-width: 120px;">
+            <p class="mb-0" style="font-family: 'Martian Mono'; font-size: 0.9rem;">©2024 OTODU Limited</p>
+        </div>
+    </footer>
 
-        <script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+
+    <script>
         document.getElementById('bab').addEventListener('click', function(event) {
             event.preventDefault(); // Mencegah perilaku default tautan
             window.location.href = 'materi.php'; // Ganti dengan URL yang sesuai
@@ -290,10 +339,9 @@ include 'navbar.php';
 
         document.getElementById('daftar-materi').addEventListener('click', function(event) {
             event.preventDefault(); // Mencegah perilaku default tautan
-            console.log("tesssss")
             window.location.href = 'daftar.php'; // Ganti dengan URL yang sesuai
         });
-        </script>
+    </script>
 </body>
 
 </html>

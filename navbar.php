@@ -1,85 +1,107 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-    * {
-        font-family: "Rethink Sans";
-    }
-
-    .navbar {
-        background-color: white;
-        padding-inline-start: 1.5vw;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 1.5vw;
-        align-items: center;
-    }
-
-    .nav-menu {
-        text-decoration: none;
-        margin: 0;
-        padding: 0.5vw 2.5vw;
-        position: relative;
-        align-self: center;
-        font-size: 14px !important;
-        cursor: pointer;
-        font-family: 'Rethink Sans';
-        color: #4D62A5;
-    }
-
-    .nav-menu.highlight {
-        background-color: #4D62A5;
-        color: white;
-        font-weight: 450;
-    }
-
-    .nav-menu:hover {
-        background-color: #4D62A5;
-        color: white;
-        font-weight: 450;
-        text-decoration:none;
-    }
-    </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="button.css">
-</head>
-
-<body>
-    <header>
-        <nav class="navbar">
-            <div class="container" style="display: flex; align-items: center;">
-                <div class="logo">
-                    <img src="image/logo otodu2.png" alt="logo" style="width: 100px; margin-right: 10px;"> <!-- 130px -->
-                </div>
-                <div style="display: flex; align-items: center; justify-content: end;">
-                    <a style="margin: 0.3vw 2vw;" id="nlp" class="nav-menu" href="dashboard.php">NLP OTODU</a>
-                    <div style="font-size: 2vw; color: #4D62A5;">|</div>
-                    <a style="margin: 0.3vw 2vw;" class="nav-menu mentor" href="mentor.php">Mentor OTODU</a>
-                    <div style="font-size: 2vw; color: #4D62A5;">|</div>
-                    <a style="margin: 0.3vw 2vw;" class="nav-menu jasa" href="jasa.php">Desain Web & App</a>
-                </div>
-            </div>
-            </div>
-        </nav>
-    </header>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
-    <script>
-    const currentPage = window.location.pathname;
-    const navMenu = document.querySelectorAll('.nav-menu');
-
-    navMenu.forEach(link => {
-        if (link.getAttribute('href') === currentPage.split('/').pop()) {
-            link.classList.add('highlight');
+        * {
+            font-family: "Rethink Sans", sans-serif;
         }
-    });
+
+        .custom-navbar {
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+        }
+
+        .nav-menu {
+            text-decoration: none;
+            color: #4D62A5;
+            margin: 0 0.5rem;
+            padding: 4px 24px;
+            transition: all 0.3s ease;
+            font-weight : 20vw;
+        }
+
+        .nav-menu:hover, .nav-menu.highlight {
+            background-color: #4D62A5;
+            color: white;
+            border-radius: 0px;
+            font-weight : 20vw;
+        }
+
+        .navbar-separator {
+            color: #4D62A5;
+            margin: 0 2vw;
+            font-size : 25px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 991px) {
+            .navbar-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-menu {
+                width: 100%;
+                text-align: center;
+                margin: 0.5rem 0;
+            }
+
+            .navbar-separator {
+                display: none;
+            }
+
+            .logo img {
+                max-width: 100px;
+            }
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%234D62A5' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container"">
+            <div class="logo navbar-brand">
+                <img src="image/logo otodu2.png" alt="logo" width = "120px">
+            </div>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <div class="navbar-nav align-items-center">
+                    <a class="nav-menu" id="nlp" href="dashboard.php">NLP OTODU</a>
+                    <span class="navbar-separator">|</span>
+                    <a class="nav-menu mentor" href="mentor.php">Mentor OTODU</a>
+                    <span class="navbar-separator">|</span>
+                    <a class="nav-menu jasa" href="jasa.php">Desain Web & App</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const currentPage = window.location.pathname;
+        const navMenu = document.querySelectorAll('.nav-menu');
+        
+        navMenu.forEach(link => {
+            if (link.getAttribute('href') === currentPage.split('/').pop()) {
+                link.classList.add('highlight');
+            }
+        });
     </script>
 </body>
+</html>
