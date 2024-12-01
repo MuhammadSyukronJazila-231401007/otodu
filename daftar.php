@@ -2,6 +2,11 @@
 include 'function.php';
 session_start();
 
+if (!isset($_SESSION['login'])) {
+    header("Location: login.php");
+    exit;
+}
+
 if (isset($_GET['kode_materi'])) {
     $_SESSION['kode_materi'] = $_GET['kode_materi'];
     $_SESSION['kode_subbab'] = $_GET['kode_subbab'];
@@ -9,26 +14,14 @@ if (isset($_GET['kode_materi'])) {
 
     $_SESSION['nama_subbab'] = $_GET['nama_subbab'];
     $_SESSION['nama_bab'] = $_GET['nama_bab'];
+    $_SESSION['materi_terakhir'] = $_SESSION['nama_bab'].' - '.$_SESSION['nama_subbab'];
+    $_SESSION['daftar_materi'] = true;
 
-    $bab = $_SESSION['nama_bab'];
-    $subbab = $_SESSION['nama_subbab'];
-    $id = $_SESSION['user_id'];
-
-    $sql = "UPDATE users SET materi_terakhir = '$bab - $subbab' WHERE id = '$id'";
-    if ($conn->query($sql) === TRUE) {
-        $_SESSION['materi_terakhir'] = $bab.' - '.$subbab;
-        $_SESSION['daftar_materi'] = true;
-        header("Location: materi.php");
-    } else {
-        echo "Gagal melakukan registrasi. Silakan coba lagi.";
-        exit;
-    }
+    var_dump($_SESSION['materi_terakhir']);
+        
+    header("Location: materi.php");
+  
    
-}
-
-if (!isset($_SESSION['login'])) {
-    header("Location: login.php");
-    exit;
 }
 
 $id = $_SESSION['user_id'];
@@ -37,7 +30,6 @@ $koin = ambilData("SELECT koin FROM users WHERE id = $id");
 $materi = ambilData("SELECT * FROM materi");
 
 include 'navbar.php';
-
 ?>
 
 
