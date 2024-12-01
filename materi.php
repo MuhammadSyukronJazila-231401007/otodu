@@ -625,19 +625,17 @@ $topik_terpilih = $topik[0]['kode_topik'] ?? null;
                     ripple: true,
                     dismissible: false,
                 });
-                console.log(response)
-                if (response == 'Koin anda belum cukup!') {
-                    notyf.error(response);
-                } else if (response == 'Selamat anda telah membeli subtopik ini!') {
-                    notyf.success(response);
+                let lines = response.trim().split("\n");
+                let message = lines[lines.length - 1].trim();
+                if (message == 'Koin tidak cukup!') {
+                    notyf.error(message);
+                } else if (message == 'Selamat anda telah membeli subtopik ini!') {
+                    notyf.success(message);
                     setTimeout(function() {
                         location.reload(); // Merefresh halaman
                     }, 1600); // Durasi waktu (2 detik)
                 } else {
-                    let lines = response.trim().split("\n");
-                    let lastLine = lines[lines.length - 1].trim();
-                    console.log(lines)
-                    window.location.href = lastLine;
+                    window.location.href = message;
                 }
             }
         });
