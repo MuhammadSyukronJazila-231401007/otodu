@@ -172,7 +172,7 @@ if( !isset($_SESSION['login']) ){
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        background-color: #1F2844;
+        background-color: #1f2844;
         color: white;
         bottom: 0;
         width: 100%;
@@ -185,6 +185,31 @@ if( !isset($_SESSION['login']) ){
         color: white;
         font-weight: 450;
     }
+
+    #trophy {
+        width: 3vw;
+    }
+
+    #logo {
+        height: 5vh;
+    }
+
+    @media (max-width: 600px) {
+        #trophy {
+            width: 40px;
+            margin-right: 15px;
+        }
+
+        #logo {
+            height: 4vh;
+            margin: 0 3vw
+        }
+
+        .container-2 {
+            margin-top: 4vh;
+        }
+
+    }
     </style>
 
 </head>
@@ -196,9 +221,9 @@ if( !isset($_SESSION['login']) ){
     <div class="main">
         <div class="container-2">
             <div class="text-container">
-                <img src="image/trophy.png" style="width: 3vw;" id="trophy">
+                <img src="image/trophy.png" style="" id="trophy">
                 <h4>Papan Peringkat</h4>
-                <img src="image/logo otodu.png" style="height: 5vh;" id="logo">
+                <img src="image/logo otodu.png" id="logo">
                 <h4 style="font-family: 'Martian Mono'; font-weight: 600;" id="text-logo">OTODU</h4>
             </div>
         </div>
@@ -240,9 +265,10 @@ if( !isset($_SESSION['login']) ){
     </div>
 
     <footer>
-        <img src="image/logo otodu terang.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;">
-        <!-- 120px -->
-        <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
+        <img src="image/logo otodu terang.png" alt="logo" style="width: 120px; margin-right: 2vw; margin-left: 2.3vw" />
+        <p style="font-family: 'Martian Mono'; font-size: 10px; margin-top: 17px">
+            @2024 OTODU Limited
+        </p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
@@ -250,24 +276,28 @@ if( !isset($_SESSION['login']) ){
     </script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-    // Menyesuaikan lebar judul halaman dengan dropdown dan tabel
-    window.onload = function() {
+    function adjustWidth() {
         // Ambil elemen dengan class text-container
         var textContainer = document.querySelector('.text-container');
 
         // Dapatkan lebar dari text-container
         var textContainerWidth = textContainer.offsetWidth;
 
-        // Ambil elemen dengan class dropdown-container
+        // Ambil elemen dengan class dropdown-container dan content-table
         var dropdownContainer = document.querySelector('.dropdown');
         var tableContainer = document.querySelector('.content-table');
 
-        // Terapkan lebar text-container ke dropdown-container
+        // Terapkan lebar text-container ke dropdown-container dan tableContainer
         dropdownContainer.style.width = textContainerWidth + 'px';
         tableContainer.style.width = textContainerWidth + 'px';
 
         loadLeaderboard();
-    };
+    }
+
+    window.onload = adjustWidth;
+
+    // Panggil fungsi saat ukuran layar berubah
+    window.addEventListener('resize', adjustWidth);
 
     // Fungsi untuk memuat data leaderboard
     function loadLeaderboard() {

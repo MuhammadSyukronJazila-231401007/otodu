@@ -42,7 +42,7 @@ $nama_subtopik = ambilData("SELECT nama_subtopik FROM subtopik WHERE kode_subtop
                 </div>
             </header>
 
-            <section style="background-color: #375679;">
+            <section id="nav-soal">
                 <div class="container section-container">
                     <!-- Button Close -->
                     <div data-bs-theme="dark">
@@ -51,7 +51,7 @@ $nama_subtopik = ambilData("SELECT nama_subtopik FROM subtopik WHERE kode_subtop
 
                     <!-- Pagination Buttons -->
                     <div class="pagination"
-                        style="display: flex; justify-content: center; align-items: center; gap: 1vw;">
+                        style="display: flex; justify-content: center; align-items: center; gap: 1vw; height: 100%;">
                         <button class="nav-button" onclick="prevContent()"
                             style="color: #5D81AB; background-color: transparent;">&#60;</button>
                         <?php if (count($isi_subtopik) > 0): ?>
@@ -101,68 +101,69 @@ $nama_subtopik = ambilData("SELECT nama_subtopik FROM subtopik WHERE kode_subtop
 
                     <?php if (count($isi_subtopik) > 0): ?>
 
-                        <?php foreach ($isi_subtopik as $isi): ?>
-                            <?php if ($isi['keterangan'] == 'materi'): ?>
-                                <div id="materi<?= $isi['nomor']; ?>" class="content">
-                                    <div class="isi-subtopik">
-                                        <img src="<?= $isi['gambar_url']; ?>" alt="" class="svg">
-                                        <p><?= $isi['materi']; ?></p>
-                                    </div>
-                                </div>
+                    <?php foreach ($isi_subtopik as $isi ): ?>
+                    <?php if ($isi['keterangan'] == 'materi'): ?>
+                    <div id="materi<?= $isi['nomor']; ?>" class="content">
+                        <div class=" isi-subtopik" style="<?= $isi['gambar_url'] === null ? 'display:flex' : ''; ?>">
+                            <img src="<?= $isi['gambar_url']; ?>" alt="" class="svg"
+                                style="<?php if (!isset($isi['gambar_url'])) echo "display: none;"?>" ">
+                            <p><?= $isi['materi']; ?></p>
+                        </div>
+                    </div>
 
-                            <?php elseif ($isi['keterangan'] == 'cocok'): ?>
-                                <div id="materi<?= $isi['nomor']; ?>" class="content">
-                                    <img src="<?= $isi['gambar_url']; ?>" alt="" class="svg">
+                    <?php elseif ($isi['keterangan'] == 'cocok'): ?>
+                    <div class=" content" id="materi<?= $isi['nomor']; ?>">
+                            <img src="<?= $isi['gambar_url']; ?>" alt="" class="svg">
 
-                                    <div class="question mt-4"><?= $isi['soal']; ?></div>
+                            <div class="question mt-4"><?= $isi['soal']; ?></div>
 
-                                    <!-- Tempat untuk jawaban yang tersusun -->
-                                    <div class="answer-slot choices" id="answer-slot">
-                                        <div onclick="removeAnswer(this)"></div>
-                                        <div onclick="removeAnswer(this)"></div>
-                                        <div onclick="removeAnswer(this)"></div>
-                                        <div onclick="removeAnswer(this)"></div>
-                                        <div onclick="removeAnswer(this)"></div>
-                                    </div>
+                            <!-- Tempat untuk jawaban yang tersusun -->
+                            <div class="answer-slot choices" id="answer-slot">
+                                <div onclick="removeAnswer(this)"></div>
+                                <div onclick="removeAnswer(this)"></div>
+                                <div onclick="removeAnswer(this)"></div>
+                                <div onclick="removeAnswer(this)"></div>
+                                <div onclick="removeAnswer(this)"></div>
+                            </div>
 
-                                    <?php
-                                    $pilihan = explode(";", $isi['opsi']);
-                                    shuffle($pilihan);
-                                    ?>
+                            <?php 
+                            $pilihan = explode(";", $isi['opsi']); 
+                            shuffle($pilihan);
+                        ?>
 
-                                    <!-- Pilihan jawaban sebagai puzzle -->
-                                    <div class="choices" id="choices">
-                                        <?php foreach ($pilihan as $opsi): ?>
-                                            <div onclick="placeAnswer(this)"><?= htmlspecialchars($opsi) ?></div>
-                                        <?php endforeach; ?>
-                                    </div>
+                            <!-- Pilihan jawaban sebagai puzzle -->
+                            <div class="choices" id="choices">
+                                <?php foreach ($pilihan as $opsi): ?>
+                                <div onclick="placeAnswer(this)"><?= htmlspecialchars($opsi) ?></div>
+                                <?php endforeach; ?>
+                            </div>
 
-                                    <div id="hasil"></div>
-                                </div>
-                            <?php else: ?>
-                                <div id="materi<?= $isi['nomor']; ?>" class="content">
-                                    <h5 style="margin-top:4vw;"><?= $isi['soal']; ?></h5>
-                                    <div>
-                                        <?php $pilihan = explode(";", $isi['opsi']); ?>
-                                        <ul>
-                                            <?php foreach ($pilihan as $index => $opsi): ?>
-                                                <li>
-                                                    <button class="pernyataan" id="pernyataan-<?= $index + 1 ?>"
-                                                        onclick="tentukan(<?= $index + 1 ?>)">
-                                                        <?= htmlspecialchars($opsi) ?>
-                                                    </button>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </div>
+                            <div id="hasil"></div>
+                        </div>
+                        <?php else: ?>
+                        <div id="materi<?= $isi['nomor']; ?>" class="content pertanyaan-container">
+                            <h5 style="margin-top:4vw;"><?= $isi['soal']; ?></h5>
+                            <div>
+                                <?php $pilihan = explode(";", $isi['opsi']); ?>
+                                <ul>
+                                    <?php foreach ($pilihan as $index => $opsi): ?>
+                                    <li>
+                                        <button class="pernyataan" id="pernyataan-<?= $index + 1 ?>"
+                                            onclick="tentukan(<?= $index + 1 ?>)">
+                                            <?= htmlspecialchars($opsi) ?>
+                                        </button>
+                                    </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
 
-                                    <h5 id="hasilPilihan"></h5>
-                                </div>
-                            <?php endif; ?>
+                            <h5 id="hasilPilihan"></h5>
+                        </div>
+                        <?php endif; ?>
                         <?php endforeach; ?>
 
-                    <?php else: ?>
-                        <div style="text-align: center; color: #000;;">
+                        <?php else: ?>
+                        <div id="no-materi" style="text-align: center; color: #000;;">
                             <div style="text-align: center;">
                                 <div class="d-flex flex-column align-items-center">
                                     <img src="image/folder.png" width="200" alt="Example Image" class="mb-3">
@@ -170,8 +171,10 @@ $nama_subtopik = ambilData("SELECT nama_subtopik FROM subtopik WHERE kode_subtop
                                 </div>
                             </div>
                         </div>
-                    <?php endif; ?>
-                </div>
+
+                        <?php endif; ?>
+                    </div>
+
             </section>
         </div>
 
@@ -184,10 +187,14 @@ $nama_subtopik = ambilData("SELECT nama_subtopik FROM subtopik WHERE kode_subtop
                         : 'Belum ada materi nih'; ?>
                 </p>
             </div>
-            <?php if (count($isi_subtopik) > 0): ?>
-                <button onclick="cekHalaman()" type="button" class="btn text-light" id="lanjut-btn"> Lanjut</button>
-            <?php endif; ?>
-        </footer>
+
+            <?php if(count($isi_subtopik) > 0):?>
+            <but onclick="cekHalaman()" class="btn text-light" id="lanjut-btn"
+                style="display: flex; justify-content: center; align-items: center; ">
+                <p style="color: white; margin: 0;">Lanjut</p>
+    </div>
+    <?php endif; ?>
+    </footer>
     </div>
 
     <script>

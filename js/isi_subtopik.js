@@ -1,7 +1,7 @@
 let totalContents = 0;
 
 // Konversi data menjadi array sesuai struktur
-const akhir = isi_subtopik.reduce((acc, item) => {
+const akhir = isi_subtopik.reduce((acc, item, index) => {
   let teksAkhir = "Lanjut"; // Default teksAkhir
   if (item.keterangan === "cocok") {
     teksAkhir = "Cek";
@@ -13,6 +13,7 @@ const akhir = isi_subtopik.reduce((acc, item) => {
     deskripsiPetunjuk: item.petunjuk,
     teksAkhir: teksAkhir,
     cek: false,
+    selesai: item.keterangan === 'materi' 
   };
 
   totalContents++;
@@ -21,9 +22,10 @@ const akhir = isi_subtopik.reduce((acc, item) => {
 }, {});
 
 // console.log(akhir);
-console.log(isi_subtopik);
+// console.log("---\n");
+// console.log(isi_subtopik);
 
-let currentContentIndex = 5;
+let currentContentIndex = 1;
 const deskAkhir = document.querySelector("#deskripsiPetunjuk");
 const tombolAkhir = document.querySelector("#lanjut-btn");
 
@@ -42,12 +44,31 @@ function prevContent() {
   }
 }
 
-function nextContent() {
+function nextContent(tombol_lanjut = 0) {
+//     console.log("rombol lanjut: " + tombol_lanjut)
+// if (akhir[currentContentIndex+1].selesai == false && tombol_lanjut == 0){
+//     return
+// }
   if (currentContentIndex < totalContents) {
     currentContentIndex++;
     showContent(`materi${currentContentIndex}`);
   } else {
-    Swal.fire({
+    // console.log(akhir);
+    const adaSelesaiFalse = Object.values(akhir).some(item => item.selesai === false);
+    if(adaSelesaiFalse){
+        alert("Kerjakan semua quiz dengan benar!"); 
+      Swal.fire({
+      title: "Warning!!!",
+      text: "Kerjakan semua quiz dengan benar!",
+      icon: "error",
+      confirmButtonText: 'Kembali'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = 'materi.php'
+      }
+    });
+    }else{
+        Swal.fire({
       title: "Subtopik Selesai",
       text: "Selamat, Anda telah menyelesaikan subtopik ini",
       icon: "success",
@@ -57,6 +78,7 @@ function nextContent() {
         window.location.href = 'materi.php'
       }
     });
+    }
   }
 }
 
@@ -72,18 +94,23 @@ function cekHalaman() {
   ) {
     tombolAkhir.style.display = "none";
   } else {
-    nextContent();
+    // akhir[currentContentIndex+1].selesai == true
+    nextContent(1);
   }
 }
 
 function showContent(id) {
+//     console.log(currentContentIndex)
+//   if(akhir[currentContentIndex].selesai == false){
+//     return
+//   }
   tombolAkhir.innerText = akhir[currentContentIndex].teksAkhir;
   deskAkhir.innerText = akhir[currentContentIndex].deskripsiPetunjuk;
 
   // Sembunyikan semua konten terlebih dahulu
   var contents = document.querySelectorAll(".content");
   contents.forEach((content) => content.classList.remove("active"));
-
+  
   // Tampilkan konten yang dipilih
   document.getElementById(id).classList.add("active");
 
@@ -129,6 +156,9 @@ function removeAnswer(slot) {
 }
 
 function checkAnswer() {
+  if(akhir[currentContentIndex].selesai){
+    nextContent();
+  }
   // Ambil semua jawaban yang sudah diisi
   const answer = Array.from(document.querySelectorAll("#answer-slot div"))
     .map((div) => div.dataset.value || "")
@@ -138,12 +168,10 @@ function checkAnswer() {
     .filter(item => item.keterangan === "cocok") // Filter objek dengan keterangan = "cocok"
     .map(item => item.jawaban); // Ambil hanya nilai dari properti 'jawaban'
 
-  console.log(jawabanCocok);
-
-  if (jawabanCocok.includes(answer)) {
+  if (jawabanCocok.includes(answer)) { 
     hasil.innerText = "Benar!";
     tombolAkhir.innerText = "Lanjut";
-    setTimeout(() => nextContent(), 3000);
+    akhir[currentContentIndex].selesai = true;
   } else {
     hasil.innerText = "Salah, coba lagi.";
   }
@@ -157,6 +185,7 @@ function tentukan(nomor) {
   });
   // Cek jawaban
   if (nomor === pernyataanBenar) {
+    akhir[currentContentIndex].selesai = true;
     hasilPilihan.innerText = "Jawaban Anda Benar!";
     document
       .querySelector(`#pernyataan-${pernyataanBenar}`)
@@ -164,7 +193,7 @@ function tentukan(nomor) {
 
     // Tampilkan tombol "Lanjut"
     tombolAkhir.innerText = "Lanjut";
-    tombolAkhir.style.display = "inline";
+    tombolAkhir.style.display = "flex";
     tombolAkhir.onclick = nextContent;
   } else {
     hasilPilihan.innerText = "Jawaban Anda Salah, coba lagi.";

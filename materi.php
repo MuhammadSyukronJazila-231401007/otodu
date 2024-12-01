@@ -610,32 +610,35 @@ $topik_terpilih = $topik[0]['kode_topik'] ?? null;
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function postRequest(form) {
-            $.ajax({
-                url: 'materi_bc.php', // Arahkan ke file PHP untuk proses
-                type: 'POST',
-                data: $(form).serialize(), // Mengirim data form
-                success: function(response) {
-                    const notyf = new Notyf({
-                        duration: 2000,
-                        position: {
-                            x: 'right',
-                            y: 'top',
-                        },
-                        ripple: true,
-                        dismissible: false,
-                    });
-                    console.log(response)
-                    if (response == 'Koin anda belum cukup!') {
-                        notyf.error(response);
-                    } else if (response == 'Selamat anda telah membeli subtopik ini!') {
-                        notyf.success(response);
-                        setTimeout(function() {
-                            location.reload(); // Merefresh halaman
-                        }, 1600); // Durasi waktu (2 detik)
-                    } else {
-                        window.location.href = response;
-                    }
+
+    function postRequest(form) {
+        $.ajax({
+            url: 'materi_bc.php', // Arahkan ke file PHP untuk proses
+            type: 'POST',
+            data: $(form).serialize(), // Mengirim data form
+            success: function(response) {
+                const notyf = new Notyf({
+                    duration: 2000,
+                    position: {
+                        x: 'right',
+                        y: 'top',
+                    },
+                    ripple: true,
+                    dismissible: false,
+                });
+                console.log(response)
+                if (response == 'Koin anda belum cukup!') {
+                    notyf.error(response);
+                } else if (response == 'Selamat anda telah membeli subtopik ini!') {
+                    notyf.success(response);
+                    setTimeout(function() {
+                        location.reload(); // Merefresh halaman
+                    }, 1600); // Durasi waktu (2 detik)
+                } else {
+                    let lines = response.trim().split("\n");
+                    let lastLine = lines[lines.length - 1].trim();
+                    console.log(lines)
+                    window.location.href = lastLine;
                 }
             });
         }

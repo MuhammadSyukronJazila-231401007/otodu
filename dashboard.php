@@ -1,3 +1,20 @@
+<?php
+session_start();
+include 'function.php';
+
+if (!isset($_SESSION['login'])) {
+    header("Location: login.php");
+    exit;
+}
+$id = $_SESSION['user_id'];
+$materi_terakhir = ambilData("SELECT materi_terakhir FROM users WHERE id = $id");
+$_SESSION['materi_terakhir'] = $materi_terakhir[0]['materi_terakhir'];
+// var_dump($materi_terakhir[0]['materi_terakhir']);
+include 'navbar.php';
+?>
+
+
+
 <!doctype html>
 <html lang="en">
 
@@ -11,14 +28,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
     <title>OTODU | Solusi Otodidakmu!</title>
     <style>
-        * {
-            font-family: "Rethink Sans";
-        }
+    * {
+        font-family: "Rethink Sans";
+    }
 
-        .logo img {
-            width: 10vw;
-            margin-right: 1vw;
-        }
+    .logo img {
+        width: 10vw;
+        margin-right: 1vw;
+    }
+
+    .intro {
+        padding: 5vw 5vw 10vw 27vw;
+        background-image: url('./image/gradien\ blue.avif');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        color: white;
+        font-size: 16px;
+    }
+
+    footer {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: #1F2844;
+        color: white;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        padding: 2vw;
+    }
+
+    #bab {
+        cursor: pointer;
+    }
 
         @media (max-width: 768px) {
             #tulisan-bawah-gambar {
@@ -33,7 +76,53 @@
 
 <body>
 
+        <section id="nlp">
+            <div style="padding: 4vw 4vw 4vw 3vw; background-color:#375679;">
+                <h3 class="text-white">Statistik NLP</h3>
+                <p class="text-white">Statistik capaian belajar mingguan Kamu ditampilkan di sini!</p>
+                <div style="display:flex; gap:3vw;">
+                    <div class="bg-white" style="height:30vw; width:60vw; padding:0vw 4vw 1vw 4vw; border-radius:1vw;">
+                        <!-- Gmbar Bulat -->
+                        <p style="font-size:1.8vw;font-weight:600;position: absolute; top: 18vw; left: 8vw;">Persentase
+                            NLP minggu ini</p>
+                        <div style="position: relative; width: 15vw; height: auto;">
+                            <img src="image/Subtract.png" alt=""
+                                style="width: 100%; position: absolute; top: 6vw; left: 4vw; z-index: 1;">
+                            <img src="image/Subtract_hijau.png" alt=""
+                                style="width: 100%; position: absolute; top: 6vw; left: 4vw; z-index: 2; clip-path: inset(50% 0 0 0);">
+                            <div
+                                style="position: absolute; top: 13vw; left: 4vw; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 3; ; font-size: 2.5vw; text-align: center; font-weight:500">
+                                50%
+                            </div>
+                        </div>
+                        <!-- Gmbar Bulat Akhir -->
+                        <!-- Gambar 3r  -->
+                        <p style="font-size:1.8vw;font-weight:600;position: absolute; top: 18vw; left: 37vw;">Capaian
+                            NLP</p>
+                        <p style="font-size:1.3vw;font-weight:600;position: absolute; top: 21vw; left: 31vw;">Quiz NLP
+                            <br>
+                            selesai
+                        </p>
+                        <p style="font-size:1.3vw;font-weight:600;position: absolute; top: 26vw; left: 28vw;">Subbab
+                            <br>
+                            dikuasai
+                        </p>
+                        <p style="font-size:1.3vw;font-weight:600;position: absolute; top: 26vw; left: 52vw;">Subbab
+                            baru <br>
+                            dipelajari</p>
+                        <i style="transform: rotate(-20deg);position: absolute; top: 23vw; left: 37vw; font-size: 1.5vw"
+                            class="bi bi-arrow-up-left"></i>
+                        <i style="transform: rotate(-20deg);position: absolute; top: 28vw; left: 34vw; font-size: 1.5vw"
+                            class="bi bi-arrow-up-left"></i>
+                        <i style="transform: rotate(90deg);position: absolute; top: 28vw; left: 49vw; font-size: 1.5vw"
+                            class="bi bi-arrow-up-left"></i>
 
+                        <div style="transform:scale(0.45)">
+                            <!-- Container untuk gambar pertama -->
+
+                            <div
+                                style="position: absolute; top: 7vw; left: 30vw; display: inline-block; text-align: center;">
+                                <!-- Gambar tengah putih -->
 
     <section id="nlp">
         <div style="padding: 4vw; background-color:#375679;">
@@ -84,28 +173,35 @@
                             </div>
                         </div>
 
-                        <!-- Container untuk gambar kedua -->
-                        <div style="position: absolute; top: 7vw; left: 30vw; display: inline-block; pointer-events: none; text-align: center;">
-                            <!-- Gambar tengah hijau -->
-                            <div style="position: relative; display: inline-block;">
-                                <img src="image/3r/3rhijau_tengah.png" alt=""
-                                    style="position: relative; top: 35px; display: block; margin-left: auto; margin-right: auto; clip-path: inset(50% 0 0 0); width:15vw; min-width:100px;">
-                                <div style=" position: absolute; top: 4vw; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 4; color: black; font-size: 3.2vw; font-weight:600">
-                                    15/27
-                                </div>
-                            </div>
-                            <!-- Gambar kiri dan kanan hijau -->
-                            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <!-- Container untuk gambar kedua -->
+                            <div
+                                style="position: absolute; top: 7vw; left: 30vw; display: inline-block; pointer-events: none; text-align: center;">
+                                <!-- Gambar tengah hijau -->
                                 <div style="position: relative; display: inline-block;">
-                                    <img style="margin-right: 10px; clip-path: inset(70% 0 0 0); width:15vw; min-width:100px;" src="image/3r/3rhijau_kiri.png" alt="">
-                                    <div style=" position: absolute; top: 2vw; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 4; color: black; font-size: 3.2vw; font-weight:600">
-                                        2/5
+                                    <img src="image/3r/3rhijau_tengah.png" alt=""
+                                        style="position: relative; top: 60px; display: block; margin-left: auto; margin-right: auto; clip-path: inset(50% 0 0 0);">
+                                    <div
+                                        style=" position: absolute; top: 4vw; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 4; color: black; font-size: 3.2vw; font-weight:600">
+                                        15/27
                                     </div>
                                 </div>
-                                <div style="position: relative; display: inline-block;">
-                                    <img style="clip-path: inset(40% 0 0 0); width:15vw; min-width:100px;" src="image/3r/3rhijau_kanan.png" alt="">
-                                    <div style=" position: absolute; top: 2vw; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 4; color: black; font-size: 3.2vw; font-weight:600">
-                                        5/7
+                                <!-- Gambar kiri dan kanan hijau -->
+                                <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                                    <div style="position: relative; display: inline-block;">
+                                        <img style="margin-right: 10px; clip-path: inset(70% 0 0 0);"
+                                            src="image/3r/3rhijau_kiri.png" alt="">
+                                        <div
+                                            style=" position: absolute; top: 2vw; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 4; color: black; font-size: 3.2vw; font-weight:600">
+                                            2/5
+                                        </div>
+                                    </div>
+                                    <div style="position: relative; display: inline-block;">
+                                        <img style="clip-path: inset(40% 0 0 0);" src="image/3r/3rhijau_kanan.png"
+                                            alt="">
+                                        <div
+                                            style=" position: absolute; top: 2vw; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 4; color: black; font-size: 3.2vw; font-weight:600">
+                                            5/7
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -131,14 +227,15 @@
                             </div>
                         </div>
 
-                        <div class="mt-2" style="display: flex; gap:120px;">
-                            <div style="margin-left:4vw; display: flex; width: 20vw; align-items: center; justify-content: center;">
-                                <div
-                                    style="width: 10vw; min-width:100px; height: 5px; background-color: #46CC6A; border-radius: 1vw;">
-                                </div>
-                                <p style="margin-top: 1vw; margin-left: 1vw; font-size: 0.65rem;">
-                                    saat
-                                    ini</p>
+
+                            <div class="mt-2" style="display: flex; gap: 5vw;">
+                                <div style="display: flex; width: 20vw; align-items: center; justify-content: center;">
+                                    <div
+                                        style="width: 10vw; height: 5px; background-color: #46CC6A; border-radius: 1vw;">
+                                    </div>
+                                    <p style="margin-top: 1vw; margin-left: 1vw; font-size: 0.65rem;">
+                                        saat
+                                        ini</p>
                             </div>
 
                             <div style="display: flex; width: 25vw; align-items: center; justify-content: center;">
@@ -154,11 +251,28 @@
                     </div>
                 </div>
 
-                <div class="col-md-5 bg-white p-4 rounded" style="height:30vw; min-height:220px; border-radius: 1vw;">
-                    <div style="color: #1F2844; padding:4vw;">
-                        <p>Halo <b><?= $_SESSION['user_name'] ?></b>!</p>
-                        <p style="margin-bottom: 1.5rem;">Kamu terakhir mempelajari <b>Limit Tak Hingga - Subbab III</b>. Pengen lanjut lagi?</p>
-                        <p class="text-white text-center" style="background-color:#375679; border-radius: 8px; padding: 0.5rem; cursor: pointer;">Lanjut Belajar</p>
+                    <div class="bg-white" style="height:30vw; width:40vw; border-radius: 1vw; padding:5vw;">
+                        <div style="color: #1F2844;">
+                            <p>Halo <b><?= $_SESSION['user_name'] ?></b>!</p>
+                            <?php if(isset($materi_terakhir[0]['materi_terakhir'])): ?>
+                            <p style="margin-bottom: 2vw">Kamu terakhir mempelajari
+                                <b>Fungsi - Pengantar</b>. pengen
+                                lanjut lagi ?
+                            </p>
+                            <p class="text-white"
+                                style="background-color:#375679; text-align:center; border-radius:5px; padding:5px; cursor:pointer; font-size: 0.9 rem"
+                                id="materi-nlp">Buka <b>Fungsi - Pengantar</b></p>
+                            <p class="bg-white"
+                                style="color:#375679; text-align:center; border-radius:5px; padding:3px; border:1px solid; cursor:pointer; font-size: 1rem"
+                                id="daftar-materi">Buka materi lainnya</p>
+                            <?php else : ?>
+                            <p style="margin-bottom: 2vw">Klik tombol di bawah untuk mulai belajar otodidak!</p>
+                            <p class="bg-white"
+                                style="color:#375679; text-align:center; border-radius:5px; padding:3px; border:1px solid; cursor:pointer; font-size: 1rem"
+                                id="daftar-materi">Jelajahi Materi Sekarang</p>
+                            <?php endif ?>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -196,6 +310,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
