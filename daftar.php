@@ -6,6 +6,7 @@ if (isset($_GET['kode_materi'])) {
     $_SESSION['kode_materi'] = $_GET['kode_materi'];
     $_SESSION['kode_subbab'] = $_GET['kode_subbab'];
     $_SESSION['kode_bab'] = $_GET['kode_bab'];
+    $_SESSION['daftar_materi'] = true;
     header("Location: materi.php");
 }
 

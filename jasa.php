@@ -354,8 +354,8 @@ include 'navbar.php';
             </div>
           </div>
           <div class="modal-footer border-0">
-            <button onclick="sendToWhatsApp()" style="background-color: #25D366; font-size: 1.5vw;" type="submit"
-              class="btn w-100 text-center text-white border-0" data-bs-dismiss="modal">
+            <button onclick="sendToWhatsApp()" style="background-color: #25D366; " type="submit"
+              class="kirim btn w-100 text-center text-white border-0" data-bs-dismiss="modal">
               Kirim <i class="bi bi-whatsapp ms-1"></i>
             </button>
           </div>
