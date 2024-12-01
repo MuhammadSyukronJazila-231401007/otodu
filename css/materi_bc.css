@@ -49,9 +49,8 @@
 }
 
 .inner-box.selected-topik {
-  display: none;
   background-color: #375679;
-  max-width: 70%;
+  width: 30vw;
   margin-right: 3vw;
   display: flex;
   align-items: center;

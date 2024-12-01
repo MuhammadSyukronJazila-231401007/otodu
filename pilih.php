@@ -227,7 +227,7 @@ $_SESSION['new_user'] = false;
                     <div class="container mt-5">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="card selectable-card" data-title="Santai">
+                                <div class="card selectable-card" data-title="3">
                                     <button type="button" class="btn-card">
                                         <div class="card-body">
                                             <img src="image/sleeping-face.svg" class="card-img-top" alt=" ...">
@@ -239,7 +239,7 @@ $_SESSION['new_user'] = false;
 
                             </div>
                             <div class="col-md-4">
-                                <div class="card selectable-card" data-title="Normal">
+                                <div class="card selectable-card" data-title="2">
                                     <button type="button" class="btn-card">
                                         <div class="card-body">
                                             <img src="image/smiling-face-with-sunglasses.svg" class="card-img-top"
@@ -251,7 +251,7 @@ $_SESSION['new_user'] = false;
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="card selectable-card" data-title="Ambis">
+                                <div class="card selectable-card" data-title="1">
                                     <button type="button" class="btn-card">
                                         <div class="card-body">
                                             <img src="image/smiling-face-with-fire-eyes.svg" class="card-img-top"
@@ -282,69 +282,108 @@ $_SESSION['new_user'] = false;
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-    let selectedOptions = [];
+        let selectedOptions = [];
 
-    function off() {
-        nextModal1.disabled = true;
-        nextModal2.disabled = true;
-        nextModal3.disabled = true;
-        nextModal4.disabled = true;
-    }
+        function off() {
+            nextModal1.disabled = true;
+            nextModal2.disabled = true;
+            nextModal3.disabled = true;
+            nextModal4.disabled = true;
+        }
 
-    function on() {
-        nextModal1.disabled = false;
-        nextModal2.disabled = false;
-        nextModal3.disabled = false;
-        nextModal4.disabled = false;
-    }
+        function on() {
+            nextModal1.disabled = false;
+            nextModal2.disabled = false;
+            nextModal3.disabled = false;
+            nextModal4.disabled = false;
+        }
 
-    document.querySelectorAll('.selectable-card').forEach(card => {
-        card.addEventListener('click', function() {
-            // Remove the selection from all cards in the same modal
-            this.closest('.row').querySelectorAll('.selectable-card').forEach(c => c.classList.remove(
-                'card-selected'));
-            // Add selection to the clicked card
-            this.classList.add('card-selected');
-            on()
+        document.querySelectorAll('.selectable-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove the selection from all cards in the same modal
+                this.closest('.row').querySelectorAll('.selectable-card').forEach(c => c.classList.remove(
+                    'card-selected'));
+                // Add selection to the clicked card
+                this.classList.add('card-selected');
+                on()
+            });
         });
-    });
 
 
-    document.getElementById('nextModal1').addEventListener('click', function() {
-        let selectedCard = document.querySelector('#exampleModalToggle .card-selected');
-        off()
-        selectedOptions.push(selectedCard.getAttribute('data-title'));
-
-    });
-
-    document.getElementById('nextModal2').addEventListener('click', function() {
-        let selectedCard = document.querySelector('#exampleModalToggle2 .card-selected');
-        off()
-        if (selectedCard) {
+        document.getElementById('nextModal1').addEventListener('click', function() {
+            let selectedCard = document.querySelector('#exampleModalToggle .card-selected');
+            off()
             selectedOptions.push(selectedCard.getAttribute('data-title'));
-        }
-    });
-    document.getElementById('nextModal3').addEventListener('click', function() {
-        off()
-        let selectedCard = document.querySelector('#exampleModalToggle3 .card-selected');
-        if (selectedCard) {
-            selectedOptions.push(selectedCard.getAttribute('data-title'));
-        }
-    });
-    document.getElementById('nextModal4').addEventListener('click', function() {
-        off()
-        let selectedCard = document.querySelector('#exampleModalToggle4 .card-selected');
-        if (selectedCard) {
-            selectedOptions.push(selectedCard.getAttribute('data-title'));
-        }
-        // alert('Pilihan Anda: ' + selectedOptions.join(', '));
-        window.location.href = 'dashboard.php';
-    });
+
+        });
+
+        document.getElementById('nextModal2').addEventListener('click', function() {
+            let selectedCard = document.querySelector('#exampleModalToggle2 .card-selected');
+            off()
+            if (selectedCard) {
+                selectedOptions.push(selectedCard.getAttribute('data-title'));
+            }
+        });
+        document.getElementById('nextModal3').addEventListener('click', function() {
+            off()
+            let selectedCard = document.querySelector('#exampleModalToggle3 .card-selected');
+            if (selectedCard) {
+                selectedOptions.push(selectedCard.getAttribute('data-title'));
+            }
+        });
+
+        document.getElementById('nextModal4').addEventListener('click', function() {
+
+            let selectedCard = document.querySelector('#exampleModalToggle4 .card-selected');
+            if (selectedCard) {
+                selectedOptions.push(selectedCard.getAttribute('data-title'));
+            }
+
+            if (selectedOptions.length >= 4) {
+                // Kirim data ke server
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "pilih_bc.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            // Berhasil
+                            console.log("Data berhasil terkirim:", xhr.responseText);
+                        } else {
+                            // Gagal
+                            console.error("Gagal mengirim data. Status:", xhr.status, "Response:", xhr.responseText);
+                        }
+                    }
+                };
+
+                xhr.onerror = function() {
+                    console.error("Terjadi kesalahan jaringan atau server.");
+                };
+
+                xhr.send(
+                    "jenjang=" +
+                    encodeURIComponent(selectedOptions[1]) +
+                    "&minat=" +
+                    encodeURIComponent(selectedOptions[2]) +
+                    "&kode_target=" +
+                    encodeURIComponent(selectedOptions[3])
+                );
+            } else {
+                console.error("Data tidak lengkap.");
+            }
+            if (selectedOptions[0] == "NLP") window.location.href = "dashboard.php"
+            else if (selectedOptions[0] == "Cari Mentor") window.location.href = "mentor.php"
+            else window.location.href = "jasa.php"
+
+        });
 
 
-    window.onload = function() {
-        document.getElementById('openFirstModal').click();
-    };
+
+
+        window.onload = function() {
+            document.getElementById('openFirstModal').click();
+        };
     </script>
 </body>
 

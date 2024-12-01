@@ -271,12 +271,12 @@ include 'navbar.php';
 
                         if (empty($riwayatbeli)) : // Mengecek jika riwayat pembelian kosong
                         ?>
-                        <tr>
-                            <td colspan="3" style="text-align: center; width:100%">Anda belum membeli koin apapun</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <?php
+                            <tr>
+                                <td colspan="3" style="text-align: center; width:100%">Anda belum membeli koin apapun</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <?php
                         else:
                             foreach ($riwayatbeli as $riwayat) :
                                 // Mengubah format tanggal dari yyyy-mm-dd menjadi dd-mm-yyyy
@@ -312,24 +312,24 @@ include 'navbar.php';
 
                         if (empty($riwayatbeli)) : // Mengecek jika riwayat pembelian kosong
                         ?>
-                        <tr>
-                            <td colspan="3" style="text-align: center; width:100%;">Anda belum membeli subtopik apapun
-                            </td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <?php
+                            <tr>
+                                <td colspan="3" style="text-align: center; width:100%;">Anda belum membeli subtopik apapun
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <?php
                         else:
                             foreach ($riwayatbeli as $riwayat) :
                                 // Mengubah format tanggal dari yyyy-mm-dd menjadi dd-mm-yyyy
                                 $tanggal_pembelian = date("d-m-Y", strtotime($riwayat['tanggal_pembelian']));
                             ?>
-                        <tr>
-                            <td><?= htmlspecialchars($riwayat['nama_subtopik']); ?></td>
-                            <td><?= $tanggal_pembelian; ?></td>
-                            <td style="width: 20vw;"><img src="image/coin2.png" width="18" height="18">
-                                <?= htmlspecialchars($riwayat['harga']); ?></td>
-                        </tr>
+                                <tr>
+                                    <td><?= htmlspecialchars($riwayat['nama_subtopik']); ?></td>
+                                    <td><?= $tanggal_pembelian; ?></td>
+                                    <td style="width: 20vw;"><img src="image/coin2.png" width="18" height="18">
+                                        <?= htmlspecialchars($riwayat['harga']); ?></td>
+                                </tr>
                         <?php
                             endforeach;
                         endif;
@@ -420,47 +420,47 @@ include 'navbar.php';
     </footer>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const defaultOpenId = 'profil'; // ID yang ingin dibuka pertama kali
-        const collapseElement = document.getElementById(defaultOpenId);
+        document.addEventListener('DOMContentLoaded', function() {
+            const defaultOpenId = 'profil'; // ID yang ingin dibuka pertama kali
+            const collapseElement = document.getElementById(defaultOpenId);
 
-        if (collapseElement) {
-            const bsCollapse = new bootstrap.Collapse(collapseElement, {
-                show: true
-            });
-        }
+            if (collapseElement) {
+                const bsCollapse = new bootstrap.Collapse(collapseElement, {
+                    show: true
+                });
+            }
 
-        // Tutup collapse lainnya
-        closeOtherCollapses(defaultOpenId);
-    });
+            // Tutup collapse lainnya
+            closeOtherCollapses(defaultOpenId);
+        });
 
-    function closeOtherCollapses(openId) {
-        const collapseIds = ['profil', 'riwayat', 'terimakasih'];
+        function closeOtherCollapses(openId) {
+            const collapseIds = ['profil', 'riwayat', 'terimakasih'];
 
-        collapseIds.forEach(id => {
-            if (id != openId) {
-                const collapseElement = document.getElementById(id);
-                if (collapseElement) {
-                    const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
-                    if (bsCollapse) {
-                        bsCollapse.hide();
+            collapseIds.forEach(id => {
+                if (id != openId) {
+                    const collapseElement = document.getElementById(id);
+                    if (collapseElement) {
+                        const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
+                        if (bsCollapse) {
+                            bsCollapse.hide();
+                        }
                     }
                 }
+            })
+
+            const collapseElement = document.getElementById(openId);
+
+            if (collapseElement) {
+                const bsCollapse = new bootstrap.Collapse(collapseElement, {
+                    show: true
+                });
             }
-        })
-
-        const collapseElement = document.getElementById(openId);
-
-        if (collapseElement) {
-            const bsCollapse = new bootstrap.Collapse(collapseElement, {
-                show: true
-            });
         }
-    }
 
-    document.getElementById("logoutButton").addEventListener("click", function() {
-        window.location.href = "logout.php";
-    });
+        document.getElementById("logoutButton").addEventListener("click", function() {
+            window.location.href = "logout.php";
+        });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

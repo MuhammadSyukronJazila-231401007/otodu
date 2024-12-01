@@ -47,7 +47,16 @@ function nextContent() {
     currentContentIndex++;
     showContent(`materi${currentContentIndex}`);
   } else {
-    alert("Selamat Anda Telah Menyelesaikan Sub-Topik Ini");
+    Swal.fire({
+      title: "Subtopik Selesai",
+      text: "Selamat, Anda telah menyelesaikan subtopik ini",
+      icon: "success",
+      confirmButtonText: 'Kembali'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = 'materi.php'
+      }
+    });
   }
 }
 
@@ -130,8 +139,8 @@ function checkAnswer() {
     .map(item => item.jawaban); // Ambil hanya nilai dari properti 'jawaban'
 
   console.log(jawabanCocok);
-  
-  if (jawabanCocok.includes(answer)) { 
+
+  if (jawabanCocok.includes(answer)) {
     hasil.innerText = "Benar!";
     tombolAkhir.innerText = "Lanjut";
     setTimeout(() => nextContent(), 3000);

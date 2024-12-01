@@ -46,6 +46,11 @@ include 'navbar.php';
             font-family: "Poppins";
         }
 
+        #koin img {
+            width: 1rem;
+            margin-right: 0.5rem;
+        }
+
         body {
             background-color: rgb(150, 137, 137);
         }
@@ -104,11 +109,12 @@ include 'navbar.php';
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: 10px;
             background-color: white;
         }
 
-        .kredit-satuan p {
-            font-size: 1.1vw;
+        .kredit-satuan {
+            font-size: 17px;
             /* 13px */
             align-self: center;
         }
@@ -155,22 +161,6 @@ include 'navbar.php';
             transform: scale(1.1);
         }
 
-        #disc-0 {
-            height: 21.2vw;
-            /* 235px */
-            margin-top: 1vw;
-            margin-left: 2vw;
-        }
-
-        #disc-50 {
-            margin-left: 4vw;
-            height: 22vw
-        }
-
-        #disc-100 {
-            height: 22vw;
-            margin-top: 0.5vw
-        }
 
         .kredit-redeem {
             display: flex;
@@ -243,6 +233,85 @@ include 'navbar.php';
             color: white;
             font-weight: 450;
         }
+
+        footer {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: #1F2844;
+            padding: 20px;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .h4-tes {
+                font-size: 14px;
+            }
+
+            .text img {
+                height: 8rem;
+            }
+
+            .overlay {
+                width: 100%;
+            }
+
+            .kredit-satuan {
+                margin-top: 1rem;
+                font-size: 15px;
+                flex-wrap: wrap;
+                margin: 0;
+                /* Izinkan elemen membungkus ke baris berikutnya */
+            }
+
+            .kredit-satuan p {
+                margin: 0;
+            }
+
+            .kredit-satuan .hemat {
+                width: 100%;
+                /* Penuh lebar kontainer */
+                margin-top: 10px;
+                /* Beri sedikit jarak dengan elemen sebelumnya */
+                text-align: center;
+                /* Sesuaikan dengan kebutuhan tata letak */
+            }
+
+            .kredit-satuan p[onclick] {
+                padding: 0.5rem 1rem 0.5rem 1rem;
+            }
+
+            #jumlah-koin {
+                width: 3rem;
+                margin-bottom: 0;
+            }
+
+            #koin img {
+                width: 1rem;
+            }
+
+            #koin {
+                padding-left: 100px;
+                padding-right: 100px;
+            }
+
+            #disc-0 {
+                height: 15rem;
+            }
+
+            #disc-50 {
+                height: 15rem;
+                margin-left: 2rem;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            #disc-100 {
+                height: 15rem;
+                margin-left: 1.3rem;
+            }
+
+        }
     </style>
 
 </head>
@@ -251,8 +320,8 @@ include 'navbar.php';
     <div class="text">
         <img src="./image/price bc.png" alt="Gambar Latar" class="background-image">
         <div class="overlay">
-            <h4 class=".h4-tes">Jelajahi pembelajaran otodidak Kamu untuk</h4>
-            <h4 class=".h4-tes" id="text-2">NLP dan Mentor dengan <span
+            <h4 class="h4-tes">Jelajahi pembelajaran otodidak Kamu untuk</h4>
+            <h4 class="h4-tes" id="text-2">NLP dan Mentor dengan <span
                     style="font-family: 'Martian Mono'; font-weight: 600;">Kredit
                     OTODU</span></h4>
         </div>
@@ -262,28 +331,38 @@ include 'navbar.php';
     <div class="card">
         <span style="position: relative; background-color: #96AA03; color: white; display: inline-flex; align-items: center; padding: 0.2vw 1vw; 
                   margin-left: 9vw; border-radius: 3px; width: fit-content; " id="koin">
-            <img src="image/coin.png" style="width: 1.7vw; margin-right: 0.5vw;"><?= $koin[0]['koin']; ?>
+            <img src="image/coin.png"><?= $koin[0]['koin']; ?>
         </span>
         <!-- <p id="kredit-otodu">Kredit OTODU Anda: <span style="font-weight: 600;">69</span></p> -->
         <div class="kredit-satuan">
-            <p style="font-size: 1rem;">Beli kredit satuan</p>
+            <p>Beli kredit satuan</p>
             <input min=1 id="jumlah-koin" value="1" type="number" class="form-control nomor" placeholder="0" required oninput="updatePrice()">
-            <p style="cursor: pointer;" onclick="konfirmasi(0,0,'Satuan')" class="rounded-text">Beli <u>Rp <span id="total-price">2000</span></u> <b>(hemat Rp <span id="discount">1998</span>)</b></p>
+            <div class="hemat">
+                <p style="cursor: pointer;" onclick="konfirmasi(0,0,'Satuan')" class="rounded-text">Beli <u>Rp <span id="total-price">2000</span></u> <b>(hemat Rp <span id="discount">1998</span>)</b></p>
+            </div>
         </div>
         <div class="atau">
             <p>Atau</p>
         </div>
-        <div style="margin-bottom: 8vh;" class="kredit-diskon">
-            <img id="disc-0" src="image/disc 10 f.png" alt="" onclick="konfirmasi(1,5000, 'Paket Sehari')">
-            <img id="disc-50" src="image/disc 50 f.png" alt="" onclick="konfirmasi(1,20000, 'Paket 5 Hari')">
-            <img id="disc-100" src="image/disc 100 f.png" alt="" onclick="konfirmasi(1,35000, 'Paket 10 Hari')">
+        <div style="margin-bottom: 8vh;" class="kredit-diskon ">
+            <div style="width: 100%;" class="row">
+                <div class="col-md-4 d-flex justify-content-center">
+                    <img id="disc-0" src="image/disc 10 f.png" alt="" onclick="konfirmasi(1,5000, 'Paket Sehari')">
+                </div>
+                <div class="col-md-4 d-flex justify-content-center">
+                    <img id="disc-50" src="image/disc 50 f.png" alt="" onclick="konfirmasi(1,20000, 'Paket 5 Hari')">
+                </div>
+                <div class="col-md-4 d-flex justify-content-center">
+                    <img id="disc-100" src="image/disc 100 f.png" alt="" onclick="konfirmasi(1,35000, 'Paket 10 Hari')">
+                </div>
+            </div>
+
         </div>
     </div>
 
     <footer>
-        <img src="image/logo otodu terang.png" alt="logo" style="width: 10vw; margin-right: 2vw; margin-left: 2.3vw;">
-        <!-- 120px -->
-        <p style="font-family: 'Martian Mono'; font-size: 0.8vw; margin-top: 3vh;">@2024 OTODU Limited</p>
+        <img src="image/logo otodu terang.png" alt="logo" style="width: 120px; margin-right: 2vw; margin-left: 2.3vw;">
+        <p style="font-family: 'Martian Mono'; font-size: 10px; margin-top: 17px;">@2024 OTODU Limited</p>
     </footer>
     <script>
         function konfirmasi(banyak, harga, keterangan) {

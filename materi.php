@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// if (!isset($_SESSION['daftar_materi'])) header("Location: daftar.php");
+if (!isset($_SESSION['daftar_materi'])) header("Location: daftar.php");
 
 function toRoman($num)
 {

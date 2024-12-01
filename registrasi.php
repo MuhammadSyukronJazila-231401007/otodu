@@ -3,7 +3,7 @@ session_start();
 include 'config.php';
 
 if (isset($_SESSION['login'])) {
-    header("Location: dashboard.html");
+    header("Location: dashboard.php");
     exit;
 }
 
@@ -16,9 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $passwordKonfirmasi = $_POST['passwordKonfirmasi'];
     $role = $_POST['role'];
-    if ($role == 'Siswa'){
+    if ($role == 'Siswa') {
         $nama .= "_new";
-    }else if($role == 'Mentor'){
+    } else if ($role == 'Mentor') {
         $nama .= "_newMentor";
     }
 
@@ -30,11 +30,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     } else {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        
+
         // Cek apakah email sudah terdaftar
         $sql = "SELECT * FROM users WHERE email = '$email'";
         $result = $conn->query($sql);
-        
+
         if ($result->num_rows > 0) {
             echo "Email sudah terdaftar. Silakan gunakan email lain.";
             exit;
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sql = "INSERT INTO users (email, nama, nomor, latitude, longitude, password, role) VALUES ('$email', '$nama', '$nomor', '$latitude', '$longitude', '$hashedPassword', '$role')";
             if ($conn->query($sql) === TRUE) {
                 $_SESSION['new_user'] = true;
-                echo "success"; 
+                echo "success";
                 exit;
             } else {
                 echo "Gagal melakukan registrasi. Silakan coba lagi.";
@@ -73,171 +73,171 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         rel="stylesheet">
 
     <style>
-    * {
-        font-family: "Poppins";
-    }
+        * {
+            font-family: "Poppins";
+        }
 
-    body {
-        background-color: #E3ECF5;
-    }
+        body {
+            background-color: #E3ECF5;
+        }
 
-    .navbar {
-        background-color: white;
-        padding-inline-start: 15px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+        .navbar {
+            background-color: white;
+            padding-inline-start: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-    .logo {
-        display: flex;
-        align-items: center;
-    }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
 
-    h5 {
-        color: #4D62A5;
-        font-weight: 700;
-    }
+        h5 {
+            color: #4D62A5;
+            font-weight: 700;
+        }
 
-    h3 {
-        color: black;
-        font-weight: 700;
-        margin-bottom: 30px;
-    }
+        h3 {
+            color: black;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
 
-    #masuk-btn {
-        background-color: white;
-        color: #4A90E2;
-        border: 1px solid #4D62A5;
-    }
+        #masuk-btn {
+            background-color: white;
+            color: #4A90E2;
+            border: 1px solid #4D62A5;
+        }
 
-    #masuk-btn:hover {
-        background-color: #4D62A5;
-        color: white;
-    }
+        #masuk-btn:hover {
+            background-color: #4D62A5;
+            color: white;
+        }
 
-    .card {
-        margin: 50px auto;
-        padding: 30px 50px;
-        border-radius: 10px;
-        max-width: 650px;
-        /* nilai awal 600px */
-    }
-
-    .form-check {
-        margin: 25px 0;
-    }
-
-    #register-btn {
-        background-color: #4D62A5;
-        color: white;
-        width: 100%;
-    }
-
-    #register-btn:hover {
-        background-color: white;
-        color: #4D62A5;
-        border: 1px solid #4D62A5;
-    }
-
-    .akun {
-        margin-top: 15px;
-        text-align: center;
-    }
-
-    .akun a {
-        color: #4A90E2;
-    }
-
-    input::placeholder {
-        font-size: 0.95rem;
-        color: #888;
-    }
-
-    .form-label {
-        font-weight: 500;
-    }
-
-    #map {
-        height: 400px;
-        width: 100%;
-    }
-
-    #checkbox {
-        cursor: pointer;
-    }
-
-    footer {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        background-color: #1F2844;
-        padding: 20px;
-        color: white;
-    }
-
-    .form-select {
-        background-color: white;
-        color: black;
-        border-radius: 0.5vw;
-        border: 1px solid #ccc;
-        padding: 0.5vw 1vw;
-        width: 100%;
-        margin-bottom: 2vh;
-    }
-
-    .form-select option {
-        background-color: white;
-        color: black;
-    }
-
-    /* Menghilangkan panah naik dan turun pada input bertipe number */
-    /* Untuk browser Chrome, Safari, Edge, dan Opera */
-    input[type=number]::-webkit-outer-spin-button,
-    input[type=number]::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    /* Untuk browser Firefox */
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
-
-    @media (max-width: 600px) {
         .card {
-            margin: 0;
-            border-radius: 0px;
-            padding: 25px 7vw;
+            margin: 50px auto;
+            padding: 30px 50px;
+            border-radius: 10px;
+            max-width: 650px;
+            /* nilai awal 600px */
         }
 
-        .form-control {
-            height: 45px;
-            font-size: 1.2rem;
+        .form-check {
+            margin: 25px 0;
         }
 
-        #nomor {
-            margin-top: 20px;
-            margin-bottom: 7px;
+        #register-btn {
+            background-color: #4D62A5;
+            color: white;
+            width: 100%;
+        }
+
+        #register-btn:hover {
+            background-color: white;
+            color: #4D62A5;
+            border: 1px solid #4D62A5;
+        }
+
+        .akun {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .akun a {
+            color: #4A90E2;
+        }
+
+        input::placeholder {
+            font-size: 0.95rem;
+            color: #888;
         }
 
         .form-label {
             font-weight: 500;
-            font-size: 1.2rem;
         }
 
-        select {
-            height: 42px;
-            font-size: 1.1rem;
+        #map {
+            height: 400px;
+            width: 100%;
         }
 
-        #register-btn {
-            height: 5.5vh;
-            font-size: 1.1rem;
+        #checkbox {
+            cursor: pointer;
         }
 
         footer {
             display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: #1F2844;
+            padding: 20px;
+            color: white;
         }
-    }
+
+        .form-select {
+            background-color: white;
+            color: black;
+            border-radius: 0.5vw;
+            border: 1px solid #ccc;
+            padding: 0.5vw 1vw;
+            width: 100%;
+            margin-bottom: 2vh;
+        }
+
+        .form-select option {
+            background-color: white;
+            color: black;
+        }
+
+        /* Menghilangkan panah naik dan turun pada input bertipe number */
+        /* Untuk browser Chrome, Safari, Edge, dan Opera */
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Untuk browser Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                margin: 0;
+                border-radius: 0px;
+                padding: 25px 7vw;
+            }
+
+            .form-control {
+                height: 45px;
+                font-size: 1.2rem;
+            }
+
+            #nomor {
+                margin-top: 20px;
+                margin-bottom: 7px;
+            }
+
+            .form-label {
+                font-weight: 500;
+                font-size: 1.2rem;
+            }
+
+            select {
+                height: 42px;
+                font-size: 1.1rem;
+            }
+
+            #register-btn {
+                height: 5.5vh;
+                font-size: 1.1rem;
+            }
+
+            footer {
+                display: flex;
+            }
+        }
     </style>
 
 </head>
@@ -329,96 +329,96 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         src="https://maps.gomaps.pro/maps/api/js?key=AlzaSyeT3ed8_nmf_1VGDtIOF0Z0FYT88xg945v&callback=initMap"></script>
 
     <script>
-    function initMap() {
-        // Lokasi default (Medan) jika geolokasi tidak diizinkan
-        var defaultLocation = {
-            lat: 3.5833,
-            lng: 98.6667
-        };
-
-        // Inisialisasi peta
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 13,
-            center: defaultLocation
-        });
-
-        // Marker default pada lokasi Medan
-        var marker = new google.maps.Marker({
-            position: defaultLocation,
-            map: map,
-            draggable: true
-        });
-
-        // Fungsi untuk memperbarui marker dan pusat peta
-        function updateMapLocation(lat, lng) {
-            var newLocation = {
-                lat: lat,
-                lng: lng
+        function initMap() {
+            // Lokasi default (Medan) jika geolokasi tidak diizinkan
+            var defaultLocation = {
+                lat: 3.5833,
+                lng: 98.6667
             };
-            map.setCenter(newLocation);
-            marker.setPosition(newLocation); // Pindahkan marker ke lokasi baru
 
-            // Update nilai latitude dan longitude ke input tersembunyi
-            document.getElementById('latitude').value = lat;
-            document.getElementById('longitude').value = lng;
+            // Inisialisasi peta
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: defaultLocation
+            });
+
+            // Marker default pada lokasi Medan
+            var marker = new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                draggable: true
+            });
+
+            // Fungsi untuk memperbarui marker dan pusat peta
+            function updateMapLocation(lat, lng) {
+                var newLocation = {
+                    lat: lat,
+                    lng: lng
+                };
+                map.setCenter(newLocation);
+                marker.setPosition(newLocation); // Pindahkan marker ke lokasi baru
+
+                // Update nilai latitude dan longitude ke input tersembunyi
+                document.getElementById('latitude').value = lat;
+                document.getElementById('longitude').value = lng;
+            }
+
+            // Gunakan Geolocation API untuk mendapatkan lokasi pengguna
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        var userLat = position.coords.latitude;
+                        var userLng = position.coords.longitude;
+                        updateMapLocation(userLat, userLng); // Perbarui peta dengan lokasi pengguna
+                    },
+                    function() {
+                        // Jika pengguna menolak akses lokasi, tetap gunakan defaultLocation
+                        alert("Geolocation tidak diizinkan, menggunakan lokasi default.");
+                    }
+                );
+            } else {
+                // Jika browser tidak mendukung Geolocation API
+                alert("Browser Anda tidak mendukung Geolocation, menggunakan lokasi default.");
+            }
+
+            // Listener untuk marker yang dapat dipindahkan
+            marker.addListener('dragend', function(event) {
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+                updateMapLocation(lat, lng); // Perbarui lokasi
+                // alert("Latitude: " + lat + ", Longitude: " + lng);
+            });
+
+            // Listener untuk klik di peta
+            map.addListener('click', function(event) {
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+                marker.setPosition(event.latLng); // Pindahkan marker ke lokasi yang diklik
+                updateMapLocation(lat, lng); // Perbarui lokasi
+                // alert("Latitude: " + lat + ", Longitude: " + lng);
+            });
         }
-
-        // Gunakan Geolocation API untuk mendapatkan lokasi pengguna
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                function(position) {
-                    var userLat = position.coords.latitude;
-                    var userLng = position.coords.longitude;
-                    updateMapLocation(userLat, userLng); // Perbarui peta dengan lokasi pengguna
-                },
-                function() {
-                    // Jika pengguna menolak akses lokasi, tetap gunakan defaultLocation
-                    alert("Geolocation tidak diizinkan, menggunakan lokasi default.");
-                }
-            );
-        } else {
-            // Jika browser tidak mendukung Geolocation API
-            alert("Browser Anda tidak mendukung Geolocation, menggunakan lokasi default.");
-        }
-
-        // Listener untuk marker yang dapat dipindahkan
-        marker.addListener('dragend', function(event) {
-            var lat = event.latLng.lat();
-            var lng = event.latLng.lng();
-            updateMapLocation(lat, lng); // Perbarui lokasi
-            // alert("Latitude: " + lat + ", Longitude: " + lng);
-        });
-
-        // Listener untuk klik di peta
-        map.addListener('click', function(event) {
-            var lat = event.latLng.lat();
-            var lng = event.latLng.lng();
-            marker.setPosition(event.latLng); // Pindahkan marker ke lokasi yang diklik
-            updateMapLocation(lat, lng); // Perbarui lokasi
-            // alert("Latitude: " + lat + ", Longitude: " + lng);
-        });
-    }
     </script>
     <script>
-    $(document).ready(function() {
-        $('#registerForm').on('submit', function(e) {
-            e.preventDefault(); // Mencegah form submit secara default
+        $(document).ready(function() {
+            $('#registerForm').on('submit', function(e) {
+                e.preventDefault(); // Mencegah form submit secara default
 
-            $.ajax({
-                url: 'registrasi.php', // Arahkan ke file PHP untuk proses
-                type: 'POST',
-                data: $(this).serialize(), // Mengambil semua data form
-                success: function(response) {
-                    if (response === 'success') {
-                        window.location.href =
-                            'login.php'; // Arahkan ke halaman login jika berhasil
-                    } else {
-                        alert(response); // Tampilkan pesan kesalahan
+                $.ajax({
+                    url: 'registrasi.php', // Arahkan ke file PHP untuk proses
+                    type: 'POST',
+                    data: $(this).serialize(), // Mengambil semua data form
+                    success: function(response) {
+                        if (response === 'success') {
+                            window.location.href =
+                                'login.php'; // Arahkan ke halaman login jika berhasil
+                        } else {
+                            alert(response); // Tampilkan pesan kesalahan
+                        }
                     }
-                }
+                });
             });
         });
-    });
     </script>
 
 </body>
