@@ -56,17 +56,11 @@ function nextContent(tombol_lanjut = 0) {
     // console.log(akhir);
     const adaSelesaiFalse = Object.values(akhir).some(item => item.selesai === false);
     if(adaSelesaiFalse){
-        alert("Kerjakan semua quiz dengan benar!"); 
       Swal.fire({
       title: "Warning!!!",
       text: "Kerjakan semua quiz dengan benar!",
       icon: "error",
-      confirmButtonText: 'Kembali'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.href = 'materi.php'
-      }
-    });
+    })
     }else{
         Swal.fire({
       title: "Subtopik Selesai",

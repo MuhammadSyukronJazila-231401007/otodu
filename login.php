@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['latitude'] = $row['latitude'];
             $_SESSION['longitude'] = $row['longitude'];
             $_SESSION['login'] = true;
+            $_SESSION['materi_terakhir'] = $row['materi_terakhir'];
 
             //$_SESSION['nama_target'] = $row2['nama_target'];
 
@@ -126,155 +127,155 @@ $conn->close();
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <style>
-        * {
-            font-family: "Rethink Sans";
-        }
+    * {
+        font-family: "Rethink Sans";
+    }
 
-        body,
-        html {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
+    body,
+    html {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container-fluid {
+        height: 100vh;
+    }
+
+    .main {
+        height: 100vh;
+    }
+
+    .login-left {
+        background-color: #4D62A5;
+        color: white;
+    }
+
+    h2 {
+        margin-bottom: 10px;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-width: 250px;
+    }
+
+    .logo h2 {
+        font-family: "Martian Mono", monospace;
+        font-weight: 700;
+    }
+
+    .logo img {
+        width: 90px;
+    }
+
+    .form-control:focus {
+        border-color: #4D62A5;
+        box-shadow: none;
+    }
+
+    #checkbox {
+        cursor: pointer;
+    }
+
+    #login-btn {
+        background-color: #4D62A5;
+        color: white;
+        margin-top: 40px;
+    }
+
+    #login-btn:hover {
+        background-color: white;
+        color: #4D62A5;
+        border: 1px solid #4D62A5;
+    }
+
+    #form-group {
+        margin-bottom: 20px;
+    }
+
+    .forgot-password-link {
+        color: #4D62A5;
+    }
+
+    .forgot-password-link:hover {
+        text-decoration: underline;
+    }
+
+    #togglePassword {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+
+    .content {
+        width: 50%;
+    }
+
+    .daftar {
+        color: #4D62A5;
+    }
+
+    .container-fluid {
+        flex: 1;
+    }
+
+    footer {
+        display: none;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: #1F2844;
+        padding: 20px;
+        color: white;
+        margin-top: 4.5vh;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 4vw;
         }
 
         .container-fluid {
-            height: 100vh;
+            height: 80vh;
         }
 
         .main {
-            height: 100vh;
+            height: 70vh;
         }
 
-        .login-left {
-            background-color: #4D62A5;
-            color: white;
-        }
-
-        h2 {
-            margin-bottom: 10px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            min-width: 250px;
-        }
-
-        .logo h2 {
-            font-family: "Martian Mono", monospace;
-            font-weight: 700;
+        .logo-container {
+            height: 15vh;
         }
 
         .logo img {
-            width: 90px;
-        }
-
-        .form-control:focus {
-            border-color: #4D62A5;
-            box-shadow: none;
-        }
-
-        #checkbox {
-            cursor: pointer;
-        }
-
-        #login-btn {
-            background-color: #4D62A5;
-            color: white;
-            margin-top: 40px;
-        }
-
-        #login-btn:hover {
-            background-color: white;
-            color: #4D62A5;
-            border: 1px solid #4D62A5;
-        }
-
-        #form-group {
-            margin-bottom: 20px;
-        }
-
-        .forgot-password-link {
-            color: #4D62A5;
-        }
-
-        .forgot-password-link:hover {
-            text-decoration: underline;
-        }
-
-        #togglePassword {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
+            width: 70px;
         }
 
         .content {
-            width: 50%;
+            width: 85%;
+            padding: 0;
+            margin-top: 5vh;
         }
 
-        .daftar {
-            color: #4D62A5;
+        .form-control {
+            height: 50px;
+            font-size: 1.2rem;
         }
 
-        .container-fluid {
-            flex: 1;
+
+        #login-btn {
+            height: 5.5vh;
+            font-size: 1.1rem;
         }
 
         footer {
-            display: none;
-            justify-content: flex-start;
-            align-items: center;
-            background-color: #1F2844;
-            padding: 20px;
-            color: white;
-            margin-top: 4.5vh;
+            display: flex;
         }
-
-        @media (max-width: 600px) {
-            body {
-                font-size: 4vw;
-            }
-
-            .container-fluid {
-                height: 80vh;
-            }
-
-            .main {
-                height: 70vh;
-            }
-
-            .logo-container {
-                height: 15vh;
-            }
-
-            .logo img {
-                width: 70px;
-            }
-
-            .content {
-                width: 85%;
-                padding: 0;
-                margin-top: 5vh;
-            }
-
-            .form-control {
-                height: 50px;
-                font-size: 1.2rem;
-            }
-
-
-            #login-btn {
-                height: 5.5vh;
-                font-size: 1.1rem;
-            }
-
-            footer {
-                display: flex;
-            }
-        }
+    }
     </style>
 </head>
 
@@ -342,54 +343,54 @@ $conn->close();
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#loginForm').on('submit', function(e) {
-                e.preventDefault(); // Mencegah submit form secara default
+    $(document).ready(function() {
+        $('#loginForm').on('submit', function(e) {
+            e.preventDefault(); // Mencegah submit form secara default
 
-                $.ajax({
-                    url: 'login.php', // Arahkan ke file PHP untuk proses
-                    type: 'POST',
-                    data: $(this).serialize(), // Mengirim data form
-                    success: function(response) {
-                        if (response == 'success') {
-                            window.location.href =
-                                'dashboard.php'; // Arahkan ke halaman dashboard jika berhasil
-                        } else if (response == 'new_user') {
-                            window.location.href =
-                                'pilih.php'; // Arahkan ke halaman pilih jika user baru
-                        } else if (response == 'new_mentor') {
-                            window.location.href =
-                                'info_mentor.php'; // Arahkan ke halaman pilih jika user baru
-                        } else {
-                            const notyf = new Notyf({
-                                duration: 1000,
-                                position: {
-                                    x: 'right',
-                                    y: 'top',
-                                },
-                                ripple: true,
-                                types: [{
-                                        type: 'warning',
-                                        background: 'orange',
-                                        icon: {
-                                            className: 'material-icons',
-                                            tagName: 'i',
-                                            text: 'warning'
-                                        }
-                                    },
-                                    {
-                                        type: 'error',
-                                        background: 'indianred',
-                                        duration: 2000,
+            $.ajax({
+                url: 'login.php', // Arahkan ke file PHP untuk proses
+                type: 'POST',
+                data: $(this).serialize(), // Mengirim data form
+                success: function(response) {
+                    if (response == 'success') {
+                        window.location.href =
+                            'dashboard.php'; // Arahkan ke halaman dashboard jika berhasil
+                    } else if (response == 'new_user') {
+                        window.location.href =
+                            'pilih.php'; // Arahkan ke halaman pilih jika user baru
+                    } else if (response == 'new_mentor') {
+                        window.location.href =
+                            'info_mentor.php'; // Arahkan ke halaman pilih jika user baru
+                    } else {
+                        const notyf = new Notyf({
+                            duration: 1000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            ripple: true,
+                            types: [{
+                                    type: 'warning',
+                                    background: 'orange',
+                                    icon: {
+                                        className: 'material-icons',
+                                        tagName: 'i',
+                                        text: 'warning'
                                     }
-                                ]
-                            });
-                            notyf.error(response);
-                        }
+                                },
+                                {
+                                    type: 'error',
+                                    background: 'indianred',
+                                    duration: 2000,
+                                }
+                            ]
+                        });
+                        notyf.error(response);
                     }
-                });
+                }
             });
         });
+    });
     </script>
 
 </body>
