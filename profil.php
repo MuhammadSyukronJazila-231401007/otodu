@@ -195,7 +195,7 @@ include 'navbar.php';
                         </tr>
                         <tr>
                             <td><b>Jenis Target</b></td>
-                            <td><?= ucfirst($_SESSION['nama_target']) ?></td>
+                            <td><?= $_SESSION['nama_target'] ?></td>
                         </tr>
                         <tr>
                             <td><b>Password</b></td>

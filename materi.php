@@ -604,7 +604,10 @@ $topik_terpilih = $topik[0]['kode_topik'] ?? null;
                         location.reload(); // Merefresh halaman
                     }, 1600); // Durasi waktu (2 detik)
                 } else {
-                    window.location.href = response;
+                    let lines = response.trim().split("\n");
+                    let lastLine = lines[lines.length - 1].trim();
+                    console.log(lines)
+                    window.location.href = lastLine;
                 }
             }
         });
