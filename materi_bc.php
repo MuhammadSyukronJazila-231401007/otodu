@@ -503,7 +503,8 @@ if (
 
         exit();
     } else {
-        echo 'Koin anda belum cukup!';
+        echo 'Koin tidak cukup!';
+        exit();
     }
 }
 ?>

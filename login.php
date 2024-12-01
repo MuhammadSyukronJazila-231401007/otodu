@@ -32,7 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['latitude'] = $row['latitude'];
             $_SESSION['longitude'] = $row['longitude'];
             $_SESSION['login'] = true;
-            $_SESSION['materi_terakhir'] = $row['materi_terakhir'];
+            if(isset($row['materi_terakhir'])){
+                $_SESSION['materi_terakhir'] = $row['materi_terakhir'];
+            }
 
             //$_SESSION['nama_target'] = $row2['nama_target'];
 

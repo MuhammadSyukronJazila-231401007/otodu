@@ -454,6 +454,9 @@ include 'navbar.php';
 
                     <div class="bg-white" style="height:30vw; width:40vw; border-radius: 1vw; padding:5vw;">
                         <div style="color: #1F2844;">
+                            <p>Halo <b>
+                                    <?= $_SESSION['user_name'] ?>
+                                </b>!</p>
                             <?php if(isset($_SESSION['materi_terakhir'])): ?>
                             <p style="margin-bottom: 2vw">Kamu terakhir mempelajari
                                 <b><?php echo $_SESSION['materi_terakhir']; ?></b>. pengen
