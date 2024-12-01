@@ -52,7 +52,7 @@ include 'navbar.php';
         }
 
         .form-select {
-            background-image: url("panah.png");
+            background-image: url("./image/panah.png");
             background-repeat: no-repeat;
             background-position: right 0.75rem center;
             background-size: 2vw 0.8vw;
@@ -113,25 +113,11 @@ include 'navbar.php';
 
 <body style="font-family: 'Rethink Sans', sans-serif;">
     <div style="display: flex; justify-content: space-between;">
-        <div>
-            <font id="koin"
-                style="background-color: #96AA03; color: white; align-items: center; padding: 0.7vw; margin-left: 7vw; cursor: pointer;">
-                <img src="image/coin.png" width="18" height="18">
-                <?= $koin[0]['koin'] ?>
-            </font>
+        <div style = "margin-left: 7vw;">
+           <?php include "koin.php" ?>
         </div>
         <div>
-            <font style="background-color: #4D62A5; margin-right: 5vw; padding: 0.4vw;">
-                <a href="leaderboard.php">
-                    <img src="image/rank.png" width="18" height="18" style="margin-left: 0.7vw;">
-                </a>
-                <a href="">
-                    <img src="image/mail.png" width="18" height="18" style="margin-left: 1.5vw; margin-right: 1.5vw;">
-                </a>
-                <a href="profil.php">
-                    <img src="image/user.png" width="18" height="18" style="margin-right: 0.7vw;">
-                </a>
-            </font>
+            <?php include "navbarkecil.php" ?>
         </div>
     </div>
     <h4 style="padding: 4vw 10vw 2vw 10vw;">Daftar Materi</h4>
@@ -177,12 +163,7 @@ include 'navbar.php';
         <img src="image/logo otodu terang.png" alt="logo" style="width: 120px; margin-right: 2vw; margin-left: 2.3vw;">
         <p style="font-family: 'Martian Mono'; font-size: 10px; margin-top: 17px;">@2024 OTODU Limited</p>
     </footer> -->
-    <script>
-        document.getElementById('koin').addEventListener('click', function(event) {
-            event.preventDefault();
-            window.location.href = 'price.php';
-        });
-    </script>
+    
     <script>
         isiSubBab(1);
 

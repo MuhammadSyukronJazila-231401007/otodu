@@ -1,3 +1,7 @@
+<head>
+    <link rel="stylesheet" href="css/materi_bc.css">
+</head>
+
 <?php
 include 'function.php';
 session_start();
@@ -90,7 +94,9 @@ if (
                                     $indeks_terpilih = $index + 1;
                                     $nama_terpilih = $item['nama_topik'];
                                     ?>
-                                    <div class="row topik-row">
+
+                                    <div class="row topik-row d-flex justify-content-between">
+
                                         <div class="inner-box topik-box selected-topik" id="topik_<?php echo $item['kode_topik']; ?>" onclick="selectTopik(<?php echo $item['kode_topik']; ?>)">
                                             <div class="nomor">
                                                 0<?php echo $indeks_terpilih ?>
@@ -177,7 +183,8 @@ if (
                             </div>
 
                             <div style="display: flex; justify-content: space-around">
-                                <div style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw;">
+                              
+                                <div style="width: 40vw; height: 30vw; background-color: white; border-radius: 0.5vw; overflow-y: auto">
                                     <center>
                                         <table style="margin-left: 2vw; margin-right: 2vw;">
                                             <tr>
@@ -212,7 +219,9 @@ if (
                                                         ?>
                                                         <td colspan="2"
                                                             style="background-color: <?= ($status_bayar) ? '#375679' : '#B4BFCC'; ?>; 
+                                                                   
                                         color: white; width: 20vw; max-width: 30vw; padding: 0.5vw 1vw 0.5vw 1.5vw; border-radius: 0.5vw;">
+
                                                             <div style="display: flex;">
                                                                 <div>
                                                                     <img src="./image/coin.png" width="18" height="18"
