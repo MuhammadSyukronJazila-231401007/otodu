@@ -96,7 +96,9 @@ foreach ($nearbyMentors as $mentor) {
         <td colspan="3" style="text-align: end; padding: 0 0 4px 0; margin-top: 0;">
             <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modal<?= $mentor['id']; ?>"
                 style="color: white; font-size: 12px; margin-right: 1vw;">
+                <u>
                 Pesan Jasa
+            </u>
             </button>
 
             <!-- Modal -->
@@ -113,7 +115,7 @@ foreach ($nearbyMentors as $mentor) {
                             <div
                                 style="display: flex; background-color: #375679; border-radius: 0.5vw; margin-bottom: 2vw;">
                                 <div
-                                    style="margin-top: 0.8vw; color: #F6F7FA; border-radius: 4vw; font-size: 1.5vw; padding-left: 0.25vw; padding-right: 0.25vw; margin: 1.2vw 1vw 1.2vw 2.5vw;">
+                                    style="margin-top: 0.8vw; color: #F6F7FA; border-radius: 4vw; font-size: 15px; padding-left: 0.25vw; padding-right: 0.25vw; margin: 1.2vw 1vw 1.2vw 2.5vw;">
                                     Pesan jasa mentor OTODU
                                 </div>
                             </div>
@@ -319,7 +321,7 @@ foreach ($nearbyMentors as $mentor) {
                                                         <div
                                                             style="margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
                                                             <textarea
-                                                                style="font-weight: bold; padding: 10px 20px; font-size: 16px; color: #3A425A; border: 1px solid #3A425A; border-radius: 5px; width: 100%; text-align:left">Izin kak, aku belum terlalu paham tentang fungsi komposisi, aku ada beberapa soal yang mungkin bisa tolong kak mentor ajar samaku? Terimakasih sebelumnya kak
+                                                                style="font-weight: bold; padding: 10px 20px; font-size: 16px; color: #3A425A; border: 1px solid #3A425A; border-radius: 5px; width: 100%; text-align:left">
                                                                             </textarea>
                                                         </div>
 
